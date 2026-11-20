@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="hu"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Fém darabolás</title>
+<title>Fém tervező</title>
 <link rel="manifest" href="manifest.webmanifest">
 <meta name="theme-color" content="#f26b1d">
 <link rel="icon" href="icon-192.png">
@@ -9,36 +9,47 @@
 <style>
 /* VOICE: practical workshop tool, calm and clear
    IDEA: steel bar stock with chalk marks on the bench
-   PICTURE: each bar drawn to scale with its angled cuts
+   PICTURE: gates drawn to scale; each bar drawn to scale with its angled cuts
    COLOUR and TYPE: steel grey, one safety orange; system fonts (offline)
-   LAYOUT: inputs left, results right; stacked on phone */
-:root{color-scheme:light dark;--bg:light-dark(#eceff1,#14171a);--card:light-dark(#fff,#1e2226);--ink:light-dark(#15181b,#e7eaec);--mut:light-dark(#5b636b,#9aa3ab);--line:light-dark(#d3d8dc,#2f353b);--acc:#f26b1d;--steel:light-dark(#c3cad0,#4a535b)}
+   LAYOUT: inputs left, results right; stacked on phone; two tabs */
+:root{color-scheme:light dark;--bg:light-dark(#eceff1,#14171a);--card:light-dark(#fff,#1e2226);--ink:light-dark(#15181b,#e7eaec);--mut:light-dark(#5b636b,#9aa3ab);--line:light-dark(#d3d8dc,#2f353b);--acc:#f26b1d;--steel:light-dark(#c3cad0,#4a535b);--frame:light-dark(#7d8993,#8995a0);--bar:light-dark(#a3aeb6,#66727b);--post:light-dark(#4d565d,#2b3238);--sheet:light-dark(#cfd6db,#3a444b)}
 :root[data-theme=light]{color-scheme:light}:root[data-theme=dark]{color-scheme:dark}
 *{box-sizing:border-box;min-width:0}
+[hidden]{display:none!important}
 body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;overflow-x:clip}
 header{background:var(--acc);color:#fff;padding:18px max(4vw,16px)}
 header h1{margin:0;font-size:clamp(24px,5vw,36px);line-height:1.1}
 header p{margin:4px 0 0;font-size:14px;opacity:.92}
-main{display:grid;gap:20px;padding:20px max(4vw,12px);max-width:1300px;margin:auto}
+.tabs{display:flex;gap:8px;padding:14px max(4vw,12px) 0;max-width:1300px;margin:auto}
+.tabs button{flex:1;background:var(--card);color:var(--mut);border:1px solid var(--line);min-height:48px;font-size:16px}
+.tabs button.on{background:var(--acc);color:#fff;border-color:var(--acc)}
+main{display:grid;gap:20px;padding:16px max(4vw,12px) 20px;max-width:1300px;margin:auto}
 @media(min-width:900px){main{grid-template-columns:minmax(0,420px) minmax(0,1fr);align-items:start}}
 .card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px;margin-bottom:16px}
 h2{font-size:18px;margin:0 0 10px}
+h2.mh{margin:6px 0 12px;font-size:20px;border-bottom:2px solid var(--acc);padding-bottom:4px}
 label{display:flex;flex-direction:column;font-size:13px;color:var(--mut);gap:3px}
 input,select{font:16px system-ui,sans-serif;padding:9px 10px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink);width:100%;min-height:44px}
 input:focus,select:focus,button:focus-visible{outline:2px solid var(--acc);outline-offset:1px}
+label.chk{flex-direction:row;align-items:center;gap:10px;font-size:15px;color:var(--ink);margin-bottom:10px}
+label.chk input{width:24px;min-height:24px;height:24px}
 .row{display:grid;gap:8px;align-items:end;margin-bottom:8px}
 .row.s{grid-template-columns:1fr 1fr 44px}.row.n{grid-template-columns:1fr 44px}
 .row.g{grid-template-columns:repeat(3,minmax(0,1fr))}
+.row.g2{grid-template-columns:repeat(2,minmax(0,1fr))}
 .pc{border-left:5px solid var(--c);padding-left:10px;margin-bottom:14px}
+.sc{border-bottom:1px solid var(--line);padding-bottom:8px;margin-bottom:10px}
 button{font:600 15px system-ui,sans-serif;border:0;border-radius:8px;min-height:44px;padding:0 16px;cursor:pointer}
 .x{background:transparent;color:var(--mut);font-size:24px;border:1px solid var(--line);padding:0}
 .add{background:transparent;color:var(--acc);border:1px dashed var(--acc);width:100%}
 .go{background:var(--acc);color:#fff;width:100%;font-size:17px;min-height:52px}
+.alt{background:transparent;color:var(--acc);border:2px solid var(--acc);width:100%;font-size:16px;min-height:50px}
 .help{font-size:13px;color:var(--mut);margin:0 0 12px}
 .sum{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;margin-bottom:16px}
 .sum div{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px 12px}
 .sum b{display:block;font-size:24px;white-space:nowrap}.sum span{font-size:13px;color:var(--mut)}
 .err{background:#c4425b;color:#fff;border-radius:10px;padding:10px 14px;margin-bottom:12px}
+.warn{background:light-dark(#fff4e5,#3a2c18);border:1px solid var(--acc);border-radius:10px;padding:10px 14px;margin-bottom:12px;font-size:14px}
 .bar{fill:var(--steel)}
 .grp h3{margin:0 0 8px;font-size:16px;display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap}
 .grp h3 em{font-style:normal;background:var(--acc);color:#fff;border-radius:6px;padding:1px 8px}
@@ -47,9 +58,55 @@ ol{margin:0;padding-left:22px;font-size:14px}ol li{margin:2px 0}
 .dot{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:6px;vertical-align:middle}
 .j{color:var(--acc);font-size:12px;white-space:nowrap}
 .mut{color:var(--mut);font-size:14px}
+.dl{stroke:var(--mut);stroke-width:1;fill:none}
+.dimt{fill:var(--mut);font:12px system-ui,sans-serif}
+.parts{display:grid;grid-template-columns:minmax(0,1fr) 40px 96px 104px;gap:6px 10px;font-size:14px;align-items:baseline;margin-bottom:16px}
+.parts .hd{font-size:12px;color:var(--mut);border-bottom:1px solid var(--line);padding-bottom:3px}
+.parts .r{text-align:right;white-space:nowrap}
+.parts .tot{grid-column:1/-1;color:var(--mut);font-size:13px;margin-bottom:8px}
+.btns{display:grid;gap:10px}
 </style></head><body>
-<header><h1>Fém darabolás tervező</h1><p>Szálanyag-optimalizálás gérvágással – offline is működik.</p></header>
-<main>
+<header><h1>Fém tervező</h1><p>Kapuk, kerítések tervezése és szálanyag-optimalizálás gérvágással – offline is működik.</p></header>
+<nav class="tabs"><button data-tab="gate" class="on">Kapu tervező</button><button data-tab="cut">Darabolás</button></nav>
+
+<main id="tab-gate">
+<section>
+  <div class="card"><h2>Kapu</h2>
+    <div class="row g2"><label>Megnevezés<input data-g="name" placeholder="pl. Bejárati kapu"></label><label>Darabszám<input inputmode="numeric" data-g="count"></label></div>
+    <label style="margin-bottom:8px">Típus<select data-g="type">
+      <option value="single">Egyszárnyú kapu</option><option value="double">Kétszárnyú kapu</option><option value="slide">Tolókapu</option><option value="cant">Úszó (konzolos) kapu</option><option value="fence">Kerítésmező</option></select></label>
+    <div class="row g2"><label><span id="lblW">Nyílás szélessége (mm)</span><input inputmode="decimal" data-g="W"></label><label>Magasság, keret külső (mm)<input inputmode="decimal" data-g="H"></label></div>
+    <div class="row g2">
+      <label data-for="single double">Hézag szárnyanként (mm)<input inputmode="decimal" data-g="gapSide"></label>
+      <label data-for="double">Középrés (mm)<input inputmode="decimal" data-g="gapMid"></label>
+      <label data-for="slide cant">Átfedés oldalanként (mm)<input inputmode="decimal" data-g="ov"></label>
+      <label data-for="slide cant">Farok a nyíláson túl (mm)<input inputmode="decimal" data-g="tail"></label>
+      <label>Talaj fölötti rés (mm)<input inputmode="decimal" data-g="ground"></label>
+    </div>
+    <p class="help" data-for="single double">A szárny szélessége a nyílásból a hézagok levonásával adódik.</p>
+    <p class="help" data-for="slide cant">A szárny szélessége = nyílás + átfedés mindkét oldalon + farok.</p>
+  </div>
+  <div class="card"><h2>Keret (gérvágott zártszelvény)</h2>
+    <div class="row g2"><label>Szélesség a kapu síkjában (mm)<input inputmode="decimal" data-g="fw"></label><label>Vastagság (mm)<input inputmode="decimal" data-g="fd"></label></div>
+    <p class="help">A sarkok 45°-os gérvágással készülnek. Az első szám a kapu felől látszó oldal.</p>
+  </div>
+  <div class="card"><h2>Kitöltés</h2>
+    <label style="margin-bottom:8px">Jelleg<select data-g="infill">
+      <option value="vert">Függőleges rudak</option><option value="horiz">Vízszintes rudak</option><option value="grid">Rács (függőleges és vízszintes)</option><option value="sheet">Lemez</option><option value="none">Üres keret</option></select></label>
+    <div class="row g2" data-inf="vert horiz grid"><label>Rúd szélessége a síkban (mm)<input inputmode="decimal" data-g="bw"></label><label>Rúd vastagsága (mm)<input inputmode="decimal" data-g="bd"></label></div>
+    <div class="row" data-inf="vert horiz grid"><label>Legnagyobb rés a rudak között (mm)<input inputmode="decimal" data-g="maxGap"></label></div>
+    <div class="row" data-inf="sheet"><label>Lemezvastagság (mm)<input inputmode="decimal" data-g="sheetT"></label></div>
+  </div>
+  <div class="card"><h2>Merevítő</h2>
+    <label class="chk"><input type="checkbox" data-g="brace">Átlós merevítő a keretben</label>
+    <div class="row g2" data-brace><label>Szélesség a síkban (mm)<input inputmode="decimal" data-g="bracew"></label><label>Vastagság (mm)<input inputmode="decimal" data-g="braced"></label></div>
+    <p class="help" data-brace>A merevítő a rudak mögé kerül, a rudak teljes belső magasságban futnak.</p>
+  </div>
+</section>
+<section id="gres" aria-live="polite"></section>
+</main>
+
+<main id="tab-cut" hidden>
 <section>
   <div class="card"><h2>Beállítások</h2>
     <div class="row g" style="grid-template-columns:1fr 1fr">
@@ -58,59 +115,58 @@ ol{margin:0;padding-left:22px;font-size:14px}ol li{margin:2px 0}
     </div>
   </div>
   <div class="card"><h2>Szálanyag</h2>
-    <p class="help">Üres darabszám = korlátlan. Maradékdarabot is felvehetsz külön sorban.</p>
+    <p class="help">Üres darabszám = korlátlan. Maradékdarabot is felvehetsz külön sorban. Az <b>Anyag</b> mező üresen minden anyaghoz használható, kitöltve csak az ugyanolyan nevű darabokhoz.</p>
     <div id="stocks"></div><button class="add" id="addS">+ Szálhossz hozzáadása</button>
   </div>
   <div class="card"><h2>Darabok</h2>
-    <p class="help"><b>Hossz</b> = a hosszabbik oldalon mérve (csúcstól csúcsig). <b>Szög</b>: 0 = egyenes vágás, 45 = gérvágás. <b>Profil</b> = a szelvény mérete a vágás síkjában (pl. 40×20-as zártszelvény 40-es oldalán gérelve: 40). Azonos szögű és profilú végeket a program egy közös vágással egymásba illeszt.</p>
+    <p class="help"><b>Hossz</b> = a hosszabbik oldalon mérve (csúcstól csúcsig). <b>Szög</b>: 0 = egyenes vágás, 45 = gérvágás. <b>Profil</b> = a szelvény mérete a vágás síkjában (pl. 40×20-as zártszelvény 40-es oldalán gérelve: 40). Azonos szögű és profilú végeket a program egy közös vágással egymásba illeszt. A különböző <b>anyagú</b> darabokat külön szálakból számolja.</p>
     <div id="pieces"></div><button class="add" id="addP">+ Darab hozzáadása</button>
   </div>
   <button class="go" id="go">Számolás</button>
 </section>
 <section id="res" aria-live="polite"></section>
 </main>
+
 <script>
 {
-const $=s=>document.querySelector(s);
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
 const COLORS=['#f26b1d','#2f7fd1','#2a9d6a','#c4425b','#8a5cd1','#c9a227','#1d9aa8','#7a6a58'];
-const DEF={kerf:1.5,trim:0,stocks:[{len:6000,qty:''}],pieces:[
- {name:'Keret függőleges',len:1200,qty:4,a1:45,a2:45,h:40,shape:'T'},
- {name:'Keret vízszintes',len:800,qty:4,a1:45,a2:45,h:40,shape:'T'},
- {name:'Merevítő',len:450,qty:6,a1:0,a2:0,h:40,shape:'T'}]};
-let st=null,last=null,K=1.5;
-try{st=JSON.parse(localStorage.getItem('femdarab'))}catch(e){}
-if(!st||!Array.isArray(st.pieces))st=JSON.parse(JSON.stringify(DEF));
-const save=()=>{try{localStorage.setItem('femdarab',JSON.stringify(st))}catch(e){}};
+const clone=o=>JSON.parse(JSON.stringify(o));
+const lsGet=(k,d)=>{try{const v=JSON.parse(localStorage.getItem(k));return v&&typeof v==='object'?v:d}catch(e){return d}};
+const lsSet=(k,v)=>{try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}};
 const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const num=v=>{const n=parseFloat(String(v??'').replace(',','.'));return isFinite(n)?n:0};
 const fmt=n=>(Math.round(n*10)/10).toLocaleString('hu-HU');
+const fi=n=>Math.round(n).toLocaleString('hu-HU');
+const pl=n=>String(Math.round(n*10)/10).replace('.',',');
+const r1=n=>Math.round(n*10)/10, r2=n=>Math.round(n*100)/100;
+const norm=s=>String(s??'').trim().toLowerCase();
 const rad=a=>a*Math.PI/180;
 const off=(a,h)=>a>0?h*Math.tan(rad(a)):0;
+
+/* ============ DARABOLÓ ============ */
+const DEF={kerf:1.5,trim:0,stocks:[{len:6000,qty:'',mat:''}],pieces:[
+ {name:'Keret függőleges',len:1200,qty:4,a1:45,a2:45,h:40,shape:'T',mat:''},
+ {name:'Keret vízszintes',len:800,qty:4,a1:45,a2:45,h:40,shape:'T',mat:''},
+ {name:'Merevítő',len:450,qty:6,a1:0,a2:0,h:40,shape:'T',mat:''}]};
+let st=lsGet('femdarab',null),last=null,K=1.5;
+if(!st||!Array.isArray(st.pieces)||!Array.isArray(st.stocks))st=clone(DEF);
+const save=()=>lsSet('femdarab',st);
 const kA=a=>K/Math.cos(rad(a));
 const match=(a,h,b,h2)=>Math.abs(a-b)<1e-6&&(a===0||Math.abs(h-h2)<1e-6);
 
 function renderInputs(){
   $('#kerf').value=st.kerf;$('#trim').value=st.trim;
-  $('#stocks').innerHTML=st.stocks.map((s,i)=>`<div class="row s"><label>Hossz (mm)<input inputmode="decimal" data-k="stocks.${i}.len" value="${esc(s.len)}"></label><label>Darab<input inputmode="numeric" placeholder="∞" data-k="stocks.${i}.qty" value="${esc(s.qty)}"></label><button class="x" data-del="stocks.${i}" aria-label="Törlés">×</button></div>`).join('');
+  $('#stocks').innerHTML=st.stocks.map((s,i)=>`<div class="sc"><div class="row s"><label>Hossz (mm)<input inputmode="decimal" data-k="stocks.${i}.len" value="${esc(s.len)}"></label><label>Darab<input inputmode="numeric" placeholder="∞" data-k="stocks.${i}.qty" value="${esc(s.qty)}"></label><button class="x" data-del="stocks.${i}" aria-label="Törlés">×</button></div><label>Anyag (nem kötelező)<input data-k="stocks.${i}.mat" placeholder="pl. Zártszelvény 40×40" value="${esc(s.mat)}"></label></div>`).join('');
   $('#pieces').innerHTML=st.pieces.map((p,i)=>`<div class="pc" style="--c:${COLORS[i%8]}"><div class="row n"><label>Megnevezés<input data-k="pieces.${i}.name" value="${esc(p.name)}"></label><button class="x" data-del="pieces.${i}" aria-label="Törlés">×</button></div>
   <div class="row g"><label>Hossz (mm)<input inputmode="decimal" data-k="pieces.${i}.len" value="${esc(p.len)}"></label><label>Darab<input inputmode="numeric" data-k="pieces.${i}.qty" value="${esc(p.qty)}"></label><label>Profil (mm)<input inputmode="decimal" data-k="pieces.${i}.h" value="${esc(p.h)}"></label>
-  <label>Bal szög (°)<input inputmode="decimal" data-k="pieces.${i}.a1" value="${esc(p.a1)}"></label><label>Jobb szög (°)<input inputmode="decimal" data-k="pieces.${i}.a2" value="${esc(p.a2)}"></label><label>Forma<select data-k="pieces.${i}.shape"><option value="T"${p.shape!=='P'?' selected':''}>Trapéz</option><option value="P"${p.shape==='P'?' selected':''}>Paralelogr.</option></select></label></div></div>`).join('');
+  <label>Bal szög (°)<input inputmode="decimal" data-k="pieces.${i}.a1" value="${esc(p.a1)}"></label><label>Jobb szög (°)<input inputmode="decimal" data-k="pieces.${i}.a2" value="${esc(p.a2)}"></label><label>Forma<select data-k="pieces.${i}.shape"><option value="T"${p.shape!=='P'?' selected':''}>Trapéz</option><option value="P"${p.shape==='P'?' selected':''}>Paralelogr.</option></select></label></div>
+  <label>Anyag (nem kötelező)<input data-k="pieces.${i}.mat" placeholder="pl. Zártszelvény 40×40" value="${esc(p.mat)}"></label></div>`).join('');
 }
 
-function solve(){
-  K=Math.max(0,num(st.kerf));const T=Math.max(0,num(st.trim));const errs=[];
-  const stocks=st.stocks.map(s=>({len:num(s.len),qty:String(s.qty??'').trim()===''?Infinity:Math.floor(num(s.qty))})).filter(s=>s.len>0&&s.qty>0);
-  if(!stocks.length)errs.push('Adj meg legalább egy szálhosszt.');
-  const items=[];
-  st.pieces.forEach((p,i)=>{
-    const cl=a=>Math.min(89,Math.max(0,num(a)));
-    const P={i,name:p.name||('Darab '+(i+1)),len:num(p.len),a1:cl(p.a1),a2:cl(p.a2),h:Math.max(0,num(p.h)),shape:p.shape==='P'?'P':'T'};
-    const q=Math.floor(num(p.qty));if(P.len<=0||q<=0)return;
-    const o1=off(P.a1,P.h),o2=off(P.a2,P.h),need=P.shape==='T'?o1+o2:Math.max(o1,o2);
-    if(need>=P.len){errs.push(`„${P.name}”: ezekkel a szögekkel és profillal hosszabbnak kell lennie, mint ${fmt(need)} mm.`);return;}
-    for(let k=0;k<q;k++)items.push(P);
-  });
-  items.sort((a,b)=>b.len-a.len);
+function optimize(items,stocks,budget){
+  items=items.slice().sort((a,b)=>b.len-a.len);
+  const T=Math.max(0,num(st.trim));
   const inc=(lst,P,aL)=>{
     if(!lst){let s=T>0?T+K:0;if(aL>0)s+=kA(aL);return s+P.len;}
     if(match(lst.aR,lst.h,aL,P.h))return aL===0?K+P.len:P.len-off(aL,P.h)+kA(aL);
@@ -148,15 +204,40 @@ function solve(){
     const total=bars.reduce((t,b)=>t+b.L,0),maxLeft=Math.max(0,...bars.map(b=>b.L-b.used));
     return{bars,left:pool,cost:pool.length*1e12+total*1e3-maxLeft};
   };
-  let best=null;
-  if(items.length&&stocks.length){
-    const t0=performance.now();let n=0;
-    while(n<2000&&(n<20||performance.now()-t0<700)){const r=run(n?0.5:0);if(!best||r.cost<best.cost)best=r;n++;}
-  }
-  return{errs,best,items};
+  let best=null;const t0=performance.now();let n=0;
+  while(n<2000&&(n<20||performance.now()-t0<budget)){const r=run(n?0.5:0);if(!best||r.cost<best.cost)best=r;n++;}
+  return best;
 }
 
+function solve(){
+  K=Math.max(0,num(st.kerf));const errs=[];
+  const stocksAll=st.stocks.map(s=>({len:num(s.len),qty:String(s.qty??'').trim()===''?Infinity:Math.floor(num(s.qty)),mat:String(s.mat??'').trim()})).filter(s=>s.len>0&&s.qty>0);
+  if(!stocksAll.length)errs.push('Adj meg legalább egy szálhosszt.');
+  const groups=new Map();
+  st.pieces.forEach((p,i)=>{
+    const cl=a=>Math.min(89,Math.max(0,num(a)));
+    const P={i,name:p.name||('Darab '+(i+1)),len:num(p.len),a1:cl(p.a1),a2:cl(p.a2),h:Math.max(0,num(p.h)),shape:p.shape==='P'?'P':'T'};
+    const q=Math.floor(num(p.qty));if(P.len<=0||q<=0)return;
+    const o1=off(P.a1,P.h),o2=off(P.a2,P.h),need=P.shape==='T'?o1+o2:Math.max(o1,o2);
+    if(need>=P.len){errs.push(`„${P.name}”: ezekkel a szögekkel és profillal hosszabbnak kell lennie, mint ${fmt(need)} mm.`);return;}
+    const mat=String(p.mat??'').trim(),key=norm(mat);
+    if(!groups.has(key))groups.set(key,{name:mat,key,items:[]});
+    for(let k=0;k<q;k++)groups.get(key).items.push(P);
+  });
+  const budget=Math.max(250,700/Math.max(1,groups.size));
+  const res=[];
+  groups.forEach(gr=>{
+    if(!gr.items.length)return;
+    const stocks=stocksAll.filter(s=>!s.mat||norm(s.mat)===gr.key).map(s=>({len:s.len,qty:s.qty}));
+    if(!stocks.length){if(stocksAll.length)errs.push(`Nincs szálhossz ehhez az anyaghoz: ${gr.name||'általános'}.`);res.push({name:gr.name,best:null,items:gr.items});return;}
+    res.push({name:gr.name,best:optimize(gr.items,stocks,budget),items:gr.items});
+  });
+  return{errs,groups:res};
+}
+
+let svgN=0;
 function barSVG(b,W){
+  const id='hatch'+(++svgN);
   const H=36,sx=W/b.L,vs=a=>Math.min(H*1.1,H*Math.tan(rad(a)));let out=`<rect class="bar" x="0" y="0" width="${W}" height="${H}" rx="2"/>`,pt=true;
   b.seq.forEach(e=>{
     const x1=e.end,x0=x1-e.P.len,dL=off(e.aL,e.h),dR=off(e.aR,e.h);
@@ -166,15 +247,15 @@ function barSVG(b,W){
     if(cR-cL>44)out+=`<text x="${(cL+cR)/2}" y="${H/2+4}" text-anchor="middle" font-size="12" font-weight="600" fill="#fff">${fmt(e.P.len)}</text>`;
   });
   const ux=b.used*sx;
-  if(W-ux>2)out+=`<rect x="${ux}" y="0" width="${W-ux}" height="${H}" fill="url(#hatch)"/>`;
-  return `<svg width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" role="img" aria-label="Szál ${fmt(b.L)} mm"><defs><pattern id="hatch" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="6" height="6" fill="transparent"/><line x1="0" y1="0" x2="0" y2="6" stroke="currentColor" stroke-opacity=".35" stroke-width="2"/></pattern></defs>${out}</svg>`;
+  if(W-ux>2)out+=`<rect x="${ux}" y="0" width="${W-ux}" height="${H}" fill="url(#${id})"/>`;
+  return `<svg width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" role="img" aria-label="Szál ${fmt(b.L)} mm"><defs><pattern id="${id}" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="6" height="6" fill="transparent"/><line x1="0" y1="0" x2="0" y2="6" stroke="currentColor" stroke-opacity=".35" stroke-width="2"/></pattern></defs>${out}</svg>`;
 }
 
-function renderRes(){
-  const r=last,el=$('#res');if(!r)return;
-  let h=r.errs.map(e=>`<div class="err">${esc(e)}</div>`).join('');
-  if(!r.best){el.innerHTML=h+(r.items.length?'':'<div class="card mut">Adj meg darabokat, majd nyomd meg a Számolás gombot.</div>');return;}
-  const{bars,left}=r.best;
+function renderGroup(gr,W,showName){
+  let h='';
+  if(showName)h+=`<h2 class="mh">${esc(gr.name||'Általános')}</h2>`;
+  if(!gr.best)return h;
+  const{bars,left}=gr.best;
   if(left.length)h+=`<div class="err">${left.length} darab nem fért el (túl hosszú, vagy elfogyott a szálanyag).</div>`;
   const total=bars.reduce((t,b)=>t+b.L,0);
   let net=0,saved=0;bars.forEach(b=>b.seq.forEach(e=>{net+=e.P.len-(off(e.aL,e.h)+off(e.aR,e.h))/2;if(e.joined)saved+=off(e.aL,e.h);}));
@@ -185,30 +266,217 @@ function renderRes(){
   <div><b>${fmt(saved)} mm</b><span>nyereség közös gérvágással</span></div></div>`;
   const groups=[];const map={};
   bars.forEach(b=>{const k=b.L+'|'+b.seq.map(e=>e.P.i+':'+e.aL+':'+e.aR).join(',');if(map[k])map[k].n++;else{map[k]={b,n:1};groups.push(map[k]);}});
-  const W=Math.max(200,Math.floor(el.clientWidth-34));
   h+=groups.map((g,gi)=>{const b=g.b,lastE=b.seq[b.seq.length-1],rest=Math.max(0,b.L-b.used-kA(lastE.aR));
     return `<div class="card grp"><h3><span>${gi+1}. minta – ${fmt(b.L)} mm-es szál</span><em>${g.n}×</em></h3><div class="svgw">${barSVG(b,W)}</div>
     <ol>${b.seq.map(e=>`<li><span class="dot" style="background:${COLORS[e.P.i%8]}"></span>${esc(e.P.name)} – <b>${fmt(e.P.len)} mm</b> <span class="mut">(${fmt(e.aL)}° / ${fmt(e.aR)}°)</span>${e.joined?' <span class="j">↔ közös vágás az előzővel</span>':''}</li>`).join('')}</ol>
     <p class="mut" style="margin:8px 0 0">Maradék: <b>${fmt(rest)} mm</b></p></div>`}).join('');
+  return h;
+}
+
+function renderRes(){
+  const r=last,el=$('#res');if(!r)return;
+  let h=r.errs.map(e=>`<div class="err">${esc(e)}</div>`).join('');
+  if(!r.groups.length){el.innerHTML=h+'<div class="card mut">Adj meg darabokat, majd nyomd meg a Számolás gombot.</div>';return;}
+  const W=Math.max(200,Math.floor(el.clientWidth-34));
+  const showName=r.groups.length>1||r.groups.some(g=>g.name);
+  h+=r.groups.map(g=>renderGroup(g,W,showName)).join('');
+  el.innerHTML=h;
+}
+function calc(){save();last=solve();renderRes();}
+
+/* ============ KAPU TERVEZŐ ============ */
+const GDEF={name:'',type:'double',count:1,W:3000,H:1500,gapSide:15,gapMid:10,ov:100,tail:0,ground:100,fw:40,fd:40,infill:'vert',bw:20,bd:20,maxGap:100,sheetT:2,brace:true,bracew:30,braced:30};
+let g=Object.assign(clone(GDEF),lsGet('femkapu',{}));
+const gSave=()=>lsSet('femkapu',g);
+let gMod=null;
+const lab=(a,b)=>'Zártszelvény '+pl(Math.max(a,b))+'×'+pl(Math.min(a,b));
+const TYPES={single:'Egyszárnyú kapu',double:'Kétszárnyú kapu',slide:'Tolókapu',cant:'Úszó kapu',fence:'Kerítésmező'};
+
+function gateModel(){
+  const W=num(g.W),H=num(g.H),fw=num(g.fw),fd=num(g.fd),cnt=Math.max(1,Math.floor(num(g.count))||1);
+  const gs=Math.max(0,num(g.gapSide)),gm=Math.max(0,num(g.gapMid)),ov=Math.max(0,num(g.ov)),tail=Math.max(0,num(g.tail));
+  let Wl,leaves=1;
+  switch(g.type){
+    case 'single':Wl=W-2*gs;break;
+    case 'double':Wl=(W-2*gs-gm)/2;leaves=2;break;
+    case 'slide':case 'cant':Wl=W+2*ov+tail;break;
+    default:Wl=W;
+  }
+  const m={leaf:{Wl,H},leaves,cnt,pieces:[],warn:[],errs:[],fill:{nv:0,nh:0,gv:0,gh:0},sheet:null,brace:null};
+  if(!(W>0&&H>0&&fw>0&&fd>0)){m.errs.push('Add meg a szélességet, a magasságot és a keret profilját.');return m;}
+  const Wi=Wl-2*fw,Hi=H-2*fw;m.Wi=Wi;m.Hi=Hi;
+  if(Wi<=0||Hi<=0){m.errs.push('A keret profilja túl nagy ehhez a mérethez, vagy a szárny szélessége nulla alá esik.');return m;}
+  const prefix=g.name?g.name.trim()+' – ':'';
+  const mult=leaves*cnt;
+  const add=(name,len,qty,a1,a2,h,shape,mat)=>m.pieces.push({name:prefix+name,len:r1(len),qty:qty*mult,a1:r2(a1),a2:r2(a2),h,shape,mat});
+  const frameMat=lab(fw,fd);
+  add('Keret felső/alsó',Wl,2,45,45,fw,'T',frameMat);
+  add('Keret függőleges',H,2,45,45,fw,'T',frameMat);
+
+  const bw=num(g.bw),bd=num(g.bd),mg=Math.max(1,num(g.maxGap));
+  const nBars=L=>Math.max(0,Math.ceil((L-mg)/(bw+mg)));
+  const f=m.fill;
+  if(['vert','horiz','grid'].includes(g.infill)){
+    if(!(bw>0&&bd>0)){m.errs.push('Add meg a kitöltő rudak profilját.');return m;}
+    const barMat=lab(bw,bd);
+    if(g.infill==='vert'||g.infill==='grid')f.nv=nBars(Wi);
+    if(g.infill==='horiz'||g.infill==='grid')f.nh=nBars(Hi);
+    f.gv=f.nv?(Wi-f.nv*bw)/(f.nv+1):0;f.gh=f.nh?(Hi-f.nh*bw)/(f.nh+1):0;
+    if(g.infill==='vert'&&f.nv)add('Kitöltő rúd függőleges',Hi,f.nv,0,0,bw,'T',barMat);
+    if(g.infill==='horiz'&&f.nh)add('Kitöltő rúd vízszintes',Wi,f.nh,0,0,bw,'T',barMat);
+    if(g.infill==='grid'){
+      const ch=f.gh;
+      if(f.nh&&ch<=0){m.errs.push('A rács vízszintes rudai nem férnek el a keretben.');return m;}
+      if(f.nh)add('Rács vízszintes rúd',Wi,f.nh,0,0,bw,'T',barMat);
+      if(f.nv)add('Rács függőleges szakasz',ch,f.nv*(f.nh+1),0,0,bw,'T',barMat);
+    }
+    if((f.nv&&f.gv<=0)||(f.nh&&f.gh<=0))m.errs.push('A rudak nem férnek el a keretben.');
+  }else if(g.infill==='sheet'){
+    m.sheet={w:r1(Wi),h:r1(Hi),t:num(g.sheetT),qty:mult};
+  }
+  if(m.errs.length)return m;
+
+  if(g.brace){
+    const t=num(g.bracew),td=num(g.braced),R=Math.hypot(Wi,Hi);
+    if(!(t>0&&td>0)||t>=R*0.5){m.warn.push('A merevítő profilja nem adható meg ehhez a mérethez, kihagytam.');}
+    else{
+      const th=Math.atan2(Hi,Wi)+Math.asin(t/R);
+      if(t/Math.sin(th)>=Wi){m.warn.push('A merevítő nem fér el a keretben, kihagytam.');}
+      else{
+        const len=Hi/Math.sin(th),a=90-th*180/Math.PI;
+        m.brace={th,t,len,a};
+        if(Wl>2.5*H)m.warn.push('Hosszú szárnynál egyetlen átlós merevítő kevés lehet. Érdemes a szárnyat több mezőre osztani, a mezőket a Kerítésmező típussal külön is megtervezheted.');
+        add('Merevítő (átlós)',len,1,a,a,t,'P',lab(t,td));
+      }
+    }
+  }
+  return m;
+}
+
+function gateSVG(m,Wpx){
+  const W=num(g.W),H=num(g.H),fw=num(g.fw),gr=Math.max(0,num(g.ground)),pw=100;
+  const Wl=m.leaf.Wl,gs=Math.max(0,num(g.gapSide)),gm=Math.max(0,num(g.gapMid)),ov=Math.max(0,num(g.ov)),tail=Math.max(0,num(g.tail));
+  let xs=[0],xL=0,xR=W;
+  if(g.type==='single')xs=[gs];
+  else if(g.type==='double')xs=[gs,gs+Wl+gm];
+  else if(g.type==='slide'||g.type==='cant'){xs=[0];xL=tail+ov;xR=tail+ov+W;}
+  const minX=Math.min(xL-pw,...xs),maxX=Math.max(xR+pw,...xs.map(x=>x+Wl));
+  const top=gr+H+100,ml=58,mr=14,mt=14,mb=84;
+  const s=(Wpx-ml-mr)/(maxX-minX);
+  const X=x=>r1(ml+(x-minX)*s),Y=y=>r1(mt+(top-y)*s);
+  const pts=a=>a.map(p=>X(p[0])+','+Y(p[1])).join(' ');
+  const Ht=Math.ceil(mt+top*s+mb);
+  let o='';
+  o+=`<rect x="${ml-8}" y="${Y(0)}" width="${Wpx-ml-mr+8}" height="6" fill="var(--steel)"/>`;
+  o+=`<rect x="${X(xL-pw)}" y="${Y(top)}" width="${r1(pw*s)}" height="${r1(top*s)}" fill="var(--post)"/>`;
+  o+=`<rect x="${X(xR)}" y="${Y(top)}" width="${r1(pw*s)}" height="${r1(top*s)}" fill="var(--post)"/>`;
+  const yT=gr+H,f=m.fill,bw=num(g.bw);
+  xs.forEach(x0=>{
+    const ix=x0+fw,iy=gr+fw,Wi=m.Wi,Hi=m.Hi;
+    if(g.infill==='sheet')o+=`<rect x="${X(ix)}" y="${Y(iy+Hi)}" width="${r1(Wi*s)}" height="${r1(Hi*s)}" fill="var(--sheet)" stroke="var(--frame)"/>`;
+    for(let k=1;k<=f.nv;k++){const bx=ix+f.gv*k+bw*(k-1);o+=`<rect x="${X(bx)}" y="${Y(iy+Hi)}" width="${r1(Math.max(1,bw*s))}" height="${r1(Hi*s)}" fill="var(--bar)"/>`;}
+    for(let k=1;k<=f.nh;k++){const by=iy+f.gh*k+bw*(k-1);o+=`<rect x="${X(ix)}" y="${Y(by+bw)}" width="${r1(Wi*s)}" height="${r1(Math.max(1,bw*s))}" fill="var(--bar)"/>`;}
+    if(m.brace){const{th,t}=m.brace,d=t/Math.sin(th);
+      o+=`<polygon points="${pts([[ix,iy],[ix+d,iy],[ix+Wi,iy+Hi],[ix+Wi-d,iy+Hi]])}" fill="var(--acc)" fill-opacity=".92"/>`;}
+    const fr=[[[x0,yT],[x0+Wl,yT],[x0+Wl-fw,yT-fw],[x0+fw,yT-fw]],
+              [[x0,yT],[x0+fw,yT-fw],[x0+fw,gr+fw],[x0,gr]],
+              [[x0,gr],[x0+fw,gr+fw],[x0+Wl-fw,gr+fw],[x0+Wl,gr]],
+              [[x0+Wl,yT],[x0+Wl,gr],[x0+Wl-fw,gr+fw],[x0+Wl-fw,yT-fw]]];
+    fr.forEach(p=>{o+=`<polygon points="${pts(p)}" fill="var(--frame)" stroke="var(--card)" stroke-width="1.2" stroke-linejoin="round"/>`;});
+  });
+  const dimH=(xa,xb,y,label)=>`<path class="dl" d="M${X(xa)} ${y-5}v10M${X(xb)} ${y-5}v10M${X(xa)} ${y}H${X(xb)}"/><text class="dimt" x="${r1((X(xa)+X(xb))/2)}" y="${y+17}" text-anchor="middle">${label}</text>`;
+  xs.forEach(x0=>{o+=dimH(x0,x0+Wl,Y(0)+22,fi(Wl));});
+  if(g.type!=='fence')o+=dimH(xL,xR,Y(0)+54,'nyílás '+fi(W));
+  const xh=ml-24;
+  o+=`<path class="dl" d="M${xh-5} ${Y(yT)}h10M${xh-5} ${Y(gr)}h10M${xh} ${Y(yT)}V${Y(gr)}"/><text class="dimt" transform="translate(${xh-8} ${r1((Y(yT)+Y(gr))/2)}) rotate(-90)" text-anchor="middle">${fi(H)}</text>`;
+  if(g.type==='slide'||g.type==='cant'){const ya=Y(yT)-8,xa=X(xL+W*0.25),xb=X(xL+W*0.75);o+=`<path class="dl" d="M${xa} ${ya}H${xb}m-8 -5l8 5l-8 5"/>`;}
+  return `<svg width="${Wpx}" height="${Ht}" viewBox="0 0 ${Wpx} ${Ht}" role="img" aria-label="${esc(TYPES[g.type])} előnézet">${o}</svg>`;
+}
+
+function gateRender(){
+  const m=gMod=gateModel(),el=$('#gres');
+  let h=m.errs.map(e=>`<div class="err">${esc(e)}</div>`).join('');
+  if(m.errs.length){el.innerHTML=h;return;}
+  h+=m.warn.map(e=>`<div class="warn">${esc(e)}</div>`).join('');
+  const Wpx=Math.max(240,Math.floor(el.clientWidth-34));
+  const f=m.fill,bits=[];
+  if(m.leaves===2)bits.push(`2 szárny, egyenként ${fi(m.leaf.Wl)} × ${fi(m.leaf.H)} mm`);
+  else bits.push(`${TYPES[g.type]}: ${fi(m.leaf.Wl)} × ${fi(m.leaf.H)} mm`);
+  if(m.cnt>1)bits.push(`${m.cnt} db`);
+  if(f.nv)bits.push(`${f.nv} függőleges rúd, rés ${pl(f.gv)} mm`);
+  if(f.nh)bits.push(`${f.nh} vízszintes rúd, rés ${pl(f.gh)} mm`);
+  if(m.brace)bits.push(`merevítő ${fi(m.brace.len)} mm, vágásszög ${pl(m.brace.a)}°`);
+  h+=`<div class="card"><h2>${esc(g.name||TYPES[g.type])}</h2><div class="svgw" style="overflow-x:auto">${gateSVG(m,Wpx)}</div><p class="mut" style="margin:6px 0 0">${esc(bits.join(' · '))}</p></div>`;
+  const byMat={};m.pieces.forEach(p=>(byMat[p.mat]=byMat[p.mat]||[]).push(p));
+  h+=`<div class="card"><h2>Darablista</h2>`;
+  Object.entries(byMat).forEach(([mat,ps])=>{
+    const tl=ps.reduce((t,p)=>t+p.len*p.qty,0)/1000;
+    h+=`<div class="parts"><div class="tot"><b>${esc(mat)}</b> – összesen ${pl(tl)} m (vágásveszteség nélkül)</div><div class="hd">Megnevezés</div><div class="hd r">Db</div><div class="hd r">Hossz</div><div class="hd r">Szög</div>`;
+    ps.forEach(p=>{h+=`<div>${esc(p.name)}</div><div class="r">${p.qty}×</div><div class="r"><b>${fmt(p.len)}</b> mm</div><div class="r">${pl(p.a1)}° / ${pl(p.a2)}°</div>`;});
+    h+=`</div>`;
+  });
+  if(m.sheet)h+=`<div class="parts"><div class="tot"><b>Lemez ${pl(m.sheet.t)} mm</b> – nem a darabolóba való</div><div>Betét</div><div class="r">${m.sheet.qty}×</div><div class="r"><b>${fi(m.sheet.w)} × ${fi(m.sheet.h)}</b> mm</div><div class="r"></div></div>`;
+  h+=`</div>`;
+  if(m.pieces.length)h+=`<div class="btns"><button class="go" id="toCutAdd">Hozzáadás a darabolóhoz</button><button class="alt" id="toCutRep">Darabolóban lévő lista cseréje erre</button></div>`;
   el.innerHTML=h;
 }
 
-function calc(){save();last=solve();renderRes();}
+function handoff(append){
+  const m=gMod;if(!m||m.errs.length||!m.pieces.length)return;
+  const arr=m.pieces.map(p=>({name:p.name,len:p.len,qty:p.qty,a1:p.a1,a2:p.a2,h:p.h,shape:p.shape,mat:p.mat}));
+  st.pieces=append?st.pieces.concat(arr):arr;
+  save();renderInputs();showTab('cut');calc();window.scrollTo(0,0);
+}
+
+function fillGate(){
+  $$('[data-g]').forEach(el=>{const v=g[el.dataset.g];if(el.type==='checkbox')el.checked=!!v;else el.value=v??'';});
+  $$('[data-for]').forEach(el=>el.hidden=!el.dataset.for.split(' ').includes(g.type));
+  $$('[data-inf]').forEach(el=>el.hidden=!el.dataset.inf.split(' ').includes(g.infill));
+  $$('[data-brace]').forEach(el=>el.hidden=!g.brace);
+  $('#lblW').textContent=g.type==='fence'?'Mező szélessége (mm)':'Nyílás szélessége az oszlopok között (mm)';
+}
+function onType(){
+  if(g.type==='cant'){g.tail=Math.round(num(g.W)*0.5/10)*10;if(!(num(g.ov)>0))g.ov=100;}
+  else if(g.type==='slide'){g.tail=0;if(!(num(g.ov)>0))g.ov=100;}
+}
+
+/* ============ FÜLEK ÉS ESEMÉNYEK ============ */
+function showTab(t){
+  $('#tab-gate').hidden=t!=='gate';$('#tab-cut').hidden=t!=='cut';
+  $$('.tabs button').forEach(b=>b.classList.toggle('on',b.dataset.tab===t));
+  try{localStorage.setItem('femtab',t)}catch(e){}
+}
 document.addEventListener('input',ev=>{
   const t=ev.target;
+  if(t.dataset.g){if(t.tagName==='SELECT'||t.type==='checkbox')return;g[t.dataset.g]=t.value;gSave();gateRender();return;}
   if(t.id==='kerf'||t.id==='trim'){st[t.id]=t.value;save();return;}
   const k=t.dataset.k;if(!k)return;const[a,i,f]=k.split('.');st[a][+i][f]=t.value;save();
 });
-document.addEventListener('change',ev=>{const t=ev.target;if(t.tagName==='SELECT'&&t.dataset.k){const[a,i,f]=t.dataset.k.split('.');st[a][+i][f]=t.value;save();}});
+document.addEventListener('change',ev=>{
+  const t=ev.target;
+  if(t.dataset.g&&(t.tagName==='SELECT'||t.type==='checkbox')){
+    g[t.dataset.g]=t.type==='checkbox'?t.checked:t.value;
+    if(t.dataset.g==='type')onType();
+    fillGate();gSave();gateRender();return;
+  }
+  if(t.tagName==='SELECT'&&t.dataset.k){const[a,i,f]=t.dataset.k.split('.');st[a][+i][f]=t.value;save();}
+});
 document.addEventListener('click',ev=>{
+  const tb=ev.target.closest('[data-tab]');if(tb){showTab(tb.dataset.tab);return;}
+  if(ev.target.closest('#toCutAdd')){handoff(true);return;}
+  if(ev.target.closest('#toCutRep')){handoff(false);return;}
   const d=ev.target.closest('[data-del]');
   if(d){const[a,i]=d.dataset.del.split('.');st[a].splice(+i,1);save();renderInputs();}
 });
-$('#addS').addEventListener('click',()=>{st.stocks.push({len:6000,qty:''});save();renderInputs();});
-$('#addP').addEventListener('click',()=>{const p=st.pieces[st.pieces.length-1];st.pieces.push(p?{...p,name:'',qty:1}:{name:'',len:1000,qty:1,a1:0,a2:0,h:40,shape:'T'});save();renderInputs();});
+$('#addS').addEventListener('click',()=>{st.stocks.push({len:6000,qty:'',mat:''});save();renderInputs();});
+$('#addP').addEventListener('click',()=>{const p=st.pieces[st.pieces.length-1];st.pieces.push(p?{...p,name:'',qty:1}:{name:'',len:1000,qty:1,a1:0,a2:0,h:40,shape:'T',mat:''});save();renderInputs();});
 $('#go').addEventListener('click',()=>{calc();if(innerWidth<900)$('#res').scrollIntoView({behavior:'smooth'});});
-let rw=0;const ro=new ResizeObserver(()=>{const w=$('#res').clientWidth;if(Math.abs(w-rw)>4){rw=w;renderRes();}});ro.observe($('#res'));
-renderInputs();calc();
+let rw=0,gw=0;
+new ResizeObserver(()=>{const w=$('#res').clientWidth;if(w&&Math.abs(w-rw)>4){rw=w;renderRes();}}).observe($('#res'));
+new ResizeObserver(()=>{const w=$('#gres').clientWidth;if(w&&Math.abs(w-gw)>4){gw=w;gateRender();}}).observe($('#gres'));
+renderInputs();fillGate();gateRender();calc();
+let t0='gate';try{t0=localStorage.getItem('femtab')||'gate'}catch(e){}
+showTab(t0==='cut'?'cut':'gate');
 }
 </script>
 <script>if("serviceWorker"in navigator){addEventListener("load",()=>navigator.serviceWorker.register("sw.js").catch(()=>{}))}</script>

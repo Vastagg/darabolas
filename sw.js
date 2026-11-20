@@ -1,5 +1,5 @@
 // Hálózat először (így a frissítés azonnal megjön), internet nélkül a mentett másolat.
-const CACHE = 'femdarab-v1';
+const CACHE = 'femdarab-v2';
 const FILES = ['./', 'index.html', 'manifest.webmanifest', 'icon-192.png', 'icon-512.png'];
 
 self.addEventListener('install', e => {
