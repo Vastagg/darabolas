@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="hu"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Fém darabolás</title>
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#f26b1d">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-192.png">
+<style>
+/* VOICE: practical workshop tool, calm and clear
+   IDEA: steel bar stock with chalk marks on the bench
+   PICTURE: each bar drawn to scale with its angled cuts
+   COLOUR and TYPE: steel grey, one safety orange; system fonts (offline)
+   LAYOUT: inputs left, results right; stacked on phone */
+:root{color-scheme:light dark;--bg:light-dark(#eceff1,#14171a);--card:light-dark(#fff,#1e2226);--ink:light-dark(#15181b,#e7eaec);--mut:light-dark(#5b636b,#9aa3ab);--line:light-dark(#d3d8dc,#2f353b);--acc:#f26b1d;--steel:light-dark(#c3cad0,#4a535b)}
+:root[data-theme=light]{color-scheme:light}:root[data-theme=dark]{color-scheme:dark}
+*{box-sizing:border-box;min-width:0}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;overflow-x:clip}
+header{background:var(--acc);color:#fff;padding:18px max(4vw,16px)}
+header h1{margin:0;font-size:clamp(24px,5vw,36px);line-height:1.1}
+header p{margin:4px 0 0;font-size:14px;opacity:.92}
+main{display:grid;gap:20px;padding:20px max(4vw,12px);max-width:1300px;margin:auto}
+@media(min-width:900px){main{grid-template-columns:minmax(0,420px) minmax(0,1fr);align-items:start}}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px;margin-bottom:16px}
+h2{font-size:18px;margin:0 0 10px}
+label{display:flex;flex-direction:column;font-size:13px;color:var(--mut);gap:3px}
+input,select{font:16px system-ui,sans-serif;padding:9px 10px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink);width:100%;min-height:44px}
+input:focus,select:focus,button:focus-visible{outline:2px solid var(--acc);outline-offset:1px}
+.row{display:grid;gap:8px;align-items:end;margin-bottom:8px}
+.row.s{grid-template-columns:1fr 1fr 44px}.row.n{grid-template-columns:1fr 44px}
+.row.g{grid-template-columns:repeat(3,minmax(0,1fr))}
+.pc{border-left:5px solid var(--c);padding-left:10px;margin-bottom:14px}
+button{font:600 15px system-ui,sans-serif;border:0;border-radius:8px;min-height:44px;padding:0 16px;cursor:pointer}
+.x{background:transparent;color:var(--mut);font-size:24px;border:1px solid var(--line);padding:0}
+.add{background:transparent;color:var(--acc);border:1px dashed var(--acc);width:100%}
+.go{background:var(--acc);color:#fff;width:100%;font-size:17px;min-height:52px}
+.help{font-size:13px;color:var(--mut);margin:0 0 12px}
+.sum{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;margin-bottom:16px}
+.sum div{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px 12px}
+.sum b{display:block;font-size:24px;white-space:nowrap}.sum span{font-size:13px;color:var(--mut)}
+.err{background:#c4425b;color:#fff;border-radius:10px;padding:10px 14px;margin-bottom:12px}
+.bar{fill:var(--steel)}
+.grp h3{margin:0 0 8px;font-size:16px;display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap}
+.grp h3 em{font-style:normal;background:var(--acc);color:#fff;border-radius:6px;padding:1px 8px}
+.svgw{width:100%;margin-bottom:8px}
+ol{margin:0;padding-left:22px;font-size:14px}ol li{margin:2px 0}
+.dot{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:6px;vertical-align:middle}
+.j{color:var(--acc);font-size:12px;white-space:nowrap}
+.mut{color:var(--mut);font-size:14px}
+</style></head><body>
+<header><h1>Fém darabolás tervező</h1><p>Szálanyag-optimalizálás gérvágással – offline is működik.</p></header>
+<main>
+<section>
+  <div class="card"><h2>Beállítások</h2>
+    <div class="row g" style="grid-template-columns:1fr 1fr">
+      <label>Vágásvastagság / fűrészlap (mm)<input id="kerf" inputmode="decimal"></label>
+      <label>Szálvég levágás (mm)<input id="trim" inputmode="decimal"></label>
+    </div>
+  </div>
+  <div class="card"><h2>Szálanyag</h2>
+    <p class="help">Üres darabszám = korlátlan. Maradékdarabot is felvehetsz külön sorban.</p>
+    <div id="stocks"></div><button class="add" id="addS">+ Szálhossz hozzáadása</button>
+  </div>
+  <div class="card"><h2>Darabok</h2>
+    <p class="help"><b>Hossz</b> = a hosszabbik oldalon mérve (csúcstól csúcsig). <b>Szög</b>: 0 = egyenes vágás, 45 = gérvágás. <b>Profil</b> = a szelvény mérete a vágás síkjában (pl. 40×20-as zártszelvény 40-es oldalán gérelve: 40). Azonos szögű és profilú végeket a program egy közös vágással egymásba illeszt.</p>
+    <div id="pieces"></div><button class="add" id="addP">+ Darab hozzáadása</button>
+  </div>
+  <button class="go" id="go">Számolás</button>
+</section>
+<section id="res" aria-live="polite"></section>
+</main>
+<script>
+{
+const $=s=>document.querySelector(s);
+const COLORS=['#f26b1d','#2f7fd1','#2a9d6a','#c4425b','#8a5cd1','#c9a227','#1d9aa8','#7a6a58'];
+const DEF={kerf:1.5,trim:0,stocks:[{len:6000,qty:''}],pieces:[
+ {name:'Keret függőleges',len:1200,qty:4,a1:45,a2:45,h:40,shape:'T'},
+ {name:'Keret vízszintes',len:800,qty:4,a1:45,a2:45,h:40,shape:'T'},
+ {name:'Merevítő',len:450,qty:6,a1:0,a2:0,h:40,shape:'T'}]};
+let st=null,last=null,K=1.5;
+try{st=JSON.parse(localStorage.getItem('femdarab'))}catch(e){}
+if(!st||!Array.isArray(st.pieces))st=JSON.parse(JSON.stringify(DEF));
+const save=()=>{try{localStorage.setItem('femdarab',JSON.stringify(st))}catch(e){}};
+const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const num=v=>{const n=parseFloat(String(v??'').replace(',','.'));return isFinite(n)?n:0};
+const fmt=n=>(Math.round(n*10)/10).toLocaleString('hu-HU');
+const rad=a=>a*Math.PI/180;
+const off=(a,h)=>a>0?h*Math.tan(rad(a)):0;
+const kA=a=>K/Math.cos(rad(a));
+const match=(a,h,b,h2)=>Math.abs(a-b)<1e-6&&(a===0||Math.abs(h-h2)<1e-6);
+
+function renderInputs(){
+  $('#kerf').value=st.kerf;$('#trim').value=st.trim;
+  $('#stocks').innerHTML=st.stocks.map((s,i)=>`<div class="row s"><label>Hossz (mm)<input inputmode="decimal" data-k="stocks.${i}.len" value="${esc(s.len)}"></label><label>Darab<input inputmode="numeric" placeholder="∞" data-k="stocks.${i}.qty" value="${esc(s.qty)}"></label><button class="x" data-del="stocks.${i}" aria-label="Törlés">×</button></div>`).join('');
+  $('#pieces').innerHTML=st.pieces.map((p,i)=>`<div class="pc" style="--c:${COLORS[i%8]}"><div class="row n"><label>Megnevezés<input data-k="pieces.${i}.name" value="${esc(p.name)}"></label><button class="x" data-del="pieces.${i}" aria-label="Törlés">×</button></div>
+  <div class="row g"><label>Hossz (mm)<input inputmode="decimal" data-k="pieces.${i}.len" value="${esc(p.len)}"></label><label>Darab<input inputmode="numeric" data-k="pieces.${i}.qty" value="${esc(p.qty)}"></label><label>Profil (mm)<input inputmode="decimal" data-k="pieces.${i}.h" value="${esc(p.h)}"></label>
+  <label>Bal szög (°)<input inputmode="decimal" data-k="pieces.${i}.a1" value="${esc(p.a1)}"></label><label>Jobb szög (°)<input inputmode="decimal" data-k="pieces.${i}.a2" value="${esc(p.a2)}"></label><label>Forma<select data-k="pieces.${i}.shape"><option value="T"${p.shape!=='P'?' selected':''}>Trapéz</option><option value="P"${p.shape==='P'?' selected':''}>Paralelogr.</option></select></label></div></div>`).join('');
+}
+
+function solve(){
+  K=Math.max(0,num(st.kerf));const T=Math.max(0,num(st.trim));const errs=[];
+  const stocks=st.stocks.map(s=>({len:num(s.len),qty:String(s.qty??'').trim()===''?Infinity:Math.floor(num(s.qty))})).filter(s=>s.len>0&&s.qty>0);
+  if(!stocks.length)errs.push('Adj meg legalább egy szálhosszt.');
+  const items=[];
+  st.pieces.forEach((p,i)=>{
+    const cl=a=>Math.min(89,Math.max(0,num(a)));
+    const P={i,name:p.name||('Darab '+(i+1)),len:num(p.len),a1:cl(p.a1),a2:cl(p.a2),h:Math.max(0,num(p.h)),shape:p.shape==='P'?'P':'T'};
+    const q=Math.floor(num(p.qty));if(P.len<=0||q<=0)return;
+    const o1=off(P.a1,P.h),o2=off(P.a2,P.h),need=P.shape==='T'?o1+o2:Math.max(o1,o2);
+    if(need>=P.len){errs.push(`„${P.name}”: ezekkel a szögekkel és profillal hosszabbnak kell lennie, mint ${fmt(need)} mm.`);return;}
+    for(let k=0;k<q;k++)items.push(P);
+  });
+  items.sort((a,b)=>b.len-a.len);
+  const inc=(lst,P,aL)=>{
+    if(!lst){let s=T>0?T+K:0;if(aL>0)s+=kA(aL);return s+P.len;}
+    if(match(lst.aR,lst.h,aL,P.h))return aL===0?K+P.len:P.len-off(aL,P.h)+kA(aL);
+    return kA(lst.aR)+kA(aL)+P.len;
+  };
+  const build=(L,pool,noise)=>{
+    const seq=[];let used=0,lst=null;
+    for(;;){
+      let best=null,bs=-Infinity;const seen=new Set();
+      for(let j=0;j<pool.length;j++){const P=pool[j];if(seen.has(P))continue;seen.add(P);
+        for(const rev of(P.a1===P.a2?[false]:[false,true])){
+          const aL=rev?P.a2:P.a1,aR=rev?P.a1:P.a2,d=inc(lst,P,aL);
+          if(used+d>L+1e-6)continue;
+          let sc=P.len-3*(d-P.len);if(noise)sc*=1+Math.random()*noise;
+          if(sc>bs){bs=sc;best={P,j,aL,aR,d};}
+        }}
+      if(!best)break;
+      used+=best.d;
+      const e={P:best.P,aL:best.aL,aR:best.aR,h:best.P.h,end:used,joined:!!lst&&best.aL>0&&match(lst.aR,lst.h,best.aL,best.P.h)};
+      seq.push(e);lst=e;pool.splice(best.j,1);
+    }
+    return{L,seq,used};
+  };
+  const run=noise=>{
+    const pool=items.slice(),avail=stocks.map(s=>s.qty),bars=[];
+    while(pool.length){
+      let best=null;
+      stocks.forEach((s,k)=>{if(avail[k]<=0)return;const b=build(s.len,pool.slice(),noise);if(!b.seq.length)return;
+        const u=b.seq.reduce((t,e)=>t+e.P.len,0)/s.len;
+        if(!best||u>best.u+1e-9||(Math.abs(u-best.u)<1e-9&&s.len<best.b.L))best={b,k,u};});
+      if(!best)break;
+      avail[best.k]--;bars.push(best.b);
+      best.b.seq.forEach(e=>pool.splice(pool.indexOf(e.P),1));
+    }
+    const total=bars.reduce((t,b)=>t+b.L,0),maxLeft=Math.max(0,...bars.map(b=>b.L-b.used));
+    return{bars,left:pool,cost:pool.length*1e12+total*1e3-maxLeft};
+  };
+  let best=null;
+  if(items.length&&stocks.length){
+    const t0=performance.now();let n=0;
+    while(n<2000&&(n<20||performance.now()-t0<700)){const r=run(n?0.5:0);if(!best||r.cost<best.cost)best=r;n++;}
+  }
+  return{errs,best,items};
+}
+
+function barSVG(b,W){
+  const H=36,sx=W/b.L,vs=a=>Math.min(H*1.1,H*Math.tan(rad(a)));let out=`<rect class="bar" x="0" y="0" width="${W}" height="${H}" rx="2"/>`,pt=true;
+  b.seq.forEach(e=>{
+    const x1=e.end,x0=x1-e.P.len,dL=off(e.aL,e.h),dR=off(e.aR,e.h);
+    const lt=e.joined?!pt:true,rt=e.P.shape==='T'?lt:!lt;pt=rt;
+    const cL=(x0+dL/2)*sx,cR=(x1-dR/2)*sx,sL=vs(e.aL)/2*(lt?1:-1),sR=vs(e.aR)/2*(rt?1:-1);
+    out+=`<polygon points="${cL-sL},0 ${cR+sR},0 ${cR-sR},${H} ${cL+sL},${H}" fill="${COLORS[e.P.i%8]}" stroke="#fff" stroke-width="1"/>`;
+    if(cR-cL>44)out+=`<text x="${(cL+cR)/2}" y="${H/2+4}" text-anchor="middle" font-size="12" font-weight="600" fill="#fff">${fmt(e.P.len)}</text>`;
+  });
+  const ux=b.used*sx;
+  if(W-ux>2)out+=`<rect x="${ux}" y="0" width="${W-ux}" height="${H}" fill="url(#hatch)"/>`;
+  return `<svg width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" role="img" aria-label="Szál ${fmt(b.L)} mm"><defs><pattern id="hatch" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="6" height="6" fill="transparent"/><line x1="0" y1="0" x2="0" y2="6" stroke="currentColor" stroke-opacity=".35" stroke-width="2"/></pattern></defs>${out}</svg>`;
+}
+
+function renderRes(){
+  const r=last,el=$('#res');if(!r)return;
+  let h=r.errs.map(e=>`<div class="err">${esc(e)}</div>`).join('');
+  if(!r.best){el.innerHTML=h+(r.items.length?'':'<div class="card mut">Adj meg darabokat, majd nyomd meg a Számolás gombot.</div>');return;}
+  const{bars,left}=r.best;
+  if(left.length)h+=`<div class="err">${left.length} darab nem fért el (túl hosszú, vagy elfogyott a szálanyag).</div>`;
+  const total=bars.reduce((t,b)=>t+b.L,0);
+  let net=0,saved=0;bars.forEach(b=>b.seq.forEach(e=>{net+=e.P.len-(off(e.aL,e.h)+off(e.aR,e.h))/2;if(e.joined)saved+=off(e.aL,e.h);}));
+  const byLen={};bars.forEach(b=>byLen[b.L]=(byLen[b.L]||0)+1);
+  h+=`<div class="sum"><div><b>${bars.length} szál</b><span>${Object.entries(byLen).map(([l,c])=>`${c}× ${fmt(+l)} mm`).join(', ')}</span></div>
+  <div><b>${fmt(total/1000)} m</b><span>felhasznált anyag</span></div>
+  <div><b>${total?fmt((1-net/total)*100):0}%</b><span>hulladék + maradék</span></div>
+  <div><b>${fmt(saved)} mm</b><span>nyereség közös gérvágással</span></div></div>`;
+  const groups=[];const map={};
+  bars.forEach(b=>{const k=b.L+'|'+b.seq.map(e=>e.P.i+':'+e.aL+':'+e.aR).join(',');if(map[k])map[k].n++;else{map[k]={b,n:1};groups.push(map[k]);}});
+  const W=Math.max(200,Math.floor(el.clientWidth-34));
+  h+=groups.map((g,gi)=>{const b=g.b,lastE=b.seq[b.seq.length-1],rest=Math.max(0,b.L-b.used-kA(lastE.aR));
+    return `<div class="card grp"><h3><span>${gi+1}. minta – ${fmt(b.L)} mm-es szál</span><em>${g.n}×</em></h3><div class="svgw">${barSVG(b,W)}</div>
+    <ol>${b.seq.map(e=>`<li><span class="dot" style="background:${COLORS[e.P.i%8]}"></span>${esc(e.P.name)} – <b>${fmt(e.P.len)} mm</b> <span class="mut">(${fmt(e.aL)}° / ${fmt(e.aR)}°)</span>${e.joined?' <span class="j">↔ közös vágás az előzővel</span>':''}</li>`).join('')}</ol>
+    <p class="mut" style="margin:8px 0 0">Maradék: <b>${fmt(rest)} mm</b></p></div>`}).join('');
+  el.innerHTML=h;
+}
+
+function calc(){save();last=solve();renderRes();}
+document.addEventListener('input',ev=>{
+  const t=ev.target;
+  if(t.id==='kerf'||t.id==='trim'){st[t.id]=t.value;save();return;}
+  const k=t.dataset.k;if(!k)return;const[a,i,f]=k.split('.');st[a][+i][f]=t.value;save();
+});
+document.addEventListener('change',ev=>{const t=ev.target;if(t.tagName==='SELECT'&&t.dataset.k){const[a,i,f]=t.dataset.k.split('.');st[a][+i][f]=t.value;save();}});
+document.addEventListener('click',ev=>{
+  const d=ev.target.closest('[data-del]');
+  if(d){const[a,i]=d.dataset.del.split('.');st[a].splice(+i,1);save();renderInputs();}
+});
+$('#addS').addEventListener('click',()=>{st.stocks.push({len:6000,qty:''});save();renderInputs();});
+$('#addP').addEventListener('click',()=>{const p=st.pieces[st.pieces.length-1];st.pieces.push(p?{...p,name:'',qty:1}:{name:'',len:1000,qty:1,a1:0,a2:0,h:40,shape:'T'});save();renderInputs();});
+$('#go').addEventListener('click',()=>{calc();if(innerWidth<900)$('#res').scrollIntoView({behavior:'smooth'});});
+let rw=0;const ro=new ResizeObserver(()=>{const w=$('#res').clientWidth;if(Math.abs(w-rw)>4){rw=w;renderRes();}});ro.observe($('#res'));
+renderInputs();calc();
+}
+</script>
+<script>if("serviceWorker"in navigator){addEventListener("load",()=>navigator.serviceWorker.register("sw.js").catch(()=>{}))}</script>
+</body></html>
