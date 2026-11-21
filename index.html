@@ -9,47 +9,55 @@
 <style>
 /* VOICE: practical workshop tool, calm and clear
    IDEA: steel bar stock with chalk marks on the bench
-   PICTURE: gates drawn to scale; each bar drawn to scale with its angled cuts
+   PICTURE: the visual plan drawn to scale, editable like a simple CAD
    COLOUR and TYPE: steel grey, one safety orange; system fonts (offline)
-   LAYOUT: inputs left, results right; stacked on phone; two tabs */
-:root{color-scheme:light dark;--bg:light-dark(#eceff1,#14171a);--card:light-dark(#fff,#1e2226);--ink:light-dark(#15181b,#e7eaec);--mut:light-dark(#5b636b,#9aa3ab);--line:light-dark(#d3d8dc,#2f353b);--acc:#f26b1d;--steel:light-dark(#c3cad0,#4a535b);--frame:light-dark(#7d8993,#8995a0);--bar:light-dark(#a3aeb6,#66727b);--post:light-dark(#4d565d,#2b3238);--sheet:light-dark(#cfd6db,#3a444b)}
+   LAYOUT: tabs; drawing large, panel beside it; stacked on phone */
+:root{color-scheme:light dark;--bg:light-dark(#eceff1,#14171a);--card:light-dark(#fff,#1e2226);--ink:light-dark(#15181b,#e7eaec);--mut:light-dark(#5b636b,#9aa3ab);--line:light-dark(#d3d8dc,#2f353b);--acc:#f26b1d;--steel:light-dark(#c3cad0,#4a535b);--frame:light-dark(#7d8993,#8995a0);--bar:light-dark(#a3aeb6,#66727b);--post:light-dark(#4d565d,#2b3238);--sheet:light-dark(#cfd6db,#3a444b);--paper:light-dark(#f7f8f9,#181b1e);--ok:#2a9d6a}
 :root[data-theme=light]{color-scheme:light}:root[data-theme=dark]{color-scheme:dark}
 *{box-sizing:border-box;min-width:0}
 [hidden]{display:none!important}
 body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;overflow-x:clip}
-header{background:var(--acc);color:#fff;padding:18px max(4vw,16px)}
-header h1{margin:0;font-size:clamp(24px,5vw,36px);line-height:1.1}
+header{background:var(--acc);color:#fff;padding:16px max(4vw,16px)}
+header h1{margin:0;font-size:clamp(24px,5vw,34px);line-height:1.1}
 header p{margin:4px 0 0;font-size:14px;opacity:.92}
-.tabs{display:flex;gap:8px;padding:14px max(4vw,12px) 0;max-width:1300px;margin:auto}
-.tabs button{flex:1;background:var(--card);color:var(--mut);border:1px solid var(--line);min-height:48px;font-size:16px}
+.tabs{display:flex;gap:8px;padding:14px max(4vw,12px) 0;max-width:1300px;margin:auto;overflow-x:auto}
+.tabs button{flex:1 0 auto;background:var(--card);color:var(--mut);border:1px solid var(--line);min-height:48px;font-size:15px;white-space:nowrap}
 .tabs button.on{background:var(--acc);color:#fff;border-color:var(--acc)}
 main{display:grid;gap:20px;padding:16px max(4vw,12px) 20px;max-width:1300px;margin:auto}
-@media(min-width:900px){main{grid-template-columns:minmax(0,420px) minmax(0,1fr);align-items:start}}
+main.one{max-width:960px}
+@media(min-width:900px){main.two{grid-template-columns:minmax(0,420px) minmax(0,1fr);align-items:start}main.plan{grid-template-columns:minmax(0,1fr) 380px;align-items:start}}
 .card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px;margin-bottom:16px}
 h2{font-size:18px;margin:0 0 10px}
 h2.mh{margin:6px 0 12px;font-size:20px;border-bottom:2px solid var(--acc);padding-bottom:4px}
+h3.qh{grid-column:1/-1;margin:10px 0 0;font-size:15px;color:var(--acc)}
 label{display:flex;flex-direction:column;font-size:13px;color:var(--mut);gap:3px}
 input,select{font:16px system-ui,sans-serif;padding:9px 10px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink);width:100%;min-height:44px}
 input:focus,select:focus,button:focus-visible{outline:2px solid var(--acc);outline-offset:1px}
-label.chk{flex-direction:row;align-items:center;gap:10px;font-size:15px;color:var(--ink);margin-bottom:10px}
+label.chk{flex-direction:row;align-items:center;gap:10px;font-size:15px;color:var(--ink)}
 label.chk input{width:24px;min-height:24px;height:24px}
 .row{display:grid;gap:8px;align-items:end;margin-bottom:8px}
 .row.s{grid-template-columns:1fr 1fr 44px}.row.n{grid-template-columns:1fr 44px}
 .row.g{grid-template-columns:repeat(3,minmax(0,1fr))}
 .row.g2{grid-template-columns:repeat(2,minmax(0,1fr))}
+.row.g4{grid-template-columns:repeat(4,minmax(0,1fr))}
+.qgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:10px 12px;align-items:end}
+.qgrid .full{grid-column:1/-1}
 .pc{border-left:5px solid var(--c);padding-left:10px;margin-bottom:14px}
 .sc{border-bottom:1px solid var(--line);padding-bottom:8px;margin-bottom:10px}
-button{font:600 15px system-ui,sans-serif;border:0;border-radius:8px;min-height:44px;padding:0 16px;cursor:pointer}
+button{font:600 15px system-ui,sans-serif;border:0;border-radius:8px;min-height:44px;padding:0 16px;cursor:pointer;color:var(--ink)}
 .x{background:transparent;color:var(--mut);font-size:24px;border:1px solid var(--line);padding:0}
 .add{background:transparent;color:var(--acc);border:1px dashed var(--acc);width:100%}
 .go{background:var(--acc);color:#fff;width:100%;font-size:17px;min-height:52px}
-.alt{background:transparent;color:var(--acc);border:2px solid var(--acc);width:100%;font-size:16px;min-height:50px}
+.alt{background:transparent;color:var(--acc);border:2px solid var(--acc);width:100%;font-size:15px;min-height:46px}
+.sm{background:var(--bg);border:1px solid var(--line);min-height:40px;padding:0 12px;font-size:14px}
+.danger{color:#c4425b;border-color:#c4425b}
 .help{font-size:13px;color:var(--mut);margin:0 0 12px}
 .sum{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;margin-bottom:16px}
 .sum div{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px 12px}
 .sum b{display:block;font-size:24px;white-space:nowrap}.sum span{font-size:13px;color:var(--mut)}
 .err{background:#c4425b;color:#fff;border-radius:10px;padding:10px 14px;margin-bottom:12px}
 .warn{background:light-dark(#fff4e5,#3a2c18);border:1px solid var(--acc);border-radius:10px;padding:10px 14px;margin-bottom:12px;font-size:14px}
+.okb{background:light-dark(#e8f6ef,#15291f);border:1px solid var(--ok);border-radius:10px;padding:10px 14px;margin-bottom:12px;font-size:14px}
 .bar{fill:var(--steel)}
 .grp h3{margin:0 0 8px;font-size:16px;display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap}
 .grp h3 em{font-style:normal;background:var(--acc);color:#fff;border-radius:6px;padding:1px 8px}
@@ -58,76 +66,104 @@ ol{margin:0;padding-left:22px;font-size:14px}ol li{margin:2px 0}
 .dot{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:6px;vertical-align:middle}
 .j{color:var(--acc);font-size:12px;white-space:nowrap}
 .mut{color:var(--mut);font-size:14px}
-.dl{stroke:var(--mut);stroke-width:1;fill:none}
-.dimt{fill:var(--mut);font:12px system-ui,sans-serif}
-.parts{display:grid;grid-template-columns:minmax(0,1fr) 40px 96px 104px;gap:6px 10px;font-size:14px;align-items:baseline;margin-bottom:16px}
+.parts{display:grid;grid-template-columns:minmax(0,1fr) 40px 84px 92px;gap:6px 10px;font-size:14px;align-items:baseline;margin-bottom:14px}
 .parts .hd{font-size:12px;color:var(--mut);border-bottom:1px solid var(--line);padding-bottom:3px}
 .parts .r{text-align:right;white-space:nowrap}
-.parts .tot{grid-column:1/-1;color:var(--mut);font-size:13px;margin-bottom:8px}
+.parts .tot{grid-column:1/-1;font-size:13px;margin-top:4px}
 .btns{display:grid;gap:10px}
-.hw{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:6px 12px;font-size:14px;align-items:baseline}
-.hw .r{text-align:right;white-space:nowrap}
+/* kategóriák */
+.cats{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+.cat{background:var(--card);border:2px solid var(--line);border-radius:12px;padding:10px;text-align:left;display:flex;flex-direction:column;gap:6px;min-height:150px}
+.cat.on{border-color:var(--acc);box-shadow:0 0 0 3px color-mix(in srgb,var(--acc) 25%,transparent)}
+.cat svg{width:100%;height:70px;background:var(--paper);border-radius:8px}
+.cat b{font-size:16px}.cat span{font-size:12px;color:var(--mut);font-weight:400;line-height:1.3}
+.chips{display:flex;gap:6px;flex-wrap:wrap;margin-top:4px}
+.chip{min-height:30px;padding:0 10px;font-size:13px;font-weight:500;background:var(--bg);border:1px solid var(--line);border-radius:15px;color:var(--mut)}
+/* látványterv */
+.tb{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px}
+.tb button{background:var(--card);border:1px solid var(--line);min-height:42px;padding:0 12px;font-size:14px}
+.tb button.on{background:var(--acc);border-color:var(--acc);color:#fff}
+.tb .sp{flex:1}
+.cadw{position:relative;background:var(--paper);border:1px solid var(--line);border-radius:12px;overflow:hidden;height:min(66vh,620px)}
+@media(max-width:600px){.cadw{height:58vh}}
+#cad{position:absolute;inset:0;width:100%;height:100%;touch-action:none;user-select:none;-webkit-user-select:none;cursor:crosshair}
+#cad text{pointer-events:none}
+.cadinfo{position:absolute;left:10px;bottom:8px;font-size:12px;color:var(--mut);pointer-events:none;background:color-mix(in srgb,var(--paper) 80%,transparent);padding:2px 6px;border-radius:6px}
+.pname{display:flex;gap:8px;align-items:end;margin-bottom:10px}
+.pname label{flex:1}
+.hwr{display:grid;grid-template-columns:minmax(0,1fr) 64px 44px;gap:6px;margin-bottom:6px;align-items:center}
+.hwr small{grid-column:1/-1;color:var(--mut);margin-top:-4px}
+/* korábbi munkák */
+.wl{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px}
+.wk{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px;display:flex;flex-direction:column;gap:8px}
+.wk svg{width:100%;height:130px;background:var(--paper);border-radius:8px}
+.wk h3{margin:0;font-size:16px}
+.badge{display:inline-block;font-size:12px;border-radius:6px;padding:1px 8px;background:var(--bg);border:1px solid var(--line);color:var(--mut)}
+.badge.acc{background:var(--ok);border-color:var(--ok);color:#fff}
+.wk .bt{display:grid;grid-template-columns:repeat(2,1fr);gap:6px}
+/* kosár */
+.ct{width:100%;border-collapse:collapse;font-size:14px}
+.ct th{text-align:left;font-size:12px;color:var(--mut);font-weight:500;border-bottom:1px solid var(--line);padding:6px 4px}
+.ct td{border-bottom:1px solid var(--line);padding:8px 4px;vertical-align:top}
+.ct .r{text-align:right;white-space:nowrap}
+.ct small{color:var(--mut);display:block}
+.ct input{min-height:36px;padding:4px 8px;width:110px;text-align:right}
+.ct a{color:inherit}
+.total{display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap;margin-top:12px;font-size:18px}
+.total b{font-size:clamp(26px,6vw,36px);color:var(--acc);white-space:nowrap}
+.status{display:flex;gap:10px;align-items:center;justify-content:space-between;flex-wrap:wrap}
+.toast{position:fixed;left:50%;bottom:20px;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 18px;border-radius:10px;font-size:15px;z-index:9;box-shadow:0 4px 16px #0004}
+@media(max-width:600px){.ct thead{display:none}.ct tr{display:grid;grid-template-columns:1fr auto auto;gap:0 12px;padding:8px 0;border-bottom:1px solid var(--line)}.ct td{border:0;padding:2px 0}.ct td.q,.ct td.u{color:var(--mut)}.ct td:first-child{grid-column:1/-1}}
 </style></head><body>
-<header><h1>Fém tervező</h1><p>Kapuk, kerítések tervezése és szálanyag-optimalizálás gérvágással – offline is működik.</p></header>
-<nav class="tabs"><button data-tab="gate" class="on">Kapu tervező</button><button data-tab="cut">Darabolás</button></nav>
+<header><h1>Fém tervező</h1><p>Gyártmányok tervezése, látványterv, anyagköltség és szálanyag-optimalizálás – offline is működik.</p></header>
+<nav class="tabs"><button data-tab="work" class="on">Új munka</button><button data-tab="plan">Látványterv</button><button data-tab="works">Korábbi munkák</button><button data-tab="cart">Kosár</button><button data-tab="cut">Darabolás</button></nav>
 
-<main id="tab-gate">
-<section>
-  <div class="card"><h2>Kapu</h2>
-    <div class="row g2"><label>Megnevezés<input data-g="name" placeholder="pl. Bejárati kapu"></label><label>Darabszám<input inputmode="numeric" data-g="count"></label></div>
-    <label style="margin-bottom:8px">Típus<select data-g="type">
-      <option value="single">Egyszárnyú kapu</option><option value="double">Kétszárnyú kapu</option><option value="wicket">Kiskapu (gyalogajtó)</option><option value="slide">Tolókapu</option><option value="cant">Úszó (konzolos) kapu</option><option value="fence">Kerítésmező</option></select></label>
-    <div class="row g2"><label id="lblWrap"><span id="lblW">Nyílás szélessége (mm)</span><input inputmode="decimal" data-g="W"></label><label>Magasság, keret külső (mm)<input inputmode="decimal" data-g="H"></label></div>
-    <div class="row g2">
-      <label data-for="single double">Hézag szárnyanként (mm)<input inputmode="decimal" data-g="gapSide"></label>
-      <label data-for="double">Középrés (mm)<input inputmode="decimal" data-g="gapMid"></label>
-      <label data-for="slide cant">Átfedés oldalanként (mm)<input inputmode="decimal" data-g="ov"></label>
-      <label data-for="slide cant">Farok a nyíláson túl (mm)<input inputmode="decimal" data-g="tail"></label>
-      <label>Talaj fölötti rés (mm)<input inputmode="decimal" data-g="ground"></label>
-    </div>
-    <p class="help" data-for="single double">A szárny szélessége a nyílásból a hézagok levonásával adódik.</p>
-    <p class="help" data-for="slide cant">A szárny szélessége = nyílás + átfedés mindkét oldalon + farok.</p>
-  </div>
-  <div class="card" data-for="wicket"><h2>Kiskapu részletei</h2>
-    <label style="margin-bottom:8px">Kivitelezés<select data-g="mode">
-      <option value="uj">Új építés</option><option value="csere">Régi helyére csere (felmérés)</option></select></label>
-    <div data-mode="csere">
-      <div class="row g"><label>Szélesség felül (mm)<input inputmode="decimal" data-g="wT"></label><label>Szélesség középen (mm)<input inputmode="decimal" data-g="wM"></label><label>Szélesség alul (mm)<input inputmode="decimal" data-g="wB"></label></div>
-      <p class="help">A régi pillérek gyakran ferdék, ezért mérj több magasságban. A program a legkisebb mért értékkel számol. Elég egy szélességet is megadni.</p>
-    </div>
-    <label style="margin-bottom:8px">Hová kerül<select data-g="post">
-      <option value="zsalu">Zsalukő pillérek közé</option><option value="tegla">Tégla / beton pillérek közé</option><option value="acel">Acél oszlopok közé</option></select></label>
-    <div class="row g2"><label>Pillér szélessége (mm)<input inputmode="decimal" data-g="pw"></label><label>Kilincs magassága a talajtól (mm)<input inputmode="decimal" data-g="hh"></label></div>
-    <div class="row g2"><label>Zsanér oldala (a rajz szerint)<select data-g="hingeSide"><option value="L">Bal</option><option value="R">Jobb</option></select></label><label>Zsanérok száma<input inputmode="numeric" data-g="hn"></label></div>
-    <label style="margin-bottom:8px">Zsanér típusa<select data-g="hinge"><option value="adj">Állítható, csavaros talppal</option><option value="weld">Hegeszthető</option></select></label>
-    <div class="row g2"><label>Zsanér oldali levonás (mm)<input inputmode="decimal" data-g="gapHinge"></label><label>Zár oldali hézag (mm)<input inputmode="decimal" data-g="gapLock"></label></div>
-    <p class="help">A zsanér oldali levonás a zsanér és a hézag együtt (16-os állítható talpnál kb. 60 mm). A szárny szélessége = nyílás − zsanér oldali levonás − zár oldali hézag.</p>
-    <p class="help" data-hinge="weld">Hegeszthető zsanérnál a levonás a zsanér fajtájától és a felhelyezés módjától függ, ezért írd át a saját mérted szerint.</p>
-    <label style="margin-bottom:8px">Zár<select data-g="lock"><option value="portal">Portálzár</option><option value="box">Zárláda, zárbetéttel</option><option value="none">Nincs</option></select></label>
-    <label style="margin-bottom:8px">Kilincs<select data-g="handle"><option value="norm">Normál</option><option value="off">Eltolt</option><option value="none">Nincs</option></select></label>
-    <label data-handle="off">Kilincs eltolása a zár oldali éltől (mm)<input inputmode="decimal" data-g="ho"></label>
-  </div>
-  <div class="card"><h2>Keret (gérvágott zártszelvény)</h2>
-    <div class="row g2"><label>Szélesség a kapu síkjában (mm)<input inputmode="decimal" data-g="fw"></label><label>Vastagság (mm)<input inputmode="decimal" data-g="fd"></label></div>
-    <p class="help">A sarkok 45°-os gérvágással készülnek. Az első szám a kapu felől látszó oldal.</p>
-  </div>
-  <div class="card"><h2>Kitöltés</h2>
-    <label style="margin-bottom:8px">Jelleg<select data-g="infill">
-      <option value="vert">Függőleges rudak</option><option value="horiz">Vízszintes rudak</option><option value="grid">Rács (függőleges és vízszintes)</option><option value="sheet">Lemez</option><option value="none">Üres keret</option></select></label>
-    <div class="row g2" data-inf="vert horiz grid"><label>Rúd szélessége a síkban (mm)<input inputmode="decimal" data-g="bw"></label><label>Rúd vastagsága (mm)<input inputmode="decimal" data-g="bd"></label></div>
-    <div class="row" data-inf="vert horiz grid"><label>Legnagyobb rés a rudak között (mm)<input inputmode="decimal" data-g="maxGap"></label></div>
-    <div class="row" data-inf="sheet"><label>Lemezvastagság (mm)<input inputmode="decimal" data-g="sheetT"></label></div>
-  </div>
-  <div class="card"><h2>Merevítő</h2>
-    <label class="chk"><input type="checkbox" data-g="brace">Átlós merevítő a keretben</label>
-    <div class="row g2" data-brace><label>Szélesség a síkban (mm)<input inputmode="decimal" data-g="bracew"></label><label>Vastagság (mm)<input inputmode="decimal" data-g="braced"></label></div>
-    <p class="help" data-brace>A merevítő a rudak mögé kerül, a rudak teljes belső magasságban futnak.</p>
-  </div>
-</section>
-<section id="gres" aria-live="polite"></section>
+<main id="tab-work" class="one">
+  <div class="card"><h2>Mivel foglalkozol most?</h2><p class="help">Válaszd ki a gyártmány fajtáját. A kérdések a választásod szerint jelennek meg.</p><div class="cats" id="cats"></div></div>
+  <div id="sugg"></div>
+  <div class="card"><h2 id="qtitle">Kérdések</h2><div id="qerr"></div><div class="qgrid" id="qform"></div></div>
+  <div class="btns"><button class="go" id="genBtn">Látványterv készítése</button><button class="alt" id="newBtn">Új, üres munka ebben a kategóriában</button></div>
 </main>
 
-<main id="tab-cut" hidden>
+<main id="tab-plan" class="plan" hidden>
+  <section>
+    <div class="pname"><label>A munka neve<input id="pName" placeholder="pl. Kovácsék kapuja"></label><span class="badge" id="pStat"></span></div>
+    <div class="tb" id="tools">
+      <button data-tool="sel" class="on" title="Kijelölés és mozgatás">Kijelölés</button>
+      <button data-tool="bar" title="Húzással új rudat rajzolsz">+ Rúd</button>
+      <button data-tool="rect" title="Húzással lemezt rajzolsz">+ Lemez</button>
+      <span class="sp"></span>
+      <button data-act="undo" title="Visszavonás">↶</button><button data-act="redo" title="Újra">↷</button>
+      <button data-act="fit">Teljes nézet</button>
+      <button data-act="dims" id="dimsBtn">Méretek</button>
+      <button data-act="ortho" id="orthoBtn" title="Rajzoláskor 15°-onként igazít">Szögzár</button>
+    </div>
+    <div class="cadw" id="cadw"><svg id="cad" role="img" aria-label="Látványterv"></svg><div class="cadinfo" id="cadinfo"></div></div>
+    <p class="help" style="margin-top:8px">Koppints egy elemre a kijelöléshez, húzd a mozgatáshoz, a két végén lévő pöttyel a hosszát és irányát állítod. Üres helyen húzva a rajzot mozgatod, két ujjal vagy egérgörgővel nagyítasz. Rácsra igazítás: 5 mm, és a végpontok egymáshoz is tapadnak.</p>
+    <div id="planParts"></div>
+  </section>
+  <section>
+    <div id="panel"></div>
+    <div id="hwbox"></div>
+    <div class="btns"><button class="go" id="accBtn">Terv elfogadása → Kosár</button><button class="alt" id="saveBtn">Mentés a korábbi munkákhoz</button><button class="alt" id="toCutBtn">Darabolási terv készítése</button></div>
+  </section>
+</main>
+
+<main id="tab-works" class="one" hidden>
+  <div class="card"><h2>Korábbi munkák</h2>
+    <div class="row g2"><label>Kategória<select id="wFilter"></select></label><label>Keresés<input id="wSearch" placeholder="név szerint"></label></div>
+    <p class="help">A munkák ezen a készüléken, a böngészőben tárolódnak. Biztonsági mentést fájlba is készíthetsz, és azt egy másik készüléken visszatöltheted.</p>
+    <div class="row g2"><button class="sm" id="expBtn">Biztonsági mentés fájlba</button><label class="sm" style="display:flex;align-items:center;justify-content:center;flex-direction:row;color:var(--ink);font-weight:600;font-size:14px;border-radius:8px;min-height:40px;cursor:pointer">Visszatöltés fájlból<input type="file" id="impFile" accept=".json,application/json" hidden></label></div>
+  </div>
+  <div class="wl" id="wlist"></div>
+</main>
+
+<main id="tab-cart" class="one" hidden>
+  <div class="card status"><div id="pstatus" class="mut"></div><button class="sm" id="priceBtn">Árak frissítése</button></div>
+  <div id="cartBox"></div>
+</main>
+
+<main id="tab-cut" class="two" hidden>
 <section>
   <div class="card"><h2>Beállítások</h2>
     <div class="row g" style="grid-template-columns:1fr 1fr">
@@ -147,6 +183,8 @@ ol{margin:0;padding-left:22px;font-size:14px}ol li{margin:2px 0}
 </section>
 <section id="res" aria-live="polite"></section>
 </main>
+<div class="toast" id="toast" hidden></div>
+<datalist id="hwlist"></datalist>
 
 <script>
 {
@@ -154,7 +192,7 @@ const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
 const COLORS=['#f26b1d','#2f7fd1','#2a9d6a','#c4425b','#8a5cd1','#c9a227','#1d9aa8','#7a6a58'];
 const clone=o=>JSON.parse(JSON.stringify(o));
 const lsGet=(k,d)=>{try{const v=JSON.parse(localStorage.getItem(k));return v&&typeof v==='object'?v:d}catch(e){return d}};
-const lsSet=(k,v)=>{try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}};
+const lsSet=(k,v)=>{try{localStorage.setItem(k,JSON.stringify(v));return true}catch(e){return false}};
 const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const num=v=>{const n=parseFloat(String(v??'').replace(',','.'));return isFinite(n)?n:0};
 const fmt=n=>(Math.round(n*10)/10).toLocaleString('hu-HU');
@@ -164,6 +202,11 @@ const r1=n=>Math.round(n*10)/10, r2=n=>Math.round(n*100)/100;
 const norm=s=>String(s??'').trim().toLowerCase();
 const rad=a=>a*Math.PI/180;
 const off=(a,h)=>a>0?h*Math.tan(rad(a)):0;
+const uid=()=>Math.random().toString(36).slice(2,8)+Date.now().toString(36).slice(-5);
+const ft=n=>fi(n)+' Ft';
+const dstr=ts=>{const d=new Date(ts);return isNaN(d)?String(ts||''):d.toLocaleDateString('hu-HU')};
+let toastT=0;
+function toast(msg){const t=$('#toast');t.textContent=msg;t.hidden=false;clearTimeout(toastT);toastT=setTimeout(()=>t.hidden=true,2600);}
 
 /* ============ DARABOLÓ ============ */
 const DEF={kerf:1.5,trim:0,stocks:[{len:6000,qty:'',mat:''}],pieces:[
@@ -305,247 +348,785 @@ function renderRes(){
 }
 function calc(){save();last=solve();renderRes();}
 
-/* ============ KAPU TERVEZŐ ============ */
-const GDEF={name:'',type:'double',count:1,W:3000,H:1500,gapSide:15,gapMid:10,ov:100,tail:0,ground:100,fw:40,fd:40,infill:'vert',bw:20,bd:20,maxGap:100,sheetT:2,brace:true,bracew:30,braced:30,
-  mode:'uj',gapHinge:60,gapLock:5,wT:'',wM:'',wB:'',post:'zsalu',pw:300,hh:1000,hingeSide:'L',hn:2,hinge:'adj',lock:'portal',handle:'norm',ho:150};
-let g=Object.assign(clone(GDEF),lsGet('femkapu',{}));
-const gSave=()=>lsSet('femkapu',g);
-let gMod=null;
-const lab=(a,b)=>'Zártszelvény '+pl(Math.max(a,b))+'×'+pl(Math.min(a,b));
-const TYPES={single:'Egyszárnyú kapu',double:'Kétszárnyú kapu',wicket:'Kiskapu',slide:'Tolókapu',cant:'Úszó kapu',fence:'Kerítésmező'};
-const POSTS={zsalu:'Zsalukő pillérek között',tegla:'Tégla/beton pillérek között',acel:'Acél oszlopok között'};
-/* Nyílás szélessége. Régi helyére cserénél a legkisebb mért érték számít. */
-function effW(){
-  if(g.type==='wicket'&&g.mode==='csere'){const v=[g.wT,g.wM,g.wB].map(num).filter(x=>x>0);return v.length?Math.min(...v):0;}
-  return num(g.W);
+
+/* ============ ÁRAK ============ */
+const PR={data:null,src:'none'};
+{const c=lsGet('femarak',null);if(c&&c.data&&Array.isArray(c.data.products)){PR.data=c.data;PR.src='offline';}}
+let PIDX=new Map();
+const CATN={zart:'Zártszelvény',lapos:'Laposacél',szog:'Szögacél',lemez:'Vaslemez'};
+function parseDims(p){
+  const n=String(p.name).replace(/,/g,'.');
+  const lm=n.match(/(\d+(?:\.\d+)?)\s*fm/i),len=lm?Math.round(parseFloat(lm[1])*1000):6000;
+  const m=n.match(/(\d+(?:\.\d+)?)\s*x\s*(\d+(?:\.\d+)?)(?:\s*x\s*(\d+(?:\.\d+)?))?/i);
+  if(!m)return null;
+  if(p.cat==='lemez')return m[3]?{t:+m[1],W:+m[2],L:+m[3]}:null;
+  if(p.cat==='lapos')return{a:+m[1],b:+m[2],s:+m[2],len};
+  return{a:+m[1],b:+m[2],s:m[3]?+m[3]:0,len};
+}
+function indexPrices(){PIDX=new Map();(PR.data?.products||[]).forEach(p=>{p.d=parseDims(p);PIDX.set(p.id,p);});}
+indexPrices();
+function catList(cat){return[...PIDX.values()].filter(p=>p.cat===cat&&p.d&&p.unit!=='kg').sort((x,y)=>cat==='lemez'?(x.d.t-y.d.t||x.d.W-y.d.W):(x.d.a-y.d.a||x.d.b-y.d.b||x.d.s-y.d.s));}
+function shortName(p){const d=p.d;if(!d)return p.name;if(p.cat==='lapos')return`${pl(d.a)}×${pl(d.b)}`;return`${pl(d.a)}×${pl(d.b)}×${pl(d.s)}`;}
+function sheetTs(){const s=new Set(catList('lemez').map(p=>p.d.t));[1.5,2,3,4,5].forEach(t=>s.add(t));return[...s].sort((a,b)=>a-b);}
+function resolve(cat,val){
+  const p=PIDX.get(val);if(p&&p.d)return{pid:p.id,name:p.name,d:p.d,cat:p.cat};
+  const str=String(val||'').replace(/,/g,'.'),mm=str.match(/(\d+(?:\.\d+)?)\s*x\s*(\d+(?:\.\d+)?)(?:\s*x\s*(\d+(?:\.\d+)?))?/i);
+  const v=mm?[mm[1],mm[2],mm[3]].filter(Boolean).map(Number):[parseFloat(str)].filter(x=>x>0);
+  if(v.length){const f=catList(cat).find(q=>q.d.a===v[0]&&q.d.b===(v[1]??v[0])&&(cat==='lapos'||v[2]==null||q.d.s===v[2]));if(f)return{pid:f.id,name:f.name,d:f.d,cat};}
+  const a=v[0]||40,b=v[1]||(cat==='lapos'?4:a),s=cat==='lapos'?b:(v[2]||2);
+  return{pid:'',name:`${CATN[cat]||'Profil'} ${pl(a)}x${pl(b)}${cat==='lapos'?'':'x'+pl(s)}`,d:{a,b,s,len:6000},cat};
+}
+function findHw(...kw){const ks=kw.map(k=>norm(k).replace(/\s+/g,''));for(const p of PIDX.values()){if(p.cat!=='vasalat')continue;const n=norm(p.name).replace(/\s+/g,'');if(ks.every(k=>n.includes(k)))return p;}return null;}
+function kgPerM(p){const d=p.d;if(!d)return 0;if(p.cat==='zart')return(2*(d.a+d.b)*d.s-4*d.s*d.s)*7.85e-3;if(p.cat==='lapos')return d.a*d.b*7.85e-3;if(p.cat==='szog')return(d.a+d.b-d.s)*d.s*7.85e-3;return 0;}
+async function loadPrices(manual){
+  let ok=false;
+  if(navigator.onLine!==false){
+    try{
+      const r=await fetch('prices.json',{cache:'no-store'});
+      if(r.ok&&!r.headers.get('x-offline')){const d=await r.json();if(d&&Array.isArray(d.products)&&d.products.length){PR.data=d;PR.src='online';lsSet('femarak',{data:d,at:Date.now()});ok=true;}}
+    }catch(e){}
+  }
+  if(!ok&&PR.data)PR.src='offline';
+  indexPrices();
+  if(manual)toast(ok?'Árak frissítve.':'Nincs internet – a legutolsó ismert árakkal számolok.');
+  fillHwList();renderForm();if(!$('#tab-cart').hidden)renderCart();if(!$('#tab-plan').hidden)renderPanel();
+}
+function priceStatus(){
+  if(!PR.data)return'Nincs még árlista ezen a készüléken. Kapcsolódj az internetre, és nyomd meg az „Árak frissítése” gombot.';
+  const d=new Date(PR.data.updated),ds=isNaN(d)?String(PR.data.updated):d.toLocaleString('hu-HU',{year:'numeric',month:'long',day:'numeric',hour:'2-digit',minute:'2-digit'});
+  return PR.src==='online'?`<b>Online</b> – a Timárvasker jelenleg elérhető árai (árlista frissítve: ${esc(ds)}).`:`<b>Offline</b> – a legutolsó ismert online árakkal számolok (árlista: ${esc(ds)}).`;
 }
 
-function gateModel(){
-  const W=effW(),H=num(g.H),fw=num(g.fw),fd=num(g.fd),cnt=Math.max(1,Math.floor(num(g.count))||1);
-  const gs=Math.max(0,num(g.gapSide)),gm=Math.max(0,num(g.gapMid)),ov=Math.max(0,num(g.ov)),tail=Math.max(0,num(g.tail));
-  let Wl,leaves=1;
-  switch(g.type){
-    case 'single':Wl=W-2*gs;break;
-    case 'wicket':Wl=W-Math.max(0,num(g.gapHinge))-Math.max(0,num(g.gapLock));break;
-    case 'double':Wl=(W-2*gs-gm)/2;leaves=2;break;
-    case 'slide':case 'cant':Wl=W+2*ov+tail;break;
-    default:Wl=W;
-  }
-  const m={leaf:{Wl,H},leaves,cnt,W,pieces:[],hw:[],warn:[],errs:[],fill:{nv:0,nh:0,gv:0,gh:0},sheet:null,brace:null};
-  if(g.type==='wicket'&&g.mode==='csere'&&!(W>0)){m.errs.push('Add meg legalább egy mért szélességet (felül, középen vagy alul).');return m;}
-  if(!(W>0&&H>0&&fw>0&&fd>0)){m.errs.push('Add meg a szélességet, a magasságot és a keret profilját.');return m;}
-  const Wi=Wl-2*fw,Hi=H-2*fw;m.Wi=Wi;m.Hi=Hi;
-  if(Wi<=0||Hi<=0){m.errs.push('A keret profilja túl nagy ehhez a mérethez, vagy a szárny szélessége nulla alá esik.');return m;}
-  const prefix=g.name?g.name.trim()+' – ':'';
-  const mult=leaves*cnt;
-  const add=(name,len,qty,a1,a2,h,shape,mat)=>m.pieces.push({name:prefix+name,len:r1(len),qty:qty*mult,a1:r2(a1),a2:r2(a2),h,shape,mat});
-  const frameMat=lab(fw,fd);
-  add('Keret felső/alsó',Wl,2,45,45,fw,'T',frameMat);
-  add('Keret függőleges',H,2,45,45,fw,'T',frameMat);
+/* ============ TERV ÉS MENTÉS ============ */
+let works=lsGet('femmunkak',[]);if(!Array.isArray(works))works=[];
+const saveWorks=()=>{if(!lsSet('femmunkak',works))toast('Nem sikerült menteni: megtelt a böngésző tárhelye.');};
+let plan=lsGet('femterv',null);
+const savePlan=()=>{plan.updated=Date.now();lsSet('femterv',plan);};
 
-  const bw=num(g.bw),bd=num(g.bd),mg=Math.max(1,num(g.maxGap));
-  const nBars=L=>Math.max(0,Math.ceil((L-mg)/(bw+mg)));
-  const f=m.fill;
-  if(['vert','horiz','grid'].includes(g.infill)){
-    if(!(bw>0&&bd>0)){m.errs.push('Add meg a kitöltő rudak profilját.');return m;}
-    const barMat=lab(bw,bd);
-    if(g.infill==='vert'||g.infill==='grid')f.nv=nBars(Wi);
-    if(g.infill==='horiz'||g.infill==='grid')f.nh=nBars(Hi);
-    f.gv=f.nv?(Wi-f.nv*bw)/(f.nv+1):0;f.gh=f.nh?(Hi-f.nh*bw)/(f.nh+1):0;
-    if(g.infill==='vert'&&f.nv)add('Kitöltő rúd függőleges',Hi,f.nv,0,0,bw,'T',barMat);
-    if(g.infill==='horiz'&&f.nh)add('Kitöltő rúd vízszintes',Wi,f.nh,0,0,bw,'T',barMat);
-    if(g.infill==='grid'){
-      const ch=f.gh;
-      if(f.nh&&ch<=0){m.errs.push('A rács vízszintes rudai nem férnek el a keretben.');return m;}
-      if(f.nh)add('Rács vízszintes rúd',Wi,f.nh,0,0,bw,'T',barMat);
-      if(f.nv)add('Rács függőleges szakasz',ch,f.nv*(f.nh+1),0,0,bw,'T',barMat);
-    }
-    if((f.nv&&f.gv<=0)||(f.nh&&f.gh<=0))m.errs.push('A rudak nem férnek el a keretben.');
-  }else if(g.infill==='sheet'){
-    m.sheet={w:r1(Wi),h:r1(Hi),t:num(g.sheetT),qty:mult};
-  }
-  if(m.errs.length)return m;
-
-  if(g.brace){
-    const t=num(g.bracew),td=num(g.braced),R=Math.hypot(Wi,Hi);
-    if(!(t>0&&td>0)||t>=R*0.5){m.warn.push('A merevítő profilja nem adható meg ehhez a mérethez, kihagytam.');}
-    else{
-      const th=Math.atan2(Hi,Wi)+Math.asin(t/R);
-      if(t/Math.sin(th)>=Wi){m.warn.push('A merevítő nem fér el a keretben, kihagytam.');}
-      else{
-        const len=Hi/Math.sin(th),a=90-th*180/Math.PI;
-        m.brace={th,t,len,a};
-        if(Wl>2.5*H)m.warn.push('Hosszú szárnynál egyetlen átlós merevítő kevés lehet. Érdemes a szárnyat több mezőre osztani, a mezőket a Kerítésmező típussal külön is megtervezheted.');
-        add('Merevítő (átlós)',len,1,a,a,t,'P',lab(t,td));
-      }
-    }
-  }
-  if(g.type==='wicket'){
-    const hn=Math.max(1,Math.floor(num(g.hn))||2),side=g.hingeSide==='R'?'jobb':'bal';
-    m.hw.push({name:'Zsanér – '+(g.hinge==='weld'?'hegeszthető':'állítható, csavaros talppal'),note:side+' oldalon',qty:hn*cnt});
-    if(g.lock==='portal')m.hw.push({name:'Portálzár',note:'',qty:cnt});
-    else if(g.lock==='box')m.hw.push({name:'Zárláda zárbetéttel',note:'',qty:cnt});
-    if(g.handle==='norm')m.hw.push({name:'Kilincs',note:'',qty:cnt});
-    else if(g.handle==='off')m.hw.push({name:'Kilincs – eltolt',note:fi(Math.max(0,num(g.ho)))+' mm-re a zár oldali éltől',qty:cnt});
-  }
-  return m;
+/* Elem (rúd) geometria: középvonal két végpontja, szélesség a rajz síkjában,
+   végenként vágásszög (a, 0 = egyenes) és hogy a hosszabb oldal melyik oldalon van (k = ±1). */
+function axis(m){const L=Math.hypot(m.x2-m.x1,m.y2-m.y1)||1;return{L,ux:(m.x2-m.x1)/L,uy:(m.y2-m.y1)/L};}
+function mPoly(m){
+  const{ux,uy}=axis(m),nx=-uy,ny=ux,h=m.w/2,t1=h*Math.tan(rad(m.a1))*m.k1,t2=h*Math.tan(rad(m.a2))*m.k2;
+  return[[m.x1+nx*h-ux*t1,m.y1+ny*h-uy*t1],[m.x2+nx*h+ux*t2,m.y2+ny*h+uy*t2],[m.x2-nx*h-ux*t2,m.y2-ny*h-uy*t2],[m.x1-nx*h+ux*t1,m.y1-ny*h+uy*t1]];
+}
+function mLen(m){const h=m.w/2;return Math.hypot(m.x2-m.x1,m.y2-m.y1)+Math.abs(h*Math.tan(rad(m.a1))*m.k1+h*Math.tan(rad(m.a2))*m.k2);}
+function mShape(m){return m.a1>0&&m.a2>0&&m.k1!==m.k2?'P':'T';}
+/* A vég vágása egy adott irányú egyenes mentén (dx,dy): ebből jön a szög és az oldal. */
+function cutTo(m,end,dx,dy){
+  const{ux,uy}=axis(m),du=dx*ux+dy*uy,dn=-dx*uy+dy*ux;
+  if(Math.abs(dn)<1e-9)return;
+  const r=du/dn,a=Math.min(80,Math.atan(Math.abs(r))*180/Math.PI),sg=Math.abs(r)<1e-9?1:Math.sign(r);
+  if(end===1){m.a1=r2(a);m.k1=a?-sg:1;}else{m.a2=r2(a);m.k2=a?sg:1;}
 }
 
-function gateSVG(m,Wpx){
-  const W=m.W,H=num(g.H),fw=num(g.fw),gr=Math.max(0,num(g.ground)),wk=g.type==='wicket',pw=wk?Math.max(50,num(g.pw)||300):100;
-  const Wl=m.leaf.Wl,gs=Math.max(0,num(g.gapSide)),gm=Math.max(0,num(g.gapMid)),ov=Math.max(0,num(g.ov)),tail=Math.max(0,num(g.tail));
-  let xs=[0],xL=0,xR=W;
-  if(g.type==='single')xs=[gs];
-  else if(wk)xs=[g.hingeSide==='R'?Math.max(0,num(g.gapLock)):Math.max(0,num(g.gapHinge))];
-  else if(g.type==='double')xs=[gs,gs+Wl+gm];
-  else if(g.type==='slide'||g.type==='cant'){xs=[0];xL=tail+ov;xR=tail+ov+W;}
-  const minX=Math.min(xL-pw,...xs),maxX=Math.max(xR+pw,...xs.map(x=>x+Wl));
-  const top=gr+H+100,ml=58,mr=14,mt=14,mb=84;
-  const s=(Wpx-ml-mr)/(maxX-minX);
-  const X=x=>r1(ml+(x-minX)*s),Y=y=>r1(mt+(top-y)*s);
-  const pts=a=>a.map(p=>X(p[0])+','+Y(p[1])).join(' ');
-  const Ht=Math.ceil(mt+top*s+mb);
-  let o='';
-  o+=`<rect x="${ml-8}" y="${Y(0)}" width="${Wpx-ml-mr+8}" height="6" fill="var(--steel)"/>`;
-  o+=`<rect x="${X(xL-pw)}" y="${Y(top)}" width="${r1(pw*s)}" height="${r1(top*s)}" fill="var(--post)"/>`;
-  o+=`<rect x="${X(xR)}" y="${Y(top)}" width="${r1(pw*s)}" height="${r1(top*s)}" fill="var(--post)"/>`;
-  if(wk&&g.post==='zsalu'){for(let y=250;y<top;y+=250){const yy=Y(y);o+=`<path d="M${X(xL-pw)} ${yy}h${r1(pw*s)}M${X(xR)} ${yy}h${r1(pw*s)}" stroke="var(--bg)" stroke-opacity=".45" stroke-width="1"/>`;}}
-  const yT=gr+H,f=m.fill,bw=num(g.bw);
-  xs.forEach(x0=>{
-    const ix=x0+fw,iy=gr+fw,Wi=m.Wi,Hi=m.Hi;
-    if(g.infill==='sheet')o+=`<rect x="${X(ix)}" y="${Y(iy+Hi)}" width="${r1(Wi*s)}" height="${r1(Hi*s)}" fill="var(--sheet)" stroke="var(--frame)"/>`;
-    for(let k=1;k<=f.nv;k++){const bx=ix+f.gv*k+bw*(k-1);o+=`<rect x="${X(bx)}" y="${Y(iy+Hi)}" width="${r1(Math.max(1,bw*s))}" height="${r1(Hi*s)}" fill="var(--bar)"/>`;}
-    for(let k=1;k<=f.nh;k++){const by=iy+f.gh*k+bw*(k-1);o+=`<rect x="${X(ix)}" y="${Y(by+bw)}" width="${r1(Wi*s)}" height="${r1(Math.max(1,bw*s))}" fill="var(--bar)"/>`;}
-    if(m.brace){const{th,t}=m.brace,d=t/Math.sin(th);
-      o+=`<polygon points="${pts([[ix,iy],[ix+d,iy],[ix+Wi,iy+Hi],[ix+Wi-d,iy+Hi]])}" fill="var(--acc)" fill-opacity=".92"/>`;}
-    const fr=[[[x0,yT],[x0+Wl,yT],[x0+Wl-fw,yT-fw],[x0+fw,yT-fw]],
-              [[x0,yT],[x0+fw,yT-fw],[x0+fw,gr+fw],[x0,gr]],
-              [[x0,gr],[x0+fw,gr+fw],[x0+Wl-fw,gr+fw],[x0+Wl,gr]],
-              [[x0+Wl,yT],[x0+Wl,gr],[x0+Wl-fw,gr+fw],[x0+Wl-fw,yT-fw]]];
-    fr.forEach(p=>{o+=`<polygon points="${pts(p)}" fill="var(--frame)" stroke="var(--card)" stroke-width="1.2" stroke-linejoin="round"/>`;});
+/* ============ GENERÁTOROK ============ */
+function G(){
+  const g={M:[],R:[],X:[],HW:[],errs:[],warn:[],info:[]};
+  g.bar=(x1,y1,x2,y2,res,name,o={})=>{const m={id:uid(),x1:r1(x1),y1:r1(y1),x2:r1(x2),y2:r1(y2),w:o.w??res.d.a,pid:res.pid,mat:res.name,cat:res.cat,a1:0,k1:1,a2:0,k2:1,qty:o.qty??1,name};g.M.push(m);return m;};
+  g.rect=(x,y,w,h,o={})=>{const r={id:uid(),x:r1(x),y:r1(y),w:r1(w),h:r1(h),role:o.role||'ref',name:o.name||'',t:o.t||0,qty:o.qty??1,cw:r1(o.cw??w),ch:r1(o.ch??h)};g.R.push(r);return r;};
+  g.text=(x,y,s)=>g.X.push({x,y,s});
+  g.hw=(name,prod,qty,note)=>{if(qty>0)g.HW.push({id:uid(),name:prod?prod.name:name,pid:prod?prod.id:'',qty,note:note||''});};
+  return g;
+}
+function frame(g,x,y,W,H,res,corner,qty,label='Keret'){
+  const w=res.d.a,h=w/2;
+  if(corner==='tompa'){
+    g.bar(x+h,y,x+h,y+H,res,label+' függőleges',{qty});g.bar(x+W-h,y,x+W-h,y+H,res,label+' függőleges',{qty});
+    g.bar(x+w,y+h,x+W-w,y+h,res,label+' vízszintes',{qty});g.bar(x+w,y+H-h,x+W-w,y+H-h,res,label+' vízszintes',{qty});
+  }else{
+    const c=[[x+h,y+h],[x+W-h,y+h],[x+W-h,y+H-h],[x+h,y+H-h]],o=[[x,y],[x+W,y],[x+W,y+H],[x,y+H]];
+    [[0,1,'vízszintes'],[3,2,'vízszintes'],[0,3,'függőleges'],[1,2,'függőleges']].forEach(([i,j,nm])=>{
+      const m=g.bar(c[i][0],c[i][1],c[j][0],c[j][1],res,label+' '+nm,{qty});
+      cutTo(m,1,c[i][0]-o[i][0],c[i][1]-o[i][1]);cutTo(m,2,c[j][0]-o[j][0],c[j][1]-o[j][1]);
+    });
+  }
+  return{ix:x+w,iy:y+w,Wi:W-2*w,Hi:H-2*w};
+}
+function brace(g,b,res,qty){
+  const{ix,iy,Wi,Hi}=b,t=res.d.a,R=Math.hypot(Wi,Hi);
+  if(t>=R*0.5){g.warn.push('A merevítő profilja túl nagy ehhez a mérethez, kihagytam.');return;}
+  const th=Math.atan2(Hi,Wi)+Math.asin(t/R),d=t/Math.sin(th);
+  if(d>=Wi){g.warn.push('A merevítő nem fér el a keretben, kihagytam.');return;}
+  const m=g.bar(ix+d/2,iy,ix+Wi-d/2,iy+Hi,res,'Merevítő (átlós)',{qty});cutTo(m,1,1,0);cutTo(m,2,1,0);
+  if(Wi>2.5*Hi)g.warn.push('Hosszú szárnynál egyetlen átlós merevítő kevés lehet. Érdemes közbenső függőleges merevítőt is rajzolni.');
+}
+function fill(g,A,b,qty){
+  const{ix,iy,Wi,Hi}=b;
+  if(A.infill==='sheet'){const t=num(A.sp)||2;g.rect(ix,iy,Wi,Hi,{role:'sheet',t,name:'Lemez betét',qty});return;}
+  if(!['vert','horiz','grid'].includes(A.infill))return;
+  const B=resolve('zart',A.bp),bw=B.d.a,mg=Math.max(1,num(A.maxGap)),nB=L=>Math.max(0,Math.ceil((L-mg)/(bw+mg)));
+  const nv=A.infill!=='horiz'?nB(Wi):0,nh=A.infill!=='vert'?nB(Hi):0,gv=nv?(Wi-nv*bw)/(nv+1):0,gh=nh?(Hi-nh*bw)/(nh+1):0;
+  if((nv&&gv<=0)||(nh&&gh<=0)){g.errs.push('A kitöltő rudak nem férnek el a keretben.');return;}
+  for(let k=1;k<=nh;k++){const y=iy+gh*k+bw*(k-1)+bw/2;g.bar(ix,y,ix+Wi,y,B,'Kitöltő rúd vízszintes',{qty});}
+  for(let k=1;k<=nv;k++){const x=ix+gv*k+bw*(k-1)+bw/2;
+    if(A.infill==='vert')g.bar(x,iy,x,iy+Hi,B,'Kitöltő rúd függőleges',{qty});
+    else for(let j=0;j<=nh;j++){const y0=iy+j*(gh+bw);g.bar(x,y0,x,y0+gh,B,'Rács függőleges szakasz',{qty});}
+  }
+  if(nv)g.info.push(`${nv} függőleges rúd, rés ${pl(gv)} mm`);if(nh)g.info.push(`${nh} vízszintes rúd, rés ${pl(gh)} mm`);
+}
+const cnt=A=>Math.max(1,Math.floor(num(A.count))||1);
+const nn=v=>Math.max(0,num(v));
+
+function genGate(A){
+  const g=G(),F=resolve('zart',A.fp),fw=F.d.a,W=num(A.W),H=num(A.H),gr=nn(A.ground),c=cnt(A);
+  const gs=nn(A.gapSide),gm=nn(A.gapMid),ov=nn(A.ov),tail=nn(A.tail),swing=A.type==='single'||A.type==='double';
+  let Wl,leaves=1,xs,xL=0,xR=W;
+  if(A.type==='single'){Wl=W-2*gs;xs=[gs];}
+  else if(A.type==='double'){Wl=(W-2*gs-gm)/2;leaves=2;xs=[gs,gs+Wl+gm];}
+  else{Wl=W+2*ov+tail;xs=[0];xL=tail+ov;xR=xL+W;}
+  if(!(W>0&&H>0)){g.errs.push('Add meg a nyílás szélességét és a magasságot.');return g;}
+  if(Wl-2*fw<=0||H-2*fw<=0){g.errs.push('A keret profilja túl nagy ehhez a mérethez.');return g;}
+  const top=gr+H+100;
+  if(A.posts){const P=resolve('zart',A.pp),pw=P.d.a,e=nn(A.embed);
+    g.bar(xL-pw/2,-e,xL-pw/2,top,P,'Oszlop',{qty:c});g.bar(xR+pw/2,-e,xR+pw/2,top,P,'Oszlop',{qty:c});
+    if(A.type==='cant'||A.type==='slide')g.info.push('Toló- és úszókapunál az oszlop a nyílás két szélén áll.');
+  }else{g.rect(xL-100,0,100,top,{role:'ref',name:'Oszlop (meglévő)'});g.rect(xR,0,100,top,{role:'ref',name:'Oszlop (meglévő)'});}
+  xs.forEach(x0=>{const b=frame(g,x0,gr,Wl,H,F,A.corner,c);if(A.brace)brace(g,b,resolve('zart',A.brp),c);fill(g,A,b,c);});
+  g.text(xs[0]+Wl/2,gr+H+60,(leaves===2?'2 szárny, egyenként ':'Szárny ')+fi(Wl)+' × '+fi(H)+' mm');
+  if(swing){
+    g.hw('Forgáspont (zsanér)',findHw('állítható forgáspont','anyás','m20'),2*leaves*c);
+    if(A.type==='double'){g.hw('Ütközőbak kétszárnyú kapuhoz',findHw('kétszárnyú','ütközőbak'),c);g.hw('Tolózár (lefogató)',findHw('tolózár','500'),c);}
+    if(A.lock==='portal'){g.hw('Portálzár',findHw('portálzár','váltós','4cm'),c);g.hw('Kilincs',findHw('ajtókilincs','f2','portál'),c);if(fw===40)g.hw('Zártok',findHw('zártok','40x40'),c);}
+  }else if(A.type==='slide'){
+    g.hw('Görgő',findHw('alsó villás','78'),2*c);g.hw('Felső vezető görgő',findHw('felső vezető görgőpár'),c);g.hw('Ütközőbak',findHw('tolókapuhoz','hegeszthető','ütközőbak'),c);
+  }else{
+    g.hw('Úszókapu görgős kocsi (szett)',null,2*c);g.hw('Felső vezető görgő',findHw('felső vezető görgőpár'),c);g.hw('Végállás ütköző',findHw('végállás','ütköző'),c);
+  }
+  return g;
+}
+function genWicket(A){
+  const g=G(),F=resolve('zart',A.fp),fw=F.d.a,H=num(A.H),gr=nn(A.ground),c=cnt(A);
+  let W=num(A.W);if(A.mode==='csere'){const v=[A.wT,A.wM,A.wB].map(num).filter(x=>x>0);W=v.length?Math.min(...v):0;}
+  if(!(W>0&&H>0)){g.errs.push(A.mode==='csere'?'Add meg legalább egy mért szélességet.':'Add meg a nyílás szélességét és a magasságot.');return g;}
+  const gh=nn(A.gapHinge),gl=nn(A.gapLock),Wl=W-gh-gl,hR=A.hingeSide==='R',x0=hR?gl:gh;
+  if(Wl-2*fw<=0||H-2*fw<=0){g.errs.push('A szárny túl keskeny ehhez a kerethez.');return g;}
+  const pw=Math.max(50,num(A.pw)||300),top=gr+H+100;
+  g.rect(-pw,0,pw,top,{role:'ref',name:'Pillér'});g.rect(W,0,pw,top,{role:'ref',name:'Pillér'});
+  const b=frame(g,x0,gr,Wl,H,F,A.corner,c);if(A.brace)brace(g,b,resolve('zart',A.brp),c);fill(g,A,b,c);
+  const n=Math.max(1,Math.floor(num(A.hn))||2),ins=Math.min(150,H/4);
+  for(let k=0;k<n;k++){const yc=n===1?gr+H/2:gr+ins+(H-2*ins)*k/(n-1);g.rect(hR?x0+Wl-20:0,yc-50,hR?W-(x0+Wl-20):x0+20,100,{role:'mark',name:'Zsanér'});}
+  const le=hR?x0:x0+Wl,yh=gr+Math.min(Math.max(num(A.hh)||1000,100),Math.max(100,H-100));
+  if(A.lock!=='none'){const lw=A.lock==='portal'?70:45,lh=A.lock==='portal'?150:110;g.rect(hR?le:le-lw,yh-lh/2,lw,lh,{role:'mark',name:A.lock==='portal'?'Portálzár':'Zárláda'});}
+  g.text(x0+Wl/2,gr+H+60,'Kiskapu '+fi(Wl)+' × '+fi(H)+' mm'+(A.mode==='csere'?' (nyílás '+fi(W)+' mm, a legkisebb mért érték)':''));
+  const hp=A.hinge==='weld'?findHw('diópánt','120mm'):A.post==='acel'?findHw('állítható forgáspont','anyás','m16'):findHw('rögzítőlemezes forgáspont');
+  g.hw('Zsanér',hp,n*c,(hR?'jobb':'bal')+' oldalon');
+  if(A.lock==='portal'){g.hw('Portálzár',findHw('portálzár','váltós','4cm'),c);if(fw===40)g.hw('Zártok',findHw('zártok','40x40'),c);}
+  else if(A.lock==='box')g.hw('Zárláda zárbetéttel',findHw('kertajtózár'),c);
+  if(A.handle!=='none')g.hw('Kilincs',findHw('ajtókilincs','f2','portál'),c,A.handle==='off'?'eltolt, '+fi(nn(A.ho))+' mm-re a zár oldali éltől':'');
+  return g;
+}
+function genFence(A){
+  const g=G(),F=resolve('zart',A.fp),W=num(A.W),H=num(A.H),gr=nn(A.ground),c=cnt(A);
+  if(!(W>0&&H>0)){g.errs.push('Add meg a mező szélességét és magasságát.');return g;}
+  if(W-2*F.d.a<=0||H-2*F.d.a<=0){g.errs.push('A keret profilja túl nagy ehhez a mérethez.');return g;}
+  const b=frame(g,0,gr,W,H,F,A.corner,c);if(A.brace)brace(g,b,resolve('zart',A.brp),c);fill(g,A,b,c);
+  if(A.posts){const P=resolve('zart',A.pp),pw=P.d.a,gp=nn(A.gapPost),e=nn(A.embed),t=gr+H+nn(A.above);
+    g.bar(-gp-pw/2,-e,-gp-pw/2,t,P,'Oszlop',{qty:c+1});g.bar(W+gp+pw/2,-e,W+gp+pw/2,t,P,'Oszlop (a következő mező oszlopa)',{qty:0});
+    g.hw('Oszlopsapka',findHw('oszlopsapka',`${P.d.a}x${P.d.b}`)||findHw('dugó',`${P.d.a}x${P.d.b}`),c+1);
+    g.info.push(`${c} mezőhöz ${c+1} oszlop kell; a jobb oldali oszlop csak a rajzon látszik, a darabszám a bal oldalinál van.`);
+  }
+  g.text(W/2,gr+H+60,`Mező ${fi(W)} × ${fi(H)} mm${c>1?', '+c+' db':''}`);
+  return g;
+}
+function genRail(A){
+  const g=G(),L=num(A.L),H=num(A.H),s=Math.min(45,nn(A.slope)),t=Math.tan(rad(s)),cs=Math.cos(rad(s));
+  if(!(L>0&&H>0)){g.errs.push('Add meg a korlát hosszát és magasságát.');return g;}
+  const P=resolve('zart',A.pp),pw=P.d.a,R=resolve('zart',A.rp),rw=R.d.a,B=resolve('zart',A.bp),bw=B.d.a,B2=resolve('zart',A.b2p),b2w=B2.d.a;
+  const np=Math.max(2,Math.ceil((L-pw)/Math.max(200,num(A.maxPost)))+1),xs=Array.from({length:np},(_,i)=>pw/2+i*(L-pw)/(np-1));
+  const e=A.mount==='beton'?nn(A.embed):0,rb=x=>x*t+H-rw/cs,bh=nn(A.bh),mg=Math.max(1,num(A.maxGap));
+  xs.forEach(x=>{const m=g.bar(x,x*t-e,x,rb(x),P,'Oszlop');cutTo(m,1,1,0);cutTo(m,2,1,t);});
+  const top=g.bar(0,H-rw/(2*cs),L,L*t+H-rw/(2*cs),R,'Kapaszkodó');cutTo(top,1,0,1);cutTo(top,2,0,1);
+  for(let i=0;i<np-1;i++){
+    const xa=xs[i]+pw/2,xb=xs[i+1]-pw/2,Ws=xb-xa;
+    let y0=x=>x*t+bh;
+    if(A.bottom){const yb=x=>x*t+bh+b2w/(2*cs),m=g.bar(xa,yb(xa),xb,yb(xb),B2,'Alsó rúd');cutTo(m,1,0,1);cutTo(m,2,0,1);y0=x=>x*t+bh+b2w/cs;}
+    const n=Math.max(0,Math.ceil((Ws-mg)/(bw+mg))),gp=n?(Ws-n*bw)/(n+1):0;
+    for(let k=1;k<=n;k++){const x=xa+gp*k+bw*(k-1)+bw/2,m=g.bar(x,y0(x),x,rb(x),B,'Pálca');cutTo(m,1,1,t);cutTo(m,2,1,t);}
+    if(i===0&&n)g.info.push(`mezőnként ${n} pálca, rés ${pl(gp)} mm`);
+  }
+  g.info.push(`${np} oszlop, ${pl(s)}° lejtés`);
+  if(A.mount==='talp')g.hw('Talplemez oszlophoz',findHw('talplemez'),np);
+  else if(A.mount==='oldal')g.hw('Oldalsó rögzítő konzol',null,np);
+  g.text(L/2,L*t/2+H+80,`Korlát ${fi(L)} mm, ${fi(H)} mm magas`);
+  return g;
+}
+function genGrille(A){
+  const g=G(),W=num(A.W),H=num(A.H),c=cnt(A);
+  if(!(W>0&&H>0)){g.errs.push('Add meg az ablak szélességét és magasságát.');return g;}
+  let b={ix:0,iy:0,Wi:W,Hi:H};
+  if(A.frame)b=frame(g,0,0,W,H,resolve('zart',A.fp),'ger',c);
+  fill(g,{infill:A.dir,bp:A.bp,maxGap:A.maxGap},b,c);
+  const C=resolve('lapos',A.cp),nc=Math.max(0,Math.floor(num(A.cross)));
+  for(let k=1;k<=nc;k++){const y=b.iy+b.Hi*k/(nc+1);g.bar(b.ix,y,b.ix+b.Wi,y,C,'Összekötő laposvas',{qty:c});}
+  const T=resolve('lapos',A.tp),nt=Math.max(0,Math.floor(num(A.tabs))),tl=nn(A.tl)||80;
+  for(let k=1;k<=nt;k++){const y=H*k/(nt+1);g.bar(-tl,y,0,y,T,'Rögzítőfül',{qty:c});g.bar(W,y,W+tl,y,T,'Rögzítőfül',{qty:c});}
+  g.text(W/2,H+60,`Ablakrács ${fi(W)} × ${fi(H)} mm`);
+  return g;
+}
+function genTable(A){
+  const g=G(),L=num(A.L),D=num(A.D),H=num(A.H),c=cnt(A);
+  if(!(L>0&&D>0&&H>0)){g.errs.push('Add meg a hosszt, a mélységet és a magasságot.');return g;}
+  const Lg=resolve('zart',A.lp),lw=Lg.d.a,Ap=resolve('zart',A.ap),aw=Ap.d.a,sh=nn(A.sh),xs=L+500;
+  g.bar(lw/2,0,lw/2,H,Lg,'Láb',{qty:2*c});g.bar(L-lw/2,0,L-lw/2,H,Lg,'Láb',{qty:2*c});
+  g.bar(lw,H-aw/2,L-lw,H-aw/2,Ap,'Keret hosszanti',{qty:2*c});
+  if(A.stretch!=='nincs')g.bar(lw,sh+aw/2,L-lw,sh+aw/2,Ap,'Alsó merevítő hosszanti',{qty:(A.stretch==='hossz'?1:2)*c});
+  g.bar(xs+lw/2,0,xs+lw/2,H,Lg,'Láb (oldalnézet)',{qty:0});g.bar(xs+D-lw/2,0,xs+D-lw/2,H,Lg,'Láb (oldalnézet)',{qty:0});
+  g.bar(xs+lw,H-aw/2,xs+D-lw,H-aw/2,Ap,'Keret keresztirányú',{qty:2*c});
+  if(A.stretch==='korbe')g.bar(xs+lw,sh+aw/2,xs+D-lw,sh+aw/2,Ap,'Alsó merevítő keresztirányú',{qty:2*c});
+  if(A.top)g.rect(0,H,L,Math.max(8,num(A.tp)),{role:'sheet',t:num(A.tp)||3,name:'Asztallap',cw:L,ch:D,qty:c});
+  g.text(L/2,H+90,'Elölnézet');g.text(xs+D/2,H+90,'Oldalnézet');
+  g.info.push('Az oldalnézet lábai csak a rajzon látszanak (darabszám 0), a lábak darabszáma az elölnézetnél van.');
+  if(A.feet)g.hw('Talpdugó a lábakra',findHw('dugó',`${Lg.d.a}x${Lg.d.b}`),4*c);
+  return g;
+}
+function genShelf(A){
+  const g=G(),W=num(A.W),D=num(A.D),H=num(A.H),n=Math.max(1,Math.floor(num(A.n))||1),c=cnt(A);
+  if(!(W>0&&D>0&&H>0)){g.errs.push('Add meg a szélességet, a mélységet és a magasságot.');return g;}
+  const U=resolve('zart',A.up),uw=U.d.a,B=resolve('zart',A.bp),bw=B.d.a,xs=W+500,y0=nn(A.bottom);
+  const ys=Array.from({length:n},(_,i)=>n===1?H-bw/2:y0+bw/2+(H-y0-bw)*i/(n-1));
+  g.bar(uw/2,0,uw/2,H,U,'Oszlop',{qty:2*c});g.bar(W-uw/2,0,W-uw/2,H,U,'Oszlop',{qty:2*c});
+  g.bar(xs+uw/2,0,xs+uw/2,H,U,'Oszlop (oldalnézet)',{qty:0});g.bar(xs+D-uw/2,0,xs+D-uw/2,H,U,'Oszlop (oldalnézet)',{qty:0});
+  ys.forEach(y=>{g.bar(uw,y,W-uw,y,B,'Polctartó hosszanti',{qty:2*c});g.bar(xs+uw,y,xs+D-uw,y,B,'Polctartó keresztirányú',{qty:2*c});
+    if(A.sheets)g.rect(uw,y+bw/2,W-2*uw,Math.max(6,num(A.sp)),{role:'sheet',t:num(A.sp)||1.5,name:'Polclap',cw:W,ch:D,qty:c});});
+  g.text(W/2,H+90,'Elölnézet');g.text(xs+D/2,H+90,'Oldalnézet');
+  g.hw('Talpdugó',findHw('dugó',`${U.d.a}x${U.d.b}`),4*c);
+  return g;
+}
+function genFree(A){const g=G(),P=resolve('zart',A.dp);g.bar(0,0,1000,0,P,'Rúd');g.text(500,150,'Rajzolj a „+ Rúd” gombbal');return g;}
+
+/* Kérdések */
+const N=(k,l,d,o={})=>({t:'num',k,l,d,...o}),S=(k,l,o,d,x={})=>({t:'sel',k,l,o,d,...x}),C=(k,l,d,x={})=>({t:'chk',k,l,d,...x}),
+  P=(k,l,c,d,x={})=>({t:'prof',k,l,c,d,...x}),H=l=>({t:'h',l}),T=(l,x={})=>({t:'p',l,...x}),TX=(k,l,d='',x={})=>({t:'txt',k,l,d,...x});
+const isBars=a=>['vert','horiz','grid'].includes(a.infill);
+const FILL=d=>[H('Kitöltés'),S('infill','Jelleg',[['vert','Függőleges rudak'],['horiz','Vízszintes rudak'],['grid','Rács (függőleges és vízszintes)'],['sheet','Lemez'],['none','Üres keret']],d),
+  P('bp','Rúd profilja','zart','20x20x1.5',{show:isBars}),N('maxGap','Legnagyobb rés a rudak között (mm)',100,{show:isBars}),P('sp','Lemez vastagsága','lemez','2',{show:a=>a.infill==='sheet'})];
+const BRACE=d=>[C('brace','Átlós merevítő a keretben',d),P('brp','Merevítő profilja','zart','30x30x2',{show:a=>a.brace})];
+const CORNER=S('corner','Sarokkötés',[['ger','45°-os gérvágás'],['tompa','Tompa (egyenes vágás)']],'ger');
+const swing=a=>a.type==='single'||a.type==='double',slide=a=>a.type==='slide'||a.type==='cant';
+const CATS={
+  kapu:{n:'Kapu',d:'Egy- és kétszárnyú, toló- és úszókapu',gen:genGate,area:a=>num(a.W)*num(a.H)*cnt(a),
+    q:[TX('name','Megnevezés'),S('type','Típus',[['single','Egyszárnyú'],['double','Kétszárnyú'],['slide','Tolókapu'],['cant','Úszó (konzolos) kapu']],'double'),N('count','Darabszám',1),
+      N('W','Nyílás szélessége az oszlopok között (mm)',3000),N('H','Magasság, keret külső (mm)',1500),N('ground','Talaj fölötti rés (mm)',100),
+      N('gapSide','Hézag szárnyanként az oszlopnál (mm)',15,{show:swing}),N('gapMid','Középrés (mm)',10,{show:a=>a.type==='double'}),
+      N('ov','Átfedés oldalanként (mm)',100,{show:slide}),N('tail','Farok a nyíláson túl (mm)',0,{show:slide}),
+      T('A szárny szélessége = nyílás − hézagok.',{show:swing}),T('A szárny szélessége = nyílás + átfedés mindkét oldalon + farok. Úszókapunál a farok általában a nyílás fele.',{show:slide}),
+      H('Keret'),P('fp','Keret profilja','zart','40x40x2'),CORNER,...FILL('vert'),...BRACE(true),
+      H('Oszlopok és vasalat'),C('posts','Az oszlopokat is én gyártom',false),P('pp','Oszlop profilja','zart','80x80x3',{show:a=>a.posts}),N('embed','Betonba kerülő rész (mm)',600,{show:a=>a.posts}),
+      S('lock','Zár',[['portal','Portálzár kilinccsel'],['none','Nincs']],'portal',{show:swing})],
+    onChange:(a,k)=>{if(k==='type'){if(a.type==='cant'&&!(num(a.tail)>0))a.tail=Math.round(num(a.W)*0.5/10)*10;if(a.type==='slide')a.tail=0;}}},
+  kiskapu:{n:'Kiskapu',d:'Gyalogajtó pillérek vagy oszlopok közé',gen:genWicket,area:a=>(a.mode==='csere'?Math.min(...[a.wT,a.wM,a.wB].map(num).filter(x=>x>0),99999):num(a.W))*num(a.H)*cnt(a),
+    q:[TX('name','Megnevezés'),N('count','Darabszám',1),S('mode','Kivitelezés',[['uj','Új építés'],['csere','Régi helyére csere (felmérés)']],'uj'),
+      N('W','Nyílás szélessége a pillérek között (mm)',1000,{show:a=>a.mode!=='csere'}),
+      N('wT','Szélesség felül (mm)','',{show:a=>a.mode==='csere'}),N('wM','Szélesség középen (mm)','',{show:a=>a.mode==='csere'}),N('wB','Szélesség alul (mm)','',{show:a=>a.mode==='csere'}),
+      T('A régi pillérek gyakran ferdék, ezért mérj több magasságban. A program a legkisebb mért értékkel számol.',{show:a=>a.mode==='csere'}),
+      N('H','Magasság, keret külső (mm)',1500),N('ground','Talaj fölötti rés (mm)',100),
+      S('post','Hová kerül',[['zsalu','Zsalukő pillérek közé'],['tegla','Tégla / beton pillérek közé'],['acel','Acél oszlopok közé']],'zsalu'),N('pw','Pillér szélessége (mm)',300),
+      H('Zsanér és zár'),S('hingeSide','Zsanér oldala (a rajz szerint)',[['L','Bal'],['R','Jobb']],'L'),N('hn','Zsanérok száma',2),
+      S('hinge','Zsanér típusa',[['adj','Állítható, csavaros talppal'],['weld','Hegeszthető']],'adj'),
+      N('gapHinge','Zsanér oldali levonás (mm)',60),N('gapLock','Zár oldali hézag (mm)',5),
+      T('A zsanér oldali levonás a zsanér és a hézag együtt (16-os állítható talpnál kb. 60 mm). Hegeszthető zsanérnál írd át a saját mérted szerint.'),
+      S('lock','Zár',[['portal','Portálzár'],['box','Zárláda, zárbetéttel'],['none','Nincs']],'portal'),
+      S('handle','Kilincs',[['norm','Normál'],['off','Eltolt'],['none','Nincs']],'norm'),N('ho','Kilincs eltolása a zár oldali éltől (mm)',150,{show:a=>a.handle==='off'}),N('hh','Kilincs magassága a talajtól (mm)',1000),
+      H('Keret'),P('fp','Keret profilja','zart','40x40x2'),CORNER,...FILL('vert'),...BRACE(true)]},
+  kerites:{n:'Kerítés',d:'Kerítésmezők oszlopokkal',gen:genFence,area:a=>num(a.W)*num(a.H)*cnt(a),
+    q:[TX('name','Megnevezés'),N('count','Mezők száma',1),N('W','Mező szélessége (mm)',2000),N('H','Mező magassága (mm)',1200),N('ground','Talaj fölötti rés (mm)',100),
+      H('Keret'),P('fp','Keret profilja','zart','40x40x2'),CORNER,...FILL('vert'),...BRACE(false),
+      H('Oszlopok'),C('posts','Oszlopok is készülnek',true),P('pp','Oszlop profilja','zart','60x60x2',{show:a=>a.posts}),
+      N('embed','Betonba kerülő rész (mm)',600,{show:a=>a.posts}),N('above','Oszlop túlnyúlása a mező fölött (mm)',50,{show:a=>a.posts}),N('gapPost','Hézag a mező és az oszlop között (mm)',10,{show:a=>a.posts})]},
+  korlat:{n:'Korlát',d:'Erkély- és lépcsőkorlát pálcákkal',gen:genRail,area:a=>num(a.L)*num(a.H),
+    q:[TX('name','Megnevezés'),N('L','Hossz vízszintesen mérve (mm)',3000),N('H','Magasság (mm)',1000),N('slope','Lejtés (°), 0 = vízszintes erkély',0),
+      N('maxPost','Oszlopok legnagyobb távolsága (mm)',1200),S('mount','Rögzítés',[['talp','Talplemezzel'],['beton','Betonba'],['oldal','Oldalra csavarozva']],'talp'),N('embed','Betonba kerülő rész (mm)',300,{show:a=>a.mount==='beton'}),
+      H('Profilok'),P('pp','Oszlop profilja','zart','40x40x2'),P('rp','Kapaszkodó profilja','zart','40x40x2'),
+      C('bottom','Alsó vízszintes rúd',true),P('b2p','Alsó rúd profilja','zart','40x20x2',{show:a=>a.bottom}),N('bh','Alsó rúd / pálcák alja a járószinttől (mm)',100),
+      P('bp','Pálca profilja','zart','20x20x1.5'),N('maxGap','Legnagyobb rés a pálcák között (mm)',100),
+      T('Gyerekbiztonság miatt a pálcák között legfeljebb 100–120 mm rés ajánlott.')]},
+  racs:{n:'Ablakrács',d:'Rács ablakra, ajtóra, rögzítőfülekkel',gen:genGrille,area:a=>num(a.W)*num(a.H)*cnt(a),
+    q:[TX('name','Megnevezés'),N('count','Darabszám',1),N('W','Szélesség (mm)',900),N('H','Magasság (mm)',1200),
+      C('frame','Körbefutó keret',true),P('fp','Keret profilja','zart','20x20x2',{show:a=>a.frame}),
+      S('dir','Rudak',[['vert','Függőleges'],['grid','Rács (függőleges és vízszintes)']],'vert'),P('bp','Rúd profilja','zart','15x15x1.5'),N('maxGap','Legnagyobb rés (mm)',110),
+      N('cross','Vízszintes összekötő laposvasak',2),P('cp','Összekötő profilja','lapos','30x4'),
+      N('tabs','Rögzítőfülek oldalanként',2),P('tp','Fül profilja','lapos','30x4'),N('tl','Fül hossza (mm)',80)]},
+  asztal:{n:'Asztal, munkapad',d:'Asztal- és munkapadkeret lábakkal',gen:genTable,area:a=>num(a.L)*num(a.D)*cnt(a),
+    q:[TX('name','Megnevezés'),N('count','Darabszám',1),N('L','Hossz (mm)',1500),N('D','Mélység (mm)',700),N('H','Magasság (mm)',850),
+      P('lp','Láb profilja','zart','40x40x2'),P('ap','Keret profilja','zart','40x20x2'),
+      S('stretch','Alsó merevítő',[['korbe','Körbe'],['hossz','Csak hosszában, középen'],['nincs','Nincs']],'korbe'),N('sh','Alsó merevítő magassága (mm)',150,{show:a=>a.stretch!=='nincs'}),
+      C('top','Acéllemez asztallap',false),P('tp','Lap vastagsága','lemez','3',{show:a=>a.top}),C('feet','Talpdugók a lábakra',true)]},
+  polc:{n:'Polc, állvány',d:'Polcállvány több szinttel',gen:genShelf,area:a=>num(a.W)*num(a.H)*cnt(a),
+    q:[TX('name','Megnevezés'),N('count','Darabszám',1),N('W','Szélesség (mm)',1000),N('D','Mélység (mm)',400),N('H','Magasság (mm)',1800),
+      N('n','Polcszintek száma',5),N('bottom','Alsó polc magassága (mm)',100),P('up','Oszlop profilja','zart','30x30x2'),P('bp','Polctartó profilja','zart','30x20x2'),
+      C('sheets','Acéllemez polclapok',false),P('sp','Polclap vastagsága','lemez','1.5',{show:a=>a.sheets})]},
+  egyedi:{n:'Egyedi szerkezet',d:'Üres rajzlap, szabad tervezés',gen:genFree,area:()=>0,
+    q:[TX('name','Megnevezés'),P('dp','Alapértelmezett profil','zart','40x40x2'),T('Üres rajzlapot kapsz. A Látványterv fülön rudakat és lemezeket rajzolhatsz, a program a vágási hosszakat és szögeket a rajzból számolja.')]}
+};
+function defAns(cat){
+  const a={};CATS[cat].q.forEach(f=>{if(f.k)a[f.k]=f.d;});
+  const old=lsGet('femkapu',null);
+  if(old&&(cat==='kapu'||cat==='kiskapu')){
+    if((cat==='kiskapu')===(old.type==='wicket')){['W','H','count','ground','gapSide','gapMid','ov','tail','infill','maxGap','brace','mode','wT','wM','wB','post','pw','hh','hingeSide','hn','hinge','gapHinge','gapLock','lock','handle','ho'].forEach(k=>{if(old[k]!=null&&k in a)a[k]=old[k];});
+      if(cat==='kapu'&&['single','double','slide','cant'].includes(old.type))a.type=old.type;
+      if(old.fw)a.fp=`${old.fw}x${old.fd||old.fw}x2`;if(old.bw)a.bp=`${old.bw}x${old.bd||old.bw}x1.5`;}
+  }
+  return a;
+}
+function newPlan(cat){return{id:uid(),name:'',cat,ans:defAns(cat),members:[],rects:[],texts:[],hw:[],manual:{},info:[],status:'draft',dirty:false,created:Date.now(),updated:Date.now()};}
+if(!plan||!Array.isArray(plan.members)||!CATS[plan.cat])plan=newPlan('kapu');
+['rects','texts','hw','info'].forEach(k=>{if(!Array.isArray(plan[k]))plan[k]=[];});if(!plan.manual)plan.manual={};
+
+/* ============ ÚJ MUNKA: kategóriák, kérdések, javaslatok ============ */
+function thumbSVG(p,W,H,pad=6){
+  const pts=[];p.members.forEach(m=>mPoly(m).forEach(q=>pts.push(q)));(p.rects||[]).forEach(r=>{if(r.role!=='ground'){pts.push([r.x,r.y],[r.x+r.w,r.y+r.h]);}});
+  if(!pts.length)return`<svg viewBox="0 0 ${W} ${H}"></svg>`;
+  const x0=Math.min(...pts.map(q=>q[0])),x1=Math.max(...pts.map(q=>q[0])),y0=Math.min(...pts.map(q=>q[1])),y1=Math.max(...pts.map(q=>q[1]));
+  const s=Math.min((W-2*pad)/(x1-x0||1),(H-2*pad)/(y1-y0||1)),ox=(W-(x1-x0)*s)/2,oy=(H-(y1-y0)*s)/2;
+  const X=x=>r1(ox+(x-x0)*s),Y=y=>r1(H-oy-(y-y0)*s);let o='';
+  (p.rects||[]).forEach(r=>{if(r.role==='ground')return;o+=`<rect x="${X(r.x)}" y="${Y(r.y+r.h)}" width="${r1(Math.max(1,r.w*s))}" height="${r1(Math.max(1,r.h*s))}" fill="${r.role==='sheet'?'var(--sheet)':r.role==='mark'?'var(--acc)':'var(--post)'}" ${r.role==='ref'?'opacity=".35"':''}/>`;});
+  p.members.forEach(m=>{o+=`<polygon points="${mPoly(m).map(q=>X(q[0])+','+Y(q[1])).join(' ')}" fill="var(--frame)" ${m.qty>0?'':'opacity=".35"'}/>`;});
+  return`<svg viewBox="0 0 ${W} ${H}" aria-hidden="true">${o}</svg>`;
+}
+let catThumbs=null;
+function renderCats(){
+  if(!catThumbs){catThumbs={};Object.entries(CATS).forEach(([k,c])=>{try{const g=c.gen(defAns(k));catThumbs[k]=thumbSVG({members:g.M,rects:g.R},150,70);}catch(e){catThumbs[k]='<svg></svg>';}});}
+  $('#cats').innerHTML=Object.entries(CATS).map(([k,c])=>`<button class="cat${plan.cat===k?' on':''}" data-cat="${k}">${catThumbs[k]}<b>${esc(c.n)}</b><span>${esc(c.d)}</span></button>`).join('');
+}
+const catWorks=cat=>works.filter(w=>w.cat===cat).sort((a,b)=>b.updated-a.updated);
+function prevVals(k){const cnt={};catWorks(plan.cat).forEach(w=>{const v=w.ans?.[k];if(v!==''&&v!=null&&String(v)!==String(plan.ans[k]))cnt[v]=(cnt[v]||0)+1;});return Object.entries(cnt).sort((a,b)=>b[1]-a[1]).slice(0,3).map(e=>e[0]);}
+function usedPids(cat,pcat){const cnt={};catWorks(cat).forEach(w=>w.members.forEach(m=>{if(m.pid&&m.qty>0&&m.cat===pcat)cnt[m.pid]=(cnt[m.pid]||0)+1;}));return Object.entries(cnt).sort((a,b)=>b[1]-a[1]).map(e=>e[0]);}
+function profField(f,a){
+  if(f.c==='lemez')return`<label>${esc(f.l)}<select data-a="${f.k}">${sheetTs().map(t=>`<option value="${t}"${num(a[f.k])===t?' selected':''}>${pl(t)} mm</option>`).join('')}</select></label>`;
+  const list=catList(f.c),cur=resolve(f.c,a[f.k]);
+  if(!list.length)return`<label>${esc(f.l)} (pl. 40x40x2)<input data-a="${f.k}" value="${esc(a[f.k])}" placeholder="40x40x2"></label>`;
+  const used=usedPids(plan.cat,f.c).filter(id=>PIDX.has(id)).slice(0,4);
+  const opt=p=>`<option value="${p.id}"${p.id===cur.pid?' selected':''}>${esc(shortName(p))}</option>`;
+  return`<label>${esc(f.l)}<select data-a="${f.k}">${cur.pid?'':`<option value="${esc(a[f.k])}" selected>${esc(cur.name)} (nincs az árlistán)</option>`}${used.length?`<optgroup label="Korábban használt">${used.map(id=>opt(PIDX.get(id))).join('')}</optgroup><optgroup label="Mind">`:''}${list.map(opt).join('')}${used.length?'</optgroup>':''}</select></label>`;
+}
+function renderForm(){
+  const c=CATS[plan.cat],a=plan.ans;
+  $('#qtitle').textContent=c.n+' – kérdések';
+  $('#qform').innerHTML=c.q.filter(f=>!f.show||f.show(a)).map(f=>{
+    if(f.t==='h')return`<h3 class="qh">${esc(f.l)}</h3>`;
+    if(f.t==='p')return`<p class="help full" style="margin:0">${esc(f.l)}</p>`;
+    if(f.t==='txt')return`<label class="full">${esc(f.l)}<input data-a="${f.k}" value="${esc(a[f.k])}" placeholder="pl. Kovácsék, Fő utca 12."></label>`;
+    if(f.t==='chk')return`<label class="chk full"><input type="checkbox" data-a="${f.k}"${a[f.k]?' checked':''}>${esc(f.l)}</label>`;
+    if(f.t==='sel')return`<label>${esc(f.l)}<select data-a="${f.k}">${f.o.map(([v,l])=>`<option value="${v}"${String(a[f.k])===v?' selected':''}>${esc(l)}</option>`).join('')}</select></label>`;
+    if(f.t==='prof')return profField(f,a);
+    const pv=prevVals(f.k);
+    return`<div><label>${esc(f.l)}<input inputmode="decimal" data-a="${f.k}" value="${esc(a[f.k])}"></label>${pv.length?`<div class="chips">${pv.map(v=>`<button class="chip" data-chip="${f.k}" data-v="${esc(v)}" title="Korábban használt érték">${esc(pl(num(v)))}</button>`).join('')}</div>`:''}</div>`;
+  }).join('');
+  renderSugg();
+}
+function estimate(){
+  const c=CATS[plan.cat],ws=catWorks(plan.cat).filter(w=>w.cartTotal>0&&c.area(w.ans)>0);
+  if(!ws.length)return'';
+  const per=ws.reduce((t,w)=>t+w.cartTotal/(c.area(w.ans)/1e6),0)/ws.length,ar=c.area(plan.ans)/1e6;
+  if(!(ar>0)||!isFinite(per))return'';
+  return`Korábbi elfogadott munkáid alapján ennek a várható anyagköltsége kb. <b>${ft(Math.round(per*ar/100)*100)}</b> (${ws.length} munka átlaga, ${ft(per)}/m²).`;
+}
+function renderSugg(){
+  const ws=catWorks(plan.cat),el=$('#sugg');
+  if(!ws.length){el.innerHTML=`<div class="card"><h2>Javaslatok</h2><p class="help" style="margin:0">Még nincs mentett ${esc(CATS[plan.cat].n.toLowerCase())} munkád. Ha elmentesz egyet, a következő hasonló munkánál innen kapsz javaslatokat: korábbi méreteket, gyakran használt profilokat és várható költséget.</p></div>`;return;}
+  const w=ws[0],pc={};ws.forEach(x=>x.members.forEach(m=>{if(m.qty>0)pc[m.mat]=(pc[m.mat]||0)+1;}));
+  const top=Object.entries(pc).sort((a,b)=>b[1]-a[1]).slice(0,3).map(e=>e[0]);
+  el.innerHTML=`<div class="card"><h2>Javaslatok a korábbi munkáid alapján</h2>
+  <p style="margin:0 0 8px">Legutóbbi hasonló: <b>${esc(w.name||CATS[w.cat].n)}</b> <span class="mut">(${dstr(w.updated)})</span></p>
+  ${top.length?`<p class="mut" style="margin:0 0 8px">Gyakran használt anyagok: ${top.map(esc).join(', ')}</p>`:''}
+  <p class="mut" id="est" style="margin:0 0 10px">${estimate()}</p>
+  <div class="row g2" style="margin:0"><button class="sm" data-from="${w.id}">Kiindulás a legutóbbiból</button>${ws.length>1?`<select id="fromSel" class="sm"><option value="">Másik korábbi munka…</option>${ws.slice(1,20).map(x=>`<option value="${x.id}">${esc(x.name||CATS[x.cat].n)} – ${dstr(x.updated)}</option>`).join('')}</select>`:''}</div>
+  <p class="help" style="margin:8px 0 0">A kérdéseknél a mezők alatti kis gombok a korábban beírt értékeidet mutatják, a profiloknál a „Korábban használt” csoport van felül.</p></div>`;
+}
+function startFrom(id){const w=works.find(x=>x.id===id);if(!w)return;plan.ans=Object.assign(defAns(plan.cat),clone(w.ans));plan.ans.name='';savePlan();renderForm();toast('Kitöltöttem a korábbi munka adataival.');}
+function isUnsaved(){if(!plan.members.length)return false;const w=works.find(x=>x.id===plan.id);return!w||w.updated<plan.updated-1000;}
+function generate(){
+  if(plan.dirty&&plan.members.length&&!confirm('A látványtervben kézzel módosítottál. Ha újra elkészíted, ezek a módosítások elvesznek. Folytatod?'))return;
+  const g=CATS[plan.cat].gen(plan.ans);
+  $('#qerr').innerHTML=g.errs.map(e=>`<div class="err">${esc(e)}</div>`).join('');
+  if(g.errs.length){$('#qerr').scrollIntoView({behavior:'smooth',block:'center'});return;}
+  Object.assign(plan,{members:g.M,rects:g.R,texts:g.X,hw:g.HW,info:[...g.warn.map(w=>'⚠ '+w),...g.info],dirty:false,status:'draft'});
+  if(plan.ans.name)plan.name=plan.ans.name;
+  sel=null;undoS=[];redoS=[];savePlan();showTab('plan');fitView();renderPlan();
+}
+
+/* ============ LÁTVÁNYTERV: szerkesztő ============ */
+const V={cx:0,cy:0,s:0.2};let fitted=false, CW=600,CH=400,sel=null,tool='sel',showDims=true,ortho=true,undoS=[],redoS=[],drag=null,preview=null,raf=0;
+const ptrs=new Map(),GRID=5;
+const svg=$('#cad');
+const SX=x=>(x-V.cx)*V.s+CW/2,SY=y=>CH/2-(y-V.cy)*V.s,MX=px=>(px-CW/2)/V.s+V.cx,MY=py=>V.cy-(py-CH/2)/V.s;
+const objById=id=>plan.members.find(m=>m.id===id)||plan.rects.find(r=>r.id===id);
+const selObj=()=>sel?objById(sel):null;
+function snapshot(){undoS.push(JSON.stringify({m:plan.members,r:plan.rects,h:plan.hw}));if(undoS.length>60)undoS.shift();redoS=[];}
+function restore(s){const o=JSON.parse(s);plan.members=o.m;plan.rects=o.r;plan.hw=o.h;if(sel&&!objById(sel))sel=null;changed(true);renderPanel();}
+function changed(dirty){if(dirty){plan.dirty=true;if(plan.status==='accepted')plan.status='draft';}savePlan();reqDraw();renderParts();updStat();}
+function bbox(){const pts=[];plan.members.forEach(m=>mPoly(m).forEach(q=>pts.push(q)));plan.rects.forEach(r=>{if(r.role!=='ground')pts.push([r.x,r.y],[r.x+r.w,r.y+r.h]);});plan.texts.forEach(t=>pts.push([t.x,t.y]));
+  if(!pts.length)return{x0:0,y0:0,x1:1000,y1:1000};return{x0:Math.min(...pts.map(q=>q[0])),x1:Math.max(...pts.map(q=>q[0])),y0:Math.min(...pts.map(q=>q[1])),y1:Math.max(...pts.map(q=>q[1]))};}
+function measure(){CW=svg.clientWidth||600;CH=svg.clientHeight||400;}
+function fitView(){measure();const b=bbox(),w=b.x1-b.x0||1000,h=b.y1-b.y0||1000;V.s=Math.min((CW-100)/w,(CH-90)/h);V.cx=(b.x0+b.x1)/2-12/V.s;V.cy=(b.y0+b.y1)/2;reqDraw();}
+function reqDraw(){if(!raf)raf=requestAnimationFrame(()=>{raf=0;drawCad();});}
+function matColors(){const m=new Map();plan.members.forEach(x=>{const k=x.pid||x.mat;if(!m.has(k))m.set(k,COLORS[m.size%COLORS.length]);});return m;}
+function drawCad(){
+  measure();if($('#tab-plan').hidden)return;
+  const mc=matColors(),P=q=>r1(SX(q[0]))+','+r1(SY(q[1]));let o='';
+  /* rács */
+  const step=[10,50,100,500,1000,5000].find(s=>s*V.s>=28)||5000,gx0=Math.floor(MX(0)/step)*step,gy0=Math.floor(MY(CH)/step)*step;
+  let gp='';for(let x=gx0;x<=MX(CW);x+=step)gp+=`M${r1(SX(x))} 0V${CH}`;for(let y=gy0;y<=MY(0);y+=step)gp+=`M0 ${r1(SY(y))}H${CW}`;
+  o+=`<path d="${gp}" stroke="var(--line)" stroke-width="1" opacity=".55"/>`;
+  o+=`<path d="M0 ${r1(SY(0))}H${CW}" stroke="var(--mut)" stroke-width="1" stroke-dasharray="6 4" opacity=".6"/>`;
+  plan.rects.forEach(r=>{
+    const fill=r.role==='sheet'?'var(--sheet)':r.role==='mark'?'var(--acc)':r.role==='ground'?'var(--steel)':'var(--post)';
+    o+=`<rect data-r="${r.id}" x="${r1(SX(r.x))}" y="${r1(SY(r.y+r.h))}" width="${r1(Math.max(2,r.w*V.s))}" height="${r1(Math.max(2,r.h*V.s))}" fill="${fill}" ${r.role==='ref'?'opacity=".3"':r.role==='sheet'?'stroke="var(--frame)" opacity=".9"':''} ${r.id===sel?'stroke="var(--acc)" stroke-width="3"':''}/>`;
   });
-  if(wk){
-    const x0=xs[0],hR=g.hingeSide==='R',n=Math.max(1,Math.floor(num(g.hn))||2);
-    /* zsanérok: a pillér és a szárny széle között */
-    const xa=hR?x0+Wl-20:xL,xb=hR?xR:x0+20,inset=Math.min(150,H/4);
-    const ys=n===1?[gr+H/2]:Array.from({length:n},(_,k)=>gr+inset+(H-2*inset)*k/(n-1));
-    ys.forEach(yc=>{o+=`<rect x="${X(xa)}" y="${Y(yc+50)}" width="${r1(Math.max(3,(xb-xa)*s))}" height="${r1(Math.max(4,100*s))}" rx="1" fill="var(--acc)" stroke="var(--card)" stroke-width=".8"/>`;});
-    /* zár és kilincs a zsanérral szemközti élen */
-    const lockEdge=hR?x0:x0+Wl,dir=hR?1:-1,yh=gr+Math.min(Math.max(num(g.hh)||1000,100),Math.max(100,H-100));
-    if(g.lock==='portal'||g.lock==='box'){
-      const lw=g.lock==='portal'?70:45,lh=g.lock==='portal'?150:110,xa2=Math.min(lockEdge,lockEdge+dir*lw);
-      o+=`<rect x="${X(xa2)}" y="${Y(yh+lh/2)}" width="${r1(Math.max(4,lw*s))}" height="${r1(Math.max(6,lh*s))}" rx="2" fill="var(--post)" stroke="var(--card)" stroke-width=".8"/>`;
-    }
-    if(g.handle==='norm'||g.handle==='off'){
-      const ho=g.handle==='off'?Math.min(Math.max(0,num(g.ho)),Wl):fw/2,hx=lockEdge+dir*ho;
-      o+=`<circle cx="${X(hx)}" cy="${Y(yh)}" r="${r1(Math.max(3.5,22*s))}" fill="var(--card)" stroke="var(--post)" stroke-width="2"/>`;
-    }
+  plan.members.forEach(m=>{
+    const s=m.id===sel;
+    o+=`<polygon data-m="${m.id}" points="${mPoly(m).map(P).join(' ')}" fill="${mc.get(m.pid||m.mat)}" fill-opacity="${m.qty>0?.88:.25}" stroke="${s?'var(--ink)':'var(--card)'}" stroke-width="${s?2.5:1}" stroke-linejoin="round" ${m.qty>0?'':'stroke-dasharray="4 3"'}/>`;
+  });
+  if(showDims){
+    plan.members.forEach(m=>{const L=mLen(m),px=Math.hypot(m.x2-m.x1,m.y2-m.y1)*V.s;if(px<46||(m.w*V.s<12&&m.id!==sel))return;
+      let ang=Math.atan2(-(m.y2-m.y1),m.x2-m.x1)*180/Math.PI;if(ang>90)ang-=180;if(ang<-90)ang+=180;
+      const cx=r1(SX((m.x1+m.x2)/2)),cy=r1(SY((m.y1+m.y2)/2));
+      o+=`<text x="${cx}" y="${cy}" transform="rotate(${r1(ang)} ${cx} ${cy})" text-anchor="middle" dominant-baseline="central" font-size="11" font-weight="600" fill="#fff" stroke="#0007" stroke-width="2.5" paint-order="stroke">${fi(L)}</text>`;});
+    const b=bbox(),yb=SY(b.y0)+26,xl=SX(b.x0)-26;
+    if(b.x1>b.x0){o+=`<path d="M${r1(SX(b.x0))} ${r1(yb-5)}v10M${r1(SX(b.x1))} ${r1(yb-5)}v10M${r1(SX(b.x0))} ${r1(yb)}H${r1(SX(b.x1))}" stroke="var(--mut)"/><text x="${r1((SX(b.x0)+SX(b.x1))/2)}" y="${r1(yb+15)}" text-anchor="middle" font-size="12" fill="var(--mut)">${fi(b.x1-b.x0)} mm</text>`;
+      o+=`<path d="M${r1(xl-5)} ${r1(SY(b.y1))}h10M${r1(xl-5)} ${r1(SY(b.y0))}h10M${r1(xl)} ${r1(SY(b.y1))}V${r1(SY(b.y0))}" stroke="var(--mut)"/><text transform="translate(${r1(xl-8)} ${r1((SY(b.y0)+SY(b.y1))/2)}) rotate(-90)" text-anchor="middle" font-size="12" fill="var(--mut)">${fi(b.y1-b.y0)} mm</text>`;}
   }
-  const dimH=(xa,xb,y,label)=>`<path class="dl" d="M${X(xa)} ${y-5}v10M${X(xb)} ${y-5}v10M${X(xa)} ${y}H${X(xb)}"/><text class="dimt" x="${r1((X(xa)+X(xb))/2)}" y="${y+17}" text-anchor="middle">${label}</text>`;
-  xs.forEach(x0=>{o+=dimH(x0,x0+Wl,Y(0)+22,fi(Wl));});
-  if(g.type!=='fence')o+=dimH(xL,xR,Y(0)+54,'nyílás '+fi(W));
-  const xh=ml-24;
-  o+=`<path class="dl" d="M${xh-5} ${Y(yT)}h10M${xh-5} ${Y(gr)}h10M${xh} ${Y(yT)}V${Y(gr)}"/><text class="dimt" transform="translate(${xh-8} ${r1((Y(yT)+Y(gr))/2)}) rotate(-90)" text-anchor="middle">${fi(H)}</text>`;
-  if(g.type==='slide'||g.type==='cant'){const ya=Y(yT)-8,xa=X(xL+W*0.25),xb=X(xL+W*0.75);o+=`<path class="dl" d="M${xa} ${ya}H${xb}m-8 -5l8 5l-8 5"/>`;}
-  return `<svg width="${Wpx}" height="${Ht}" viewBox="0 0 ${Wpx} ${Ht}" role="img" aria-label="${esc(TYPES[g.type])} előnézet">${o}</svg>`;
+  plan.texts.forEach(t=>{o+=`<text x="${r1(SX(t.x))}" y="${r1(SY(t.y))}" text-anchor="middle" font-size="13" fill="var(--mut)">${esc(t.s)}</text>`;});
+  if(preview){if(preview.t==='bar')o+=`<line x1="${SX(preview.x1)}" y1="${SY(preview.y1)}" x2="${SX(preview.x2)}" y2="${SY(preview.y2)}" stroke="var(--acc)" stroke-width="${Math.max(3,40*V.s)}" opacity=".6"/><text x="${SX(preview.x2)+10}" y="${SY(preview.y2)-10}" font-size="13" fill="var(--acc)" font-weight="700">${fi(Math.hypot(preview.x2-preview.x1,preview.y2-preview.y1))} mm</text>`;
+    else{const x=Math.min(preview.x1,preview.x2),y=Math.max(preview.y1,preview.y2);o+=`<rect x="${SX(x)}" y="${SY(y)}" width="${Math.abs(preview.x2-preview.x1)*V.s}" height="${Math.abs(preview.y2-preview.y1)*V.s}" fill="var(--sheet)" stroke="var(--acc)" stroke-width="2" opacity=".8"/>`;}}
+  const so=selObj();
+  if(so&&so.x1!=null){[[so.x1,so.y1,1],[so.x2,so.y2,2]].forEach(([x,y,h])=>{o+=`<circle data-h="${h}" cx="${r1(SX(x))}" cy="${r1(SY(y))}" r="11" fill="var(--card)" stroke="var(--acc)" stroke-width="3"/>`;});}
+  else if(so&&so.role!=='ground'){o+=`<circle data-h="c" cx="${r1(SX(so.x+so.w))}" cy="${r1(SY(so.y))}" r="11" fill="var(--card)" stroke="var(--acc)" stroke-width="3"/>`;}
+  svg.setAttribute('viewBox',`0 0 ${CW} ${CH}`);svg.innerHTML=o;
+  $('#cadinfo').textContent=`1 rácsköz = ${step>=1000?pl(step/1000)+' m':step+' mm'}`+(tool==='bar'?' · húzással rajzolj rudat':tool==='rect'?' · húzással rajzolj lemezt':'');
 }
+function snapPt(x,y,ex){
+  let best=null,bd=14/V.s;
+  plan.members.forEach(m=>{if(m.id===ex)return;[[m.x1,m.y1],[m.x2,m.y2]].forEach(([px,py])=>{const d=Math.hypot(px-x,py-y);if(d<bd){bd=d;best={x:px,y:py};}});});
+  return best||{x:Math.round(x/GRID)*GRID,y:Math.round(y/GRID)*GRID};
+}
+function orthoPt(x0,y0,x,y){const L=Math.hypot(x-x0,y-y0),a=Math.round(Math.atan2(y-y0,x-x0)/(Math.PI/12))*(Math.PI/12),Lr=Math.round(L/GRID)*GRID;return{x:r1(x0+Lr*Math.cos(a)),y:r1(y0+Lr*Math.sin(a))};}
+const evPt=e=>{const b=svg.getBoundingClientRect();return{x:e.clientX-b.left,y:e.clientY-b.top};};
+function curProf(){const so=selObj();if(so&&so.x1!=null)return resolve(so.cat||'zart',so.pid||so.mat);const last=plan.members[plan.members.length-1];return last?resolve(last.cat||'zart',last.pid||last.mat):resolve('zart',plan.ans.dp||plan.ans.fp||'40x40x2');}
+svg.addEventListener('pointerdown',e=>{
+  svg.setPointerCapture(e.pointerId);const p=evPt(e);ptrs.set(e.pointerId,p);
+  if(ptrs.size===2){const[a,b]=[...ptrs.values()];drag={t:'pinch',d0:Math.hypot(a.x-b.x,a.y-b.y)||1,s0:V.s,m:{x:MX((a.x+b.x)/2),y:MY((a.y+b.y)/2)}};preview=null;return;}
+  if(ptrs.size>2)return;
+  const mm={x:MX(p.x),y:MY(p.y)},tg=e.target.closest('[data-h],[data-m],[data-r]');
+  if(tool==='bar'||tool==='rect'){const s=snapPt(mm.x,mm.y);drag={t:'draw',x1:s.x,y1:s.y};preview={t:tool,x1:s.x,y1:s.y,x2:s.x,y2:s.y};reqDraw();return;}
+  if(tg&&tg.dataset.h){drag={t:'end',h:tg.dataset.h,snap:JSON.stringify({m:plan.members,r:plan.rects,h:plan.hw}),moved:false};return;}
+  const id=tg&&(tg.dataset.m||tg.dataset.r);
+  if(id&&objById(id).role!=='ground'){if(sel!==id){sel=id;renderPanel();}drag={t:'move',id,p0:p,m0:mm,o0:clone(objById(id)),snap:JSON.stringify({m:plan.members,r:plan.rects,h:plan.hw}),moved:false};reqDraw();return;}
+  drag={t:'pan',p0:p,c0:{x:V.cx,y:V.cy},moved:false};
+});
+svg.addEventListener('pointermove',e=>{
+  if(!ptrs.has(e.pointerId))return;const p=evPt(e);ptrs.set(e.pointerId,p);if(!drag)return;
+  if(drag.t==='pinch'){if(ptrs.size<2)return;const[a,b]=[...ptrs.values()],d=Math.hypot(a.x-b.x,a.y-b.y);V.s=Math.min(20,Math.max(0.01,drag.s0*d/drag.d0));const mx=(a.x+b.x)/2,my=(a.y+b.y)/2;V.cx=drag.m.x-(mx-CW/2)/V.s;V.cy=drag.m.y+(my-CH/2)/V.s;reqDraw();return;}
+  const mm={x:MX(p.x),y:MY(p.y)};
+  if(drag.t==='pan'){if(Math.hypot(p.x-drag.p0.x,p.y-drag.p0.y)>4)drag.moved=true;V.cx=drag.c0.x-(p.x-drag.p0.x)/V.s;V.cy=drag.c0.y+(p.y-drag.p0.y)/V.s;reqDraw();return;}
+  if(drag.t==='draw'){let s=snapPt(mm.x,mm.y);if(ortho&&tool==='bar'){const q=orthoPt(drag.x1,drag.y1,mm.x,mm.y);if(Math.hypot(q.x-s.x,q.y-s.y)>1)s=q;}preview.x2=s.x;preview.y2=s.y;reqDraw();return;}
+  const o=selObj();if(!o)return;
+  if(drag.t==='move'){if(!drag.moved&&Math.hypot(p.x-drag.p0.x,p.y-drag.p0.y)<6)return;drag.moved=true;
+    const dx=Math.round((mm.x-drag.m0.x)/GRID)*GRID,dy=Math.round((mm.y-drag.m0.y)/GRID)*GRID,a=drag.o0;
+    if(o.x1!=null){o.x1=r1(a.x1+dx);o.y1=r1(a.y1+dy);o.x2=r1(a.x2+dx);o.y2=r1(a.y2+dy);}else{o.x=r1(a.x+dx);o.y=r1(a.y+dy);}reqDraw();return;}
+  if(drag.t==='end'){drag.moved=true;
+    if(o.x1!=null){let s=snapPt(mm.x,mm.y,o.id);const fx=drag.h==='1'?o.x2:o.x1,fy=drag.h==='1'?o.y2:o.y1;if(ortho){const q=orthoPt(fx,fy,mm.x,mm.y);if(Math.hypot(q.x-s.x,q.y-s.y)>1&&Math.hypot(s.x-mm.x,s.y-mm.y)>8/V.s)s=q;}
+      if(Math.hypot(s.x-fx,s.y-fy)<5)return;if(drag.h==='1'){o.x1=s.x;o.y1=s.y;}else{o.x2=s.x;o.y2=s.y;}}
+    else{const s=snapPt(mm.x,mm.y,o.id);o.w=r1(Math.max(10,s.x-o.x));const ny=Math.min(s.y,o.y+o.h-10);o.h=r1(o.y+o.h-ny);o.y=r1(ny);o.cw=o.w;if(o.role==='sheet'&&o.ch<o.h)o.ch=o.h;}
+    reqDraw();}
+});
+function endPtr(e){
+  ptrs.delete(e.pointerId);if(!drag)return;
+  if(drag.t==='pinch'){if(ptrs.size<2){drag=null;}return;}
+  if(drag.t==='draw'&&preview){const q=preview;preview=null;
+    if(tool==='bar'&&Math.hypot(q.x2-q.x1,q.y2-q.y1)>=20){snapshot();const R=curProf(),m={id:uid(),x1:q.x1,y1:q.y1,x2:q.x2,y2:q.y2,w:R.d.a,pid:R.pid,mat:R.name,cat:R.cat||'zart',a1:0,k1:1,a2:0,k2:1,qty:1,name:'Rúd'};plan.members.push(m);sel=m.id;changed(true);renderPanel();}
+    else if(tool==='rect'&&Math.abs(q.x2-q.x1)>=20&&Math.abs(q.y2-q.y1)>=20){snapshot();const r={id:uid(),x:Math.min(q.x1,q.x2),y:Math.min(q.y1,q.y2),w:Math.abs(q.x2-q.x1),h:Math.abs(q.y2-q.y1),role:'sheet',name:'Lemez',t:2,qty:1};r.cw=r.w;r.ch=r.h;plan.rects.push(r);sel=r.id;changed(true);renderPanel();}
+    reqDraw();}
+  else if(drag.t==='pan'&&!drag.moved){if(sel){sel=null;renderPanel();reqDraw();}}
+  else if((drag.t==='move'||drag.t==='end')&&drag.moved){undoS.push(drag.snap);redoS=[];changed(true);renderPanel();}
+  drag=null;
+}
+svg.addEventListener('pointerup',endPtr);svg.addEventListener('pointercancel',endPtr);
+svg.addEventListener('wheel',e=>{e.preventDefault();const p=evPt(e),mx=MX(p.x),my=MY(p.y),f=Math.exp(-e.deltaY*0.0015);V.s=Math.min(20,Math.max(0.01,V.s*f));V.cx=mx-(p.x-CW/2)/V.s;V.cy=my+(p.y-CH/2)/V.s;reqDraw();},{passive:false});
+function setTool(t){tool=t;$$('[data-tool]').forEach(b=>b.classList.toggle('on',b.dataset.tool===t));reqDraw();}
 
-function gateRender(){
-  const m=gMod=gateModel(),el=$('#gres');
-  let h=m.errs.map(e=>`<div class="err">${esc(e)}</div>`).join('');
-  if(m.errs.length){el.innerHTML=h;return;}
-  h+=m.warn.map(e=>`<div class="warn">${esc(e)}</div>`).join('');
-  const Wpx=Math.max(240,Math.floor(el.clientWidth-34));
-  const f=m.fill,bits=[];
-  if(m.leaves===2)bits.push(`2 szárny, egyenként ${fi(m.leaf.Wl)} × ${fi(m.leaf.H)} mm`);
-  else bits.push(`${TYPES[g.type]}: ${fi(m.leaf.Wl)} × ${fi(m.leaf.H)} mm`);
-  if(m.cnt>1)bits.push(`${m.cnt} db`);
-  if(g.type==='wicket'){
-    bits.push(POSTS[g.post]||POSTS.zsalu);
-    bits.push(`levonás: zsanér oldalon ${fi(num(g.gapHinge))} mm, zár oldalon ${fi(num(g.gapLock))} mm`);
-    bits.push(g.mode==='csere'?`régi helyére, nyílás ${fi(m.W)} mm (a legkisebb mért érték)`:'új építés');
+/* Tulajdonságok panel */
+function profOptions(cur,cats=['zart','lapos','szog']){
+  let h='';cats.forEach(c=>{const l=catList(c);if(l.length)h+=`<optgroup label="${CATN[c]}">${l.map(p=>`<option value="${p.id}"${p.id===cur?' selected':''}>${esc(CATN[c]+' '+shortName(p))}</option>`).join('')}</optgroup>`;});return h;
+}
+const fld=(k,l,v,o='')=>`<label>${l}<input inputmode="decimal" data-mp="${k}" value="${esc(v)}" ${o}></label>`;
+function renderPanel(){
+  const o=selObj(),el=$('#panel');
+  if(!o){el.innerHTML=`<div class="card"><h2>Elem tulajdonságai</h2><p class="help">Koppints egy elemre a rajzon. Új elemet a „+ Rúd” és „+ Lemez” gombbal rajzolhatsz, vagy tegyél be egyet ide:</p><div class="row g2" style="margin:0"><button class="sm" data-act="addV">+ Függőleges rúd</button><button class="sm" data-act="addH">+ Vízszintes rúd</button></div>${plan.info.length?`<div class="mut" style="margin-top:12px">${plan.info.map(esc).join('<br>')}</div>`:''}</div>`;renderHw();return;}
+  if(o.x1!=null){
+    const R=resolve(o.cat||'zart',o.pid||o.mat),hasList=catList('zart').length>0,ang=r1(Math.atan2(o.y2-o.y1,o.x2-o.x1)*180/Math.PI);
+    el.innerHTML=`<div class="card"><h2>Rúd</h2>
+    <div class="row n"><label>Megnevezés<input data-mp="name" value="${esc(o.name)}"></label><button class="x" data-act="del" aria-label="Törlés" title="Törlés">×</button></div>
+    ${hasList?`<label style="margin-bottom:8px">Profil<select data-mp="pid">${o.pid&&PIDX.has(o.pid)?'':`<option value="" selected>${esc(o.mat)} (nincs az árlistán)</option>`}${profOptions(o.pid)}</select></label>`:`<label style="margin-bottom:8px">Anyag megnevezése<input data-mp="mat" value="${esc(o.mat)}"></label>`}
+    <div class="row g">${fld('qty','Darab',o.qty)}${fld('w','Szélesség a rajzon (mm)',o.w)}<button class="sm" data-act="rot" title="A profil másik oldala kerüljön a rajz síkjába" ${R.d.a===R.d.b?'disabled':''}>Elforgatás</button></div>
+    <div class="row g2">${fld('len','Vágott hossz (mm)',r1(mLen(o)))}${fld('ang','Irány (°)',ang)}</div>
+    <div class="row g4">${fld('x1','X₁',o.x1)}${fld('y1','Y₁',o.y1)}${fld('x2','X₂',o.x2)}${fld('y2','Y₂',o.y2)}</div>
+    <div class="row g2">${fld('a1','1. vég vágásszög (°)',o.a1)}${fld('a2','2. vég vágásszög (°)',o.a2)}</div>
+    <div class="row g2"><button class="sm" data-act="flip1">1. vég: hosszabb oldal csere</button><button class="sm" data-act="flip2">2. vég: hosszabb oldal csere</button></div>
+    <div class="row g2"><button class="sm" data-act="miter">Gér a csatlakozó elemekhez</button><button class="sm" data-act="square">Egyenes végek</button></div>
+    <div class="row g2" style="margin:0"><button class="sm" data-act="dup">Másolat</button><button class="sm danger" data-act="del">Törlés</button></div>
+    <p class="help" style="margin:10px 0 0">${o.qty>0?'':'Darabszám 0: csak a rajzon látszik, nem kerül a darablistába. '}A 0° egyenes vágás, a 45° gérvágás. Az 1. vég az X₁,Y₁ pontnál van.</p></div>`;
+  }else{
+    const sheet=o.role==='sheet';
+    el.innerHTML=`<div class="card"><h2>${sheet?'Lemez':'Segédobjektum'}</h2>
+    <div class="row n"><label>Megnevezés<input data-mp="name" value="${esc(o.name)}"></label><button class="x" data-act="del" aria-label="Törlés">×</button></div>
+    <div class="row g2"><label>Szerep<select data-mp="role"><option value="sheet"${sheet?' selected':''}>Lemez (anyag)</option><option value="ref"${o.role==='ref'?' selected':''}>Segéd (pillér, fal – nem anyag)</option><option value="mark"${o.role==='mark'?' selected':''}>Jelölés (zsanér, zár)</option></select></label>
+    ${sheet?`<label>Vastagság<select data-mp="t">${sheetTs().map(t=>`<option value="${t}"${num(o.t)===t?' selected':''}>${pl(t)} mm</option>`).join('')}</select></label>`:'<span></span>'}</div>
+    <div class="row g4">${fld('x','X',o.x)}${fld('y','Y',o.y)}${fld('w','Szélesség',o.w)}${fld('h','Magasság',o.h)}</div>
+    ${sheet?`<div class="row g">${fld('cw','Vágott méret A (mm)',o.cw)}${fld('ch','Vágott méret B (mm)',o.ch)}${fld('qty','Darab',o.qty)}</div><p class="help">A vágott méret az, amit a táblából ki kell vágni. Asztallapnál például a rajzon csak a vastagsága látszik, de a lap hossz × mélység méretű.</p>`:''}
+    <div class="row g2" style="margin:0"><button class="sm" data-act="dup">Másolat</button><button class="sm danger" data-act="del">Törlés</button></div></div>`;
   }
-  if(f.nv)bits.push(`${f.nv} függőleges rúd, rés ${pl(f.gv)} mm`);
-  if(f.nh)bits.push(`${f.nh} vízszintes rúd, rés ${pl(f.gh)} mm`);
-  if(m.brace)bits.push(`merevítő ${fi(m.brace.len)} mm, vágásszög ${pl(m.brace.a)}°`);
-  h+=`<div class="card"><h2>${esc(g.name||TYPES[g.type])}</h2><div class="svgw" style="overflow-x:auto">${gateSVG(m,Wpx)}</div><p class="mut" style="margin:6px 0 0">${esc(bits.join(' · '))}</p></div>`;
-  const byMat={};m.pieces.forEach(p=>(byMat[p.mat]=byMat[p.mat]||[]).push(p));
+  renderHw();
+}
+function onPanelInput(t){
+  const o=selObj();if(!o)return;const k=t.dataset.mp,v=t.value;
+  if(!drag||drag.t!=='typing'){snapshot();drag={t:'typing'};setTimeout(()=>{if(drag&&drag.t==='typing')drag=null;},800);}
+  if(k==='name'||k==='mat'){o[k]=v;}
+  else if(k==='pid'){const p=PIDX.get(v);if(p){o.pid=p.id;o.mat=p.name;o.cat=p.cat;o.w=p.d.a;}renderPanel();}
+  else if(k==='role'){o.role=v;if(v==='sheet'&&!o.t)o.t=2;renderPanel();}
+  else if(k==='t'){o.t=num(v);}
+  else{const n=num(v);
+    if(k==='len'){const h=o.w/2,ex=Math.abs(h*Math.tan(rad(o.a1))*o.k1+h*Math.tan(rad(o.a2))*o.k2),cl=Math.max(5,n-ex),{ux,uy}=axis(o);if(n>0){o.x2=r1(o.x1+ux*cl);o.y2=r1(o.y1+uy*cl);}}
+    else if(k==='ang'){const{L}=axis(o);o.x2=r1(o.x1+L*Math.cos(rad(n)));o.y2=r1(o.y1+L*Math.sin(rad(n)));}
+    else if(k==='a1'||k==='a2')o[k]=Math.min(80,Math.max(0,n));
+    else if(k==='qty')o.qty=Math.max(0,Math.floor(n));
+    else if(k==='w'||k==='h'||k==='cw'||k==='ch'){if(n>0)o[k]=n;}
+    else o[k]=n;
+    const L=$('[data-mp="len"]');if(L&&k!=='len'&&o.x1!=null)L.value=r1(mLen(o));
+  }
+  changed(true);
+}
+function autoMiter(m){
+  let n=0;[1,2].forEach(end=>{const px=end===1?m.x1:m.x2,py=end===1?m.y1:m.y2;
+    plan.members.forEach(o=>{if(o===m)return;[1,2].forEach(oe=>{const qx=oe===1?o.x1:o.x2,qy=oe===1?o.y1:o.y2;if(Math.hypot(qx-px,qy-py)>2)return;
+      const a=axis(m),b=axis(o),ua=end===1?[a.ux,a.uy]:[-a.ux,-a.uy],ub=oe===1?[b.ux,b.uy]:[-b.ux,-b.uy];
+      let dx=ua[0]+ub[0],dy=ua[1]+ub[1];if(Math.hypot(dx,dy)<1e-6){dx=-ua[1];dy=ua[0];}
+      cutTo(m,end,dx,dy);cutTo(o,oe,dx,dy);n++;});});});
+  return n;
+}
+function doAct(a){
+  const o=selObj();
+  if(a==='undo'){if(undoS.length){redoS.push(JSON.stringify({m:plan.members,r:plan.rects,h:plan.hw}));restore(undoS.pop());}return;}
+  if(a==='redo'){if(redoS.length){undoS.push(JSON.stringify({m:plan.members,r:plan.rects,h:plan.hw}));restore(redoS.pop());}return;}
+  if(a==='fit'){fitView();return;}
+  if(a==='dims'){showDims=!showDims;$('#dimsBtn').classList.toggle('on',showDims);reqDraw();return;}
+  if(a==='ortho'){ortho=!ortho;$('#orthoBtn').classList.toggle('on',ortho);return;}
+  if(a==='addV'||a==='addH'){snapshot();const R=curProf(),cx=Math.round(V.cx/GRID)*GRID,cy=Math.round(V.cy/GRID)*GRID,L=Math.round(Math.min(1000,(a==='addV'?CH:CW)*0.4/V.s)/10)*10;
+    const m={id:uid(),x1:a==='addV'?cx:cx-L/2,y1:a==='addV'?cy-L/2:cy,x2:a==='addV'?cx:cx+L/2,y2:a==='addV'?cy+L/2:cy,w:R.d.a,pid:R.pid,mat:R.name,cat:R.cat||'zart',a1:0,k1:1,a2:0,k2:1,qty:1,name:'Rúd'};
+    plan.members.push(m);sel=m.id;changed(true);renderPanel();return;}
+  if(a==='hwAdd'){snapshot();plan.hw.push({id:uid(),name:'',pid:'',qty:1,note:''});changed(true);renderHw();return;}
+  if(!o)return;snapshot();
+  if(a==='del'){plan.members=plan.members.filter(x=>x!==o);plan.rects=plan.rects.filter(x=>x!==o);sel=null;}
+  else if(a==='dup'){const c=clone(o);c.id=uid();if(c.x1!=null){const d=Math.max(50,o.w*2);c.x1+=d;c.x2+=d;plan.members.push(c);}else{c.x+=o.w+50;plan.rects.push(c);}sel=c.id;}
+  else if(a==='flip1')o.k1=-o.k1;else if(a==='flip2')o.k2=-o.k2;
+  else if(a==='square'){o.a1=0;o.a2=0;}
+  else if(a==='miter'){if(!autoMiter(o))toast('Nincs másik elem, amelynek a vége ennek a végpontjához ér.');}
+  else if(a==='rot'){const R=resolve(o.cat||'zart',o.pid||o.mat);o.w=o.w===R.d.a?R.d.b:R.d.a;}
+  changed(true);renderPanel();
+}
+function fillHwList(){$('#hwlist').innerHTML=[...PIDX.values()].filter(p=>p.cat==='vasalat').map(p=>`<option value="${esc(p.name)}">`).join('');}
+function renderHw(){
+  $('#hwbox').innerHTML=`<div class="card"><h2>Vasalat, kiegészítők</h2><p class="help">Zsanér, zár, kilincs, dugó és minden, ami nem szálanyag. Kezdd el gépelni a nevét, és válassz a Timárvasker listájából.</p>
+  ${plan.hw.map((h,i)=>{const p=PIDX.get(h.pid);return`<div class="hwr"><input data-hw="${i}.name" list="hwlist" value="${esc(h.name)}" placeholder="pl. portálzár"><input inputmode="numeric" data-hw="${i}.qty" value="${esc(h.qty)}" aria-label="Darab"><button class="x" data-hwdel="${i}" aria-label="Törlés">×</button><small>${p?ft(p.price)+' / '+esc(p.unit):'nincs az árlistán – az ára a Kosárban beírható'}${h.note?' · '+esc(h.note):''}</small></div>`;}).join('')}
+  <button class="add" data-act="hwAdd">+ Tétel</button></div>`;
+}
+function planGroups(p){
+  const map=new Map();
+  p.members.forEach(m=>{if(!(m.qty>0))return;const key=m.pid||norm(m.mat);if(!map.has(key))map.set(key,{key,pid:m.pid,mat:m.mat,cat:m.cat,rows:new Map()});
+    const g=map.get(key),len=Math.round(mLen(m)),aa=[m.a1,m.a2].sort((x,y)=>x-y),shape=mShape(m),rk=[len,aa[0],aa[1],shape,m.w].join('|');
+    if(!g.rows.has(rk))g.rows.set(rk,{names:new Set(),len,a1:aa[0],a2:aa[1],h:m.w,shape,qty:0});const r=g.rows.get(rk);r.qty+=m.qty;r.names.add(m.name||'Rúd');});
+  return[...map.values()].map(g=>({...g,rows:[...g.rows.values()].sort((a,b)=>b.len-a.len).map(r=>({...r,name:[...r.names].join(', ')}))}));
+}
+function renderParts(){
+  const gs=planGroups(plan);let h='';
+  if(!gs.length&&!plan.rects.some(r=>r.role==='sheet')){$('#planParts').innerHTML='';return;}
   h+=`<div class="card"><h2>Darablista</h2>`;
-  Object.entries(byMat).forEach(([mat,ps])=>{
-    const tl=ps.reduce((t,p)=>t+p.len*p.qty,0)/1000;
-    h+=`<div class="parts"><div class="tot"><b>${esc(mat)}</b> – összesen ${pl(tl)} m (vágásveszteség nélkül)</div><div class="hd">Megnevezés</div><div class="hd r">Db</div><div class="hd r">Hossz</div><div class="hd r">Szög</div>`;
-    ps.forEach(p=>{h+=`<div>${esc(p.name)}</div><div class="r">${p.qty}×</div><div class="r"><b>${fmt(p.len)}</b> mm</div><div class="r">${pl(p.a1)}° / ${pl(p.a2)}°</div>`;});
-    h+=`</div>`;
+  gs.forEach(g=>{const tl=g.rows.reduce((t,r)=>t+r.len*r.qty,0)/1000;
+    h+=`<div class="parts"><div class="hd">Megnevezés</div><div class="hd r">Db</div><div class="hd r">Hossz</div><div class="hd r">Szög</div>`;
+    g.rows.forEach(r=>{h+=`<div>${esc(r.name)}</div><div class="r">${r.qty}×</div><div class="r"><b>${fmt(r.len)}</b></div><div class="r">${pl(r.a1)}° / ${pl(r.a2)}°</div>`;});
+    h+=`<div class="tot"><b>${esc(g.mat)}</b> – összesen ${pl(tl)} m (vágásveszteség nélkül)</div></div>`;});
+  const sh=plan.rects.filter(r=>r.role==='sheet'&&r.qty>0);
+  if(sh.length)h+=`<div class="parts"><div class="hd">Lemez</div><div class="hd r">Db</div><div class="hd r">Méret</div><div class="hd r">Vastag</div>${sh.map(r=>`<div>${esc(r.name||'Lemez')}</div><div class="r">${r.qty}×</div><div class="r"><b>${fi(r.cw)}×${fi(r.ch)}</b></div><div class="r">${pl(r.t)} mm</div>`).join('')}</div>`;
+  $('#planParts').innerHTML=h+'</div>';
+}
+function updStat(){const w=works.find(x=>x.id===plan.id);$('#pStat').textContent=plan.status==='accepted'?'Elfogadva':w&&!isUnsaved()?'Mentve':'Nincs mentve';$('#pStat').className='badge'+(plan.status==='accepted'?' acc':'');}
+function renderPlan(){$('#pName').value=plan.name||'';renderPanel();renderParts();updStat();reqDraw();}
+function saveWork(quiet){
+  if(!plan.members.length&&!plan.rects.length){toast('Üres tervet nem mentek.');return false;}
+  if(!plan.name)plan.name=plan.ans.name||(CATS[plan.cat].n+' '+new Date().toLocaleDateString('hu-HU'));
+  savePlan();const c=clone(plan);const i=works.findIndex(w=>w.id===c.id);if(i>=0)works[i]=c;else works.unshift(c);saveWorks();updStat();if(!quiet)toast('Mentve a korábbi munkák közé.');return true;
+}
+
+/* ============ KOSÁR ============ */
+function packSheets(pcs,W,L){
+  const sheets=[];let over=0;
+  pcs.slice().sort((a,b)=>Math.max(b.w,b.h)-Math.max(a.w,a.h)).forEach(p=>{
+    const fits=(w,h)=>w<=W&&h<=L;if(!fits(p.w,p.h)&&!fits(p.h,p.w)){over++;return;}
+    let placed=false;
+    for(const s of sheets){for(const sh of s.sh){for(const[w,h]of[[p.w,p.h],[p.h,p.w]]){if(h<=sh.h&&sh.x+w<=W){sh.x+=w;placed=true;break;}}if(placed)break;}
+      if(!placed){const o=[[p.w,p.h],[p.h,p.w]].filter(([w,h])=>w<=W&&s.used+h<=L).sort((a,b)=>a[1]-b[1])[0];if(o){s.sh.push({h:o[1],x:o[0]});s.used+=o[1];placed=true;}}
+      if(placed)break;}
+    if(!placed){const o=[[p.w,p.h],[p.h,p.w]].filter(([w,h])=>fits(w,h)).sort((a,b)=>a[1]-b[1])[0];sheets.push({used:o[1],sh:[{h:o[1],x:o[0]}]});}
   });
-  if(m.sheet)h+=`<div class="parts"><div class="tot"><b>Lemez ${pl(m.sheet.t)} mm</b> – nem a darabolóba való</div><div>Betét</div><div class="r">${m.sheet.qty}×</div><div class="r"><b>${fi(m.sheet.w)} × ${fi(m.sheet.h)}</b> mm</div><div class="r"></div></div>`;
-  h+=`</div>`;
-  if(m.hw.length)h+=`<div class="card"><h2>Szerelvények</h2><p class="help">Ezek nem a darabolóba valók, hanem a beszerzési listára.</p><div class="hw">${m.hw.map(x=>`<div>${esc(x.name)}${x.note?` <span class="mut">(${esc(x.note)})</span>`:''}</div><div class="r"><b>${x.qty}</b> db</div>`).join('')}</div></div>`;
-  if(m.pieces.length)h+=`<div class="btns"><button class="go" id="toCutAdd">Hozzáadás a darabolóhoz</button><button class="alt" id="toCutRep">Darabolóban lévő lista cseréje erre</button></div>`;
+  return{n:sheets.length,over};
+}
+function cartCompute(p){
+  K=Math.max(0,num(st.kerf));const lines=[],warns=[];
+  planGroups(p).forEach(g=>{
+    const prod=PIDX.get(g.pid)||PIDX.get(resolve(g.cat||'zart',g.mat).pid),items=[];g.rows.forEach((r,i)=>{const P={i,name:r.name,len:r.len,a1:r.a1,a2:r.a2,h:r.h,shape:r.shape};for(let k=0;k<r.qty;k++)items.push(P);});
+    const len=prod?.d?.len||6000,best=optimize(items,[{len,qty:Infinity}],150),bars=best.bars.length,used=g.rows.reduce((t,r)=>t+r.len*r.qty,0)/1000;
+    if(best.left.length)warns.push(`${g.mat}: ${best.left.length} darab hosszabb, mint egy ${fmt(len/1000)} m-es szál – ezt toldani kell, vagy hosszabb szálat kérni.`);
+    const mk='m:'+g.key;let qty=bars,unit='szál',price=null,how='';
+    if(prod&&prod.unit==='fm'){qty=Math.ceil(used*10)/10;unit='fm';price=prod.price;}
+    else if(prod&&prod.unit==='kg'){price=Math.round(kgPerM(prod)*len/1000*prod.price);how=` · ${pl(kgPerM(prod)*len/1000)} kg/szál × ${ft(prod.price)}/kg`;}
+    else if(prod)price=prod.price;
+    const man=price==null&&p.manual[mk]!=null&&p.manual[mk]!=='';if(man)price=num(p.manual[mk]);
+    lines.push({key:mk,name:prod?prod.name:g.mat,url:prod?.url,qty,unit,price,sum:price!=null?price*qty:null,note:`${pl(used)} m kell, ${bars} szál ${fmt(len/1000)} m-es${how}`,editable:!prod});
+  });
+  const byT=new Map();p.rects.filter(r=>r.role==='sheet'&&r.qty>0).forEach(r=>{const t=num(r.t)||2;if(!byT.has(t))byT.set(t,[]);for(let k=0;k<r.qty;k++)byT.get(t).push({w:r.cw||r.w,h:r.ch||r.h});});
+  byT.forEach((pcs,t)=>{
+    const opts=catList('lemez').filter(q=>q.d.t===t);let best=null;
+    opts.forEach(q=>{const r=packSheets(pcs,q.d.W,q.d.L);if(r.over)return;const c=r.n*q.price;if(!best||c<best.c)best={q,n:r.n,c};});
+    const mk='s:'+t,area=pcs.reduce((s,x)=>s+x.w*x.h,0)/1e6;
+    if(best)lines.push({key:mk,name:best.q.name,url:best.q.url,qty:best.n,unit:'tábla',price:best.q.price,sum:best.c,note:`${pcs.length} lap, összesen ${pl(area)} m² – a legolcsóbb táblamérettel`});
+    else{const r=packSheets(pcs,1000,2000),pr=p.manual[mk]!=null&&p.manual[mk]!==''?num(p.manual[mk]):null;
+      if(r.over)warns.push(`${pl(t)} mm-es lemez: van olyan lap, amely egyik táblaméretbe sem fér bele.`);
+      lines.push({key:mk,name:`Vaslemez ${pl(t)} mm`,qty:r.n||1,unit:'tábla',price:pr,sum:pr!=null?pr*(r.n||1):null,note:`${pcs.length} lap, ${pl(area)} m² (1000×2000-es táblával számolva)`,editable:true});}
+  });
+  p.hw.forEach(h=>{if(!h.name||!(num(h.qty)>0))return;const prod=PIDX.get(h.pid),mk='h:'+h.id;let price=prod?prod.price:(p.manual[mk]!=null&&p.manual[mk]!==''?num(p.manual[mk]):null);
+    lines.push({key:mk,name:prod?prod.name:h.name,url:prod?.url,qty:num(h.qty),unit:prod?prod.unit:'db',price,sum:price!=null?price*num(h.qty):null,note:h.note,editable:!prod});});
+  const total=lines.reduce((t,l)=>t+(l.sum||0),0),missing=lines.filter(l=>l.sum==null).length;
+  return{lines,total,missing,warns};
+}
+let lastCart=null;
+function renderCart(){
+  $('#pstatus').innerHTML=priceStatus();
+  const el=$('#cartBox');
+  if(!plan.members.length&&!plan.rects.length){el.innerHTML='<div class="card mut">Még nincs terv. Kezdj egy munkát az „Új munka” fülön, majd fogadd el a látványtervet.</div>';return;}
+  const c=lastCart=cartCompute(plan);
+  let h=c.warns.map(w=>`<div class="warn">${esc(w)}</div>`).join('');
+  if(plan.status==='accepted')h+=`<div class="okb">A tervet elfogadtad: ${dstr(plan.acceptedAt)} Akkori anyagköltség: <b>${ft(plan.cartTotal||0)}</b>${PR.data&&plan.priceDate&&plan.priceDate!==PR.data.updated?' – azóta frissültek az árak.':''}</div>`;
+  else h+=`<div class="warn">Ez a terv még nincs elfogadva. Az árak a jelenlegi látványterv szerint számolódnak.</div>`;
+  h+=`<div class="card"><h2>${esc(plan.name||CATS[plan.cat].n)}</h2><table class="ct"><thead><tr><th>Tétel</th><th class="r">Mennyiség</th><th class="r">Egységár</th><th class="r">Összesen</th></tr></thead><tbody>`;
+  c.lines.forEach(l=>{h+=`<tr><td>${l.url?`<a href="${esc(l.url)}" target="_blank" rel="noopener">${esc(l.name)}</a>`:esc(l.name)}${l.note?`<small>${esc(l.note)}</small>`:''}</td><td class="r q">${pl(l.qty)} ${esc(l.unit)}</td>
+    <td class="r u">${l.editable?`<input inputmode="decimal" data-man="${esc(l.key)}" value="${esc(plan.manual[l.key]??'')}" placeholder="ár, Ft" aria-label="Egységár">`:l.price!=null?ft(l.price):'–'}</td><td class="r"><b>${l.sum!=null?ft(l.sum):'–'}</b></td></tr>`;});
+  h+=`</tbody></table><div class="total"><span>Anyagköltség összesen${c.missing?` <span class="mut">(${c.missing} tétel ára hiányzik)</span>`:''}</span><b id="ctot">${ft(c.total)}</b></div>
+  <p class="help" style="margin:8px 0 0">Bruttó (áfás) webáruházi árak. A szálanyag mennyisége a darabolási optimalizálásból jön (${pl(num(st.kerf))} mm fűrészlappal), a Timárvasker csak egész szálat ad. Céges vásárlásnál a fordított áfa miatt a fizetendő összeg eltérhet.</p></div>
+  <div class="btns">${plan.status==='accepted'?'':'<button class="go" data-act2="accept">Terv elfogadása</button>'}<button class="alt" data-act2="copy">Lista másolása szövegként</button><button class="alt" data-act2="cut">Darabolási terv megnyitása</button><button class="alt" data-act2="back">Vissza a látványtervhez</button></div>`;
   el.innerHTML=h;
 }
-
-function handoff(append){
-  const m=gMod;if(!m||m.errs.length||!m.pieces.length)return;
-  const arr=m.pieces.map(p=>({name:p.name,len:p.len,qty:p.qty,a1:p.a1,a2:p.a2,h:p.h,shape:p.shape,mat:p.mat}));
-  st.pieces=append?st.pieces.concat(arr):arr;
-  save();renderInputs();showTab('cut');calc();window.scrollTo(0,0);
+function acceptPlan(){
+  if(!plan.members.length&&!plan.rects.length){toast('Előbb készíts látványtervet.');return;}
+  const c=cartCompute(plan);Object.assign(plan,{status:'accepted',acceptedAt:Date.now(),cartTotal:c.total,priceDate:PR.data?.updated||'',priceSrc:PR.src});
+  saveWork(true);showTab('cart');toast('Terv elfogadva és mentve.');
+}
+function cartText(){
+  const c=lastCart||cartCompute(plan);
+  return[`${plan.name||CATS[plan.cat].n} – anyaglista`,...c.lines.map(l=>`${l.name}: ${pl(l.qty)} ${l.unit}${l.sum!=null?' – '+ft(l.sum):''}`),`Összesen: ${ft(c.total)} (bruttó)`].join('\n');
+}
+function planToCut(){
+  const gs=planGroups(plan);if(!gs.length){toast('Nincs szálanyag a tervben.');return;}
+  st.pieces=[];const stocks=[];
+  gs.forEach(g=>{const prod=PIDX.get(g.pid);g.rows.forEach(r=>st.pieces.push({name:r.name,len:r.len,qty:r.qty,a1:r.a1,a2:r.a2,h:r.h,shape:r.shape,mat:g.mat}));stocks.push({len:prod?.d?.len||6000,qty:'',mat:g.mat});});
+  st.stocks=stocks;save();renderInputs();showTab('cut');calc();window.scrollTo(0,0);
 }
 
-function fillGate(){
-  $$('[data-g]').forEach(el=>{const v=g[el.dataset.g];if(el.type==='checkbox')el.checked=!!v;else el.value=v??'';});
-  $$('[data-for]').forEach(el=>el.hidden=!el.dataset.for.split(' ').includes(g.type));
-  $$('[data-inf]').forEach(el=>el.hidden=!el.dataset.inf.split(' ').includes(g.infill));
-  $$('[data-brace]').forEach(el=>el.hidden=!g.brace);
-  $$('[data-mode]').forEach(el=>el.hidden=!(g.type==='wicket'&&g.mode===el.dataset.mode));
-  $$('[data-handle]').forEach(el=>el.hidden=g.handle!==el.dataset.handle);
-  $$('[data-hinge]').forEach(el=>el.hidden=g.hinge!==el.dataset.hinge);
-  $('#lblWrap').hidden=g.type==='wicket'&&g.mode==='csere';
-  $('#lblW').textContent=g.type==='fence'?'Mező szélessége (mm)':g.type==='wicket'?'Nyílás szélessége a pillérek között (mm)':'Nyílás szélessége az oszlopok között (mm)';
+/* ============ KORÁBBI MUNKÁK ============ */
+function renderWorks(){
+  const f=$('#wFilter');if(!f.options.length)f.innerHTML='<option value="">Mind</option>'+Object.entries(CATS).map(([k,c])=>`<option value="${k}">${esc(c.n)}</option>`).join('');
+  const q=norm($('#wSearch').value),fc=f.value;
+  const ws=works.filter(w=>(!fc||w.cat===fc)&&(!q||norm(w.name).includes(q))).sort((a,b)=>b.updated-a.updated);
+  $('#wlist').innerHTML=ws.length?ws.map(w=>`<div class="wk">${thumbSVG(w,260,130,10)}<h3>${esc(w.name||CATS[w.cat]?.n||'Munka')}</h3>
+    <div class="mut">${esc(CATS[w.cat]?.n||'')} · ${dstr(w.updated)} <span class="badge${w.status==='accepted'?' acc':''}">${w.status==='accepted'?'Elfogadva':'Terv'}</span></div>
+    ${w.cartTotal?`<div>Anyagköltség: <b>${ft(w.cartTotal)}</b> <span class="mut">(${dstr(w.acceptedAt)})</span></div>`:''}
+    <div class="bt"><button class="sm" data-wo="${w.id}">Megnyitás</button><button class="sm" data-wc="${w.id}">Másolat új munkához</button><button class="sm" data-wk="${w.id}">Kosár</button><button class="sm danger" data-wd="${w.id}">Törlés</button></div></div>`).join('')
+    :`<div class="card mut">${works.length?'Nincs találat.':'Még nincs mentett munka. A Látványterv fülön a „Mentés a korábbi munkákhoz” vagy a „Terv elfogadása” gombbal kerül ide.'}</div>`;
 }
-function onType(){
-  if(g.type==='cant'){g.tail=Math.round(num(g.W)*0.5/10)*10;if(!(num(g.ov)>0))g.ov=100;}
-  else if(g.type==='slide'){g.tail=0;if(!(num(g.ov)>0))g.ov=100;}
-  else if(g.type==='wicket'){if(num(g.W)>1500)g.W=1000;}
+function openWork(id,copy,tab){
+  const w=works.find(x=>x.id===id);if(!w)return;
+  if(isUnsaved()&&plan.id!==id&&!confirm('A mostani terv nincs mentve. Megnyitod helyette ezt?'))return;
+  plan=clone(w);['rects','texts','hw','info'].forEach(k=>{if(!Array.isArray(plan[k]))plan[k]=[];});if(!plan.manual)plan.manual={};
+  if(copy){plan.id=uid();plan.name=(w.name||'')+' (másolat)';plan.status='draft';delete plan.cartTotal;delete plan.acceptedAt;plan.created=Date.now();}
+  sel=null;undoS=[];redoS=[];savePlan();renderCats();renderForm();showTab(tab||'plan');if((tab||'plan')==='plan'){fitView();renderPlan();}
 }
 
 /* ============ FÜLEK ÉS ESEMÉNYEK ============ */
+const TABS=['work','plan','works','cart','cut'];
 function showTab(t){
-  $('#tab-gate').hidden=t!=='gate';$('#tab-cut').hidden=t!=='cut';
+  TABS.forEach(x=>$('#tab-'+x).hidden=x!==t);
   $$('.tabs button').forEach(b=>b.classList.toggle('on',b.dataset.tab===t));
   try{localStorage.setItem('femtab',t)}catch(e){}
+  if(t==='plan'){requestAnimationFrame(()=>{measure();if(!fitted){fitView();fitted=true;}renderPlan();});}
+  if(t==='works')renderWorks();
+  if(t==='cart')renderCart();
+  if(t==='work'){renderCats();renderForm();}
 }
 document.addEventListener('input',ev=>{
   const t=ev.target;
-  if(t.dataset.g){if(t.tagName==='SELECT'||t.type==='checkbox')return;g[t.dataset.g]=t.value;gSave();gateRender();return;}
+  if(t.dataset.a){const k=t.dataset.a;if(t.tagName==='SELECT'||t.type==='checkbox')return;plan.ans[k]=t.value;savePlan();const e=$('#est');if(e)e.innerHTML=estimate();return;}
+  if(t.dataset.mp){if(t.tagName==='SELECT')return;onPanelInput(t);return;}
+  if(t.dataset.hw){const[i,f]=t.dataset.hw.split('.'),h=plan.hw[+i];if(!h)return;h[f]=t.value;if(f==='name'){const p=[...PIDX.values()].find(x=>x.cat==='vasalat'&&x.name===t.value);h.pid=p?p.id:'';}changed(false);return;}
+  if(t.dataset.man!=null){plan.manual[t.dataset.man]=t.value;savePlan();const c=lastCart;if(c){const l=c.lines.find(x=>x.key===t.dataset.man);if(l){l.price=t.value===''?null:num(t.value);l.sum=l.price!=null?l.price*l.qty:null;}c.total=c.lines.reduce((s,x)=>s+(x.sum||0),0);const el=$('#ctot');if(el)el.textContent=ft(c.total);}return;}
+  if(t.id==='pName'){plan.name=t.value;savePlan();updStat();return;}
+  if(t.id==='wSearch'){renderWorks();return;}
   if(t.id==='kerf'||t.id==='trim'){st[t.id]=t.value;save();return;}
   const k=t.dataset.k;if(!k)return;const[a,i,f]=k.split('.');st[a][+i][f]=t.value;save();
 });
 document.addEventListener('change',ev=>{
   const t=ev.target;
-  if(t.dataset.g&&(t.tagName==='SELECT'||t.type==='checkbox')){
-    g[t.dataset.g]=t.type==='checkbox'?t.checked:t.value;
-    if(t.dataset.g==='type')onType();
-    if(t.dataset.g==='post')g.pw=t.value==='acel'?100:300;
-    fillGate();gSave();gateRender();return;
-  }
+  if(t.dataset.a&&(t.tagName==='SELECT'||t.type==='checkbox')){const k=t.dataset.a;plan.ans[k]=t.type==='checkbox'?t.checked:t.value;CATS[plan.cat].onChange?.(plan.ans,k);savePlan();renderForm();return;}
+  if(t.dataset.mp&&t.tagName==='SELECT'){onPanelInput(t);return;}
+  if(t.dataset.hw&&t.dataset.hw.endsWith('.name')){renderHw();return;}
+  if(t.id==='fromSel'&&t.value){startFrom(t.value);return;}
+  if(t.id==='wFilter'){renderWorks();return;}
+  if(t.id==='impFile'&&t.files[0]){const r=new FileReader();r.onload=()=>{try{const d=JSON.parse(r.result),arr=Array.isArray(d)?d:d.works;if(!Array.isArray(arr))throw 0;let n=0;arr.forEach(w=>{if(w&&w.id&&Array.isArray(w.members)&&CATS[w.cat]){const i=works.findIndex(x=>x.id===w.id);if(i>=0)works[i]=w;else works.push(w);n++;}});saveWorks();renderWorks();toast(n+' munka betöltve.');}catch(e){toast('Ez a fájl nem munka-mentés.');}t.value='';};r.readAsText(t.files[0]);return;}
   if(t.tagName==='SELECT'&&t.dataset.k){const[a,i,f]=t.dataset.k.split('.');st[a][+i][f]=t.value;save();}
 });
 document.addEventListener('click',ev=>{
-  const tb=ev.target.closest('[data-tab]');if(tb){showTab(tb.dataset.tab);return;}
-  if(ev.target.closest('#toCutAdd')){handoff(true);return;}
-  if(ev.target.closest('#toCutRep')){handoff(false);return;}
-  const d=ev.target.closest('[data-del]');
+  const q=s=>ev.target.closest(s);let b;
+  if(b=q('[data-tab]')){showTab(b.dataset.tab);return;}
+  if(b=q('[data-cat]')){const c=b.dataset.cat;if(c!==plan.cat){if(isUnsaved()&&!confirm('A mostani terv nincs mentve. Új munkát kezdesz?'))return;plan=newPlan(c);sel=null;undoS=[];savePlan();}renderCats();renderForm();$('#qform').scrollIntoView({behavior:'smooth',block:'start'});return;}
+  if(b=q('[data-chip]')){plan.ans[b.dataset.chip]=b.dataset.v;savePlan();renderForm();return;}
+  if(b=q('[data-from]')){startFrom(b.dataset.from);return;}
+  if(b=q('[data-tool]')){setTool(b.dataset.tool);return;}
+  if(b=q('[data-act]')){doAct(b.dataset.act);return;}
+  if(b=q('[data-hwdel]')){snapshot();plan.hw.splice(+b.dataset.hwdel,1);changed(false);renderHw();return;}
+  if(b=q('[data-act2]')){const a=b.dataset.act2;if(a==='accept')acceptPlan();else if(a==='cut')planToCut();else if(a==='back')showTab('plan');
+    else if(a==='copy'){const tx=cartText();(navigator.clipboard?.writeText(tx)||Promise.reject()).then(()=>toast('Kimásolva.'),()=>{prompt('Másold ki:',tx);});}return;}
+  if(b=q('[data-wo]')){openWork(b.dataset.wo);return;}
+  if(b=q('[data-wc]')){openWork(b.dataset.wc,true);return;}
+  if(b=q('[data-wk]')){openWork(b.dataset.wk,false,'cart');return;}
+  if(b=q('[data-wd]')){const w=works.find(x=>x.id===b.dataset.wd);if(w&&confirm(`Törlöd: ${w.name||'munka'}?`)){works=works.filter(x=>x!==w);saveWorks();renderWorks();}return;}
+  if(q('#genBtn')){generate();return;}
+  if(q('#newBtn')){if(isUnsaved()&&!confirm('A mostani terv nincs mentve. Új munkát kezdesz?'))return;plan=newPlan(plan.cat);sel=null;undoS=[];savePlan();renderForm();toast('Új munka, alapértékekkel.');return;}
+  if(q('#saveBtn')){saveWork();return;}
+  if(q('#accBtn')){acceptPlan();return;}
+  if(q('#toCutBtn')){planToCut();return;}
+  if(q('#priceBtn')){loadPrices(true);return;}
+  if(q('#expBtn')){const blob=new Blob([JSON.stringify({app:'fem-tervezo',saved:new Date().toISOString(),works},null,1)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='fem-munkak-'+new Date().toISOString().slice(0,10)+'.json';document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove();},1000);return;}
+  const d=q('[data-del]');
   if(d){const[a,i]=d.dataset.del.split('.');st[a].splice(+i,1);save();renderInputs();}
+});
+document.addEventListener('keydown',e=>{
+  if($('#tab-plan').hidden||/INPUT|SELECT|TEXTAREA/.test(document.activeElement?.tagName))return;
+  if((e.key==='Delete'||e.key==='Backspace')&&sel){e.preventDefault();doAct('del');}
+  else if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==='z'){e.preventDefault();doAct(e.shiftKey?'redo':'undo');}
+  else if(e.key==='Escape'){setTool('sel');sel=null;renderPanel();reqDraw();}
 });
 $('#addS').addEventListener('click',()=>{st.stocks.push({len:6000,qty:'',mat:''});save();renderInputs();});
 $('#addP').addEventListener('click',()=>{const p=st.pieces[st.pieces.length-1];st.pieces.push(p?{...p,name:'',qty:1}:{name:'',len:1000,qty:1,a1:0,a2:0,h:40,shape:'T',mat:''});save();renderInputs();});
 $('#go').addEventListener('click',()=>{calc();if(innerWidth<900)$('#res').scrollIntoView({behavior:'smooth'});});
-let rw=0,gw=0;
+let rw=0;
 new ResizeObserver(()=>{const w=$('#res').clientWidth;if(w&&Math.abs(w-rw)>4){rw=w;renderRes();}}).observe($('#res'));
-new ResizeObserver(()=>{const w=$('#gres').clientWidth;if(w&&Math.abs(w-gw)>4){gw=w;gateRender();}}).observe($('#gres'));
-renderInputs();fillGate();gateRender();calc();
-let t0='gate';try{t0=localStorage.getItem('femtab')||'gate'}catch(e){}
-showTab(t0==='cut'?'cut':'gate');
+new ResizeObserver(()=>{if(!$('#tab-plan').hidden)reqDraw();}).observe($('#cadw'));
+$('#dimsBtn').classList.toggle('on',showDims);$('#orthoBtn').classList.toggle('on',ortho);
+fillHwList();renderInputs();calc();
+let t0='work';try{t0=localStorage.getItem('femtab')||'work'}catch(e){}
+if(t0==='gate')t0='work';if(!TABS.includes(t0))t0='work';if(t0==='plan'&&!plan.members.length)t0='work';
+showTab(t0);
+loadPrices(false);
+addEventListener('online',()=>loadPrices(false));addEventListener('offline',()=>{PR.src=PR.data?'offline':'none';if(!$('#tab-cart').hidden)renderCart();});
 }
 </script>
 <script>if("serviceWorker"in navigator){addEventListener("load",()=>navigator.serviceWorker.register("sw.js").catch(()=>{}))}</script>

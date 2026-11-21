@@ -1,6 +1,8 @@
-// Hálózat először (így a frissítés azonnal megjön), internet nélkül a mentett másolat.
-const CACHE = 'femdarab-v2';
-const FILES = ['./', 'index.html', 'manifest.webmanifest', 'icon-192.png', 'icon-512.png'];
+// Hálózat először (így a frissítés és a friss árlista azonnal megjön),
+// internet nélkül a mentett másolat. Az árlistánál jelezzük, ha a mentett
+// másolatból jön, hogy a program „legutolsó ismert árként” mutassa.
+const CACHE = 'femdarab-v3';
+const FILES = ['./', 'index.html', 'manifest.webmanifest', 'icon-192.png', 'icon-512.png', 'prices.json'];
 
 self.addEventListener('install', e => {
   e.waitUntil(caches.open(CACHE).then(c => c.addAll(FILES)).then(() => self.skipWaiting()));
@@ -20,10 +22,18 @@ self.addEventListener('fetch', e => {
   e.respondWith(
     fetch(req)
       .then(res => {
-        const copy = res.clone();
-        caches.open(CACHE).then(c => c.put(req, copy));
+        if (res.ok) {
+          const copy = res.clone();
+          caches.open(CACHE).then(c => c.put(req, copy));
+        }
         return res;
       })
-      .catch(() => caches.match(req, { ignoreSearch: true }).then(r => r || caches.match('./')))
+      .catch(() => caches.match(req, { ignoreSearch: true }).then(r => {
+        if (!r) return caches.match('./');
+        if (!req.url.includes('prices.json')) return r;
+        const h = new Headers(r.headers);
+        h.set('x-offline', '1');
+        return r.blob().then(b => new Response(b, { status: 200, headers: h }));
+      }))
   );
 });

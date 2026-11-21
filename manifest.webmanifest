@@ -1,7 +1,7 @@
 {
-  "name": "Fém darabolás tervező",
-  "short_name": "Darabolás",
-  "description": "Szálanyag-optimalizálás gérvágással, offline is működik.",
+  "name": "Fém tervező",
+  "short_name": "Fém tervező",
+  "description": "Gyártmányok tervezése, látványterv, anyagköltség és szálanyag-optimalizálás – offline is működik.",
   "lang": "hu",
   "start_url": "./",
   "scope": "./",
@@ -9,8 +9,23 @@
   "background_color": "#eceff1",
   "theme_color": "#f26b1d",
   "icons": [
-    {"src": "icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any"},
-    {"src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any"},
-    {"src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable"}
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
   ]
 }

@@ -1,0 +1,2664 @@
+{
+"updated": "2026-11-21T14:30+01:00",
+"source": "https://timarvasker.hu",
+"method": "kézi (kezdő árlista)",
+"note": "Bruttó (áfás) árak a Timárvasker webáruházából.",
+"products": [{
+"id": "laposacel-10x3-hossz.-6-fm-laposvas",
+"name": "Laposacél, 10x3, hossz.: 6 fm (laposvas)",
+"price": 2109,
+"unit": "szál",
+"url": "https://timarvasker.hu/laposacel-10x3-hossz.-6-fm-laposvas/t",
+"cat": "lapos",
+"src": "/melegen-hengerelt-laposacel/k"
+},{
+"id": "laposacel-10x4-hossz.-6-fm-laposvas",
+"name": "Laposacél, 10x4, hossz.: 6 fm (laposvas)",
+"price": 4616,
+"unit": "szál",
+"url": "https://timarvasker.hu/laposacel-10x4-hossz.-6-fm-laposvas/t",
+"cat": "lapos",
+"src": "/melegen-hengerelt-laposacel/k"
+},{
+"id": "laposacel-10x5-hossz.-6-fm-laposvas",
+"name": "Laposacél, 10x5, hossz.: 6 fm (laposvas)",
+"price": 5350,
+"unit": "szál",
+"url": "https://timarvasker.hu/laposacel-10x5-hossz.-6-fm-laposvas/t",
+"cat": "lapos",
+"src": "/melegen-hengerelt-laposacel/k"
+},{
+"id": "laposacel-12x3-hossz.-6-fm-laposvas",
+"name": "Laposacél, 12x3, hossz.: 6 fm (laposvas)",
+"price": 1689,
+"unit": "szál",
+"url": "https://timarvasker.hu/laposacel-12x3-hossz.-6-fm-laposvas/t",
+"cat": "lapos",
+"src": "/melegen-hengerelt-laposacel/k"
+},{
+"id": "laposacel-12x5-hossz.-6-fm-laposvas",
+"name": "Laposacél, 12x5, hossz.: 6 fm (laposvas)",
+"price": 2523,
+"unit": "szál",
+"url": "https://timarvasker.hu/laposacel-12x5-hossz.-6-fm-laposvas/t",
+"cat": "lapos",
+"src": "/melegen-hengerelt-laposacel/k"
+},{
+"id": "laposacel-12x6-hossz-6-fm-laposvas",
+"name": "Laposacél, 12x6, hossz: 6 fm (laposvas)",
+"price": 2930,
+"unit": "szál",
+"url": "https://timarvasker.hu/laposacel-12x6-hossz-6-fm-laposvas/t",
+"cat": "lapos",
+"src": "/melegen-hengerelt-laposacel/k"
+},{
+"id": "laposacel-14x3-hossz-6-fm-laposvas",
+"name": "Laposacél, 14x3, hossz: 6 fm (laposvas)",
+"price": 2087,
+"unit": "szál",
+"url": "https://timarvasker.hu/laposacel-14x3-hossz-6-fm-laposvas/t",
+"cat": "lapos",
+"src": "/melegen-hengerelt-laposacel/k"
+},{
+"id": "laposacel-14x5-hossz-6-fm-laposvas",
+"name": "Laposacél, 14x5, hossz: 6 fm (laposvas)",
+"price": 2849,
+"unit": "szál",
+"url": "https://timarvasker.hu/laposacel-14x5-hossz-6-fm-laposvas/t",
+"cat": "lapos",
+"src": "/melegen-hengerelt-laposacel/k"
+},{
+"id": "laposacel-15x3-hossz-6-fm-laposacel",
+"name": "Laposacél, 15x3, hossz: 6 fm (laposacél)",
+"price": 2048,
+"unit": "szál",
+"url": "https://timarvasker.hu/laposacel-15x3-hossz-6-fm-laposacel/t",
+"cat": "lapos",
+"src": "/melegen-hengerelt-laposacel/k"
+},{
+"id": "laposacel-15x5-hossz-6-fm-laposvas",
+"name": "Laposacél, 15x5, hossz: 6 fm (laposvas)",
+"price": 5284,
+"unit": "szál",
+"url": "https://timarvasker.hu/laposacel-15x5-hossz-6-fm-laposvas/t",
+"cat": "lapos",
+"src": "/melegen-hengerelt-laposacel/k"
+},{
+"id": "laposacel-15x8-hossz.-6-fm-laposvas",
+"name": "Laposacél, 15x8, hossz.: 6 fm (laposvas)",
+"price": 4640,
+"unit": "szál",
+"url": "https://timarvasker.hu/laposacel-15x8-hossz.-6-fm-laposvas/t",
+"cat": "lapos",
+"src": "/melegen-hengerelt-laposacel/k"
+},{
+"id": "laposacel-16x6-hossz-6-fm-laposvas",
+"name": "Laposacél, 16x6, hossz: 6 fm (laposvas)",
+"price": 3826,
+"unit": "szál",
+"url": "https://timarvasker.hu/laposacel-16x6-hossz-6-fm-laposvas/t",
+"cat": "lapos",
+"src": "/melegen-hengerelt-laposacel/k"
+},{
+"id": "laposacel-20x-3-hossz.-6-fm-laposvas",
+"name": "Laposacél, 20x 3, hossz.: 6 fm (laposvas)",
+"price": 1885,
+"unit": "szál",
+"url": "https://timarvasker.hu/laposacel-20x-3-hossz.-6-fm-laposvas/t",
+"cat": "lapos",
+"src": "/melegen-hengerelt-laposacel/k"
+},{
+"id": "laposacel-20x-4-hossz.-6-fm-laposvas",
+"name": "Laposacél, 20x 4, hossz.: 6 fm (laposvas)",
+"price": 2297,
+"unit": "szál",
+"url": "https://timarvasker.hu/laposacel-20x-4-hossz.-6-fm-laposvas/t",
+"cat": "lapos",
+"src": "/melegen-hengerelt-laposacel/k"
+},{
+"id": "laposacel-20x-5-hossz.-6-fm-laposvas",
+"name": "Laposacél, 20x 5, hossz.: 6 fm (laposvas)",
+"price": 2880,
+"unit": "szál",
+"url": "https://timarvasker.hu/laposacel-20x-5-hossz.-6-fm-laposvas/t",
+"cat": "lapos",
+"src": "/melegen-hengerelt-laposacel/k"
+},{
+"id": "laposacel-20x-6-hossz-6-fm-laposvas",
+"name": "Laposacél, 20x 6, hossz: 6 fm (laposvas)",
+"price": 3950,
+"unit": "szál",
+"url": "https://timarvasker.hu/laposacel-20x-6-hossz-6-fm-laposvas/t",
+"cat": "lapos",
+"src": "/melegen-hengerelt-laposacel/k"
+},{
+"id": "laposacel-20x-8-hossz.-6-fm-laposvas",
+"name": "Laposacél, 20x 8, hossz.: 6 fm (laposvas)",
+"price": 5448,
+"unit": "szál",
+"url": "https://timarvasker.hu/laposacel-20x-8-hossz.-6-fm-laposvas/t",
+"cat": "lapos",
+"src": "/melegen-hengerelt-laposacel/k"
+},{
+"id": "laposacel-20x10-hossz.-6-fm-laposvas",
+"name": "Laposacél, 20x10, hossz.: 6 fm (laposvas)",
+"price": 6742,
+"unit": "szál",
+"url": "https://timarvasker.hu/laposacel-20x10-hossz.-6-fm-laposvas/t",
+"cat": "lapos",
+"src": "/melegen-hengerelt-laposacel/k"
+},{
+"id": "laposacel-25x-3-hossz.-6-fm-laposvas",
+"name": "Laposacél, 25x 3, hossz.: 6 fm (laposvas)",
+"price": 2250,
+"unit": "szál",
+"url": "https://timarvasker.hu/laposacel-25x-3-hossz.-6-fm-laposvas/t",
+"cat": "lapos",
+"src": "/melegen-hengerelt-laposacel/k"
+},{
+"id": "laposacel-25x-4-hossz.-6-fm-laposvas",
+"name": "Laposacél, 25x 4, hossz.: 6 fm (laposvas)",
+"price": 2945,
+"unit": "szál",
+"url": "https://timarvasker.hu/laposacel-25x-4-hossz.-6-fm-laposvas/t",
+"cat": "lapos",
+"src": "/melegen-hengerelt-laposacel/k"
+},{
+"id": "laposacel-25x-5-hossz.-6-fm-laposvas",
+"name": "Laposacél, 25x 5, hossz.: 6 fm (laposvas)",
+"price": 3571,
+"unit": "szál",
+"url": "https://timarvasker.hu/laposacel-25x-5-hossz.-6-fm-laposvas/t",
+"cat": "lapos",
+"src": "/melegen-hengerelt-laposacel/k"
+},{
+"id": "laposacel-25x-6-hossz-6-fm-laposvas",
+"name": "Laposacél, 25x 6, hossz: 6 fm (laposvas)",
+"price": 4971,
+"unit": "szál",
+"url": "https://timarvasker.hu/laposacel-25x-6-hossz-6-fm-laposvas/t",
+"cat": "lapos",
+"src": "/melegen-hengerelt-laposacel/k"
+},{
+"id": "laposacel-25x-8-hossz-6-fm-laposvas",
+"name": "Laposacél, 25x 8, hossz: 6 fm (laposvas)",
+"price": 6606,
+"unit": "szál",
+"url": "https://timarvasker.hu/laposacel-25x-8-hossz-6-fm-laposvas/t",
+"cat": "lapos",
+"src": "/melegen-hengerelt-laposacel/k"
+},{
+"id": "laposacel-25x10-hossz.-6-fm-laposvas2",
+"name": "Laposacél, 25x10, hossz.: 6 fm (laposvas)",
+"price": 8444,
+"unit": "szál",
+"url": "https://timarvasker.hu/laposacel-25x10-hossz.-6-fm-laposvas2/t",
+"cat": "lapos",
+"src": "/melegen-hengerelt-laposacel/k"
+},{
+"id": "laposacel-25x12-hossz-6-fm-laposvas",
+"name": "Laposacél, 25x12, hossz: 6 fm (laposvas)",
+"price": 10147,
+"unit": "szál",
+"url": "https://timarvasker.hu/laposacel-25x12-hossz-6-fm-laposvas/t",
+"cat": "lapos",
+"src": "/melegen-hengerelt-laposacel/k"
+},{
+"id": "laposacel-30x-3-hossz.-6-fm-laposvas",
+"name": "Laposacél, 30x 3, hossz.: 6 fm (laposvas)",
+"price": 2736,
+"unit": "szál",
+"url": "https://timarvasker.hu/laposacel-30x-3-hossz.-6-fm-laposvas/t",
+"cat": "lapos",
+"src": "/melegen-hengerelt-laposacel/k"
+},{
+"id": "laposacel-30x-4-hossz.-6-fm-laposvas",
+"name": "Laposacél, 30x 4, hossz.: 6 fm (laposvas)",
+"price": 3534,
+"unit": "szál",
+"url": "https://timarvasker.hu/laposacel-30x-4-hossz.-6-fm-laposvas/t",
+"cat": "lapos",
+"src": "/melegen-hengerelt-laposacel/k"
+},{
+"id": "laposacel-30x-5-hossz.-6-fm-laposvas",
+"name": "Laposacél, 30x 5, hossz.: 6 fm (laposvas)",
+"price": 4320,
+"unit": "szál",
+"url": "https://timarvasker.hu/laposacel-30x-5-hossz.-6-fm-laposvas/t",
+"cat": "lapos",
+"src": "/melegen-hengerelt-laposacel/k"
+},{
+"id": "laposacel-30x-6-hossz.-6-fm-laposvas",
+"name": "Laposacél, 30x 6, hossz.: 6 fm (laposvas)",
+"price": 5993,
+"unit": "szál",
+"url": "https://timarvasker.hu/laposacel-30x-6-hossz.-6-fm-laposvas/t",
+"cat": "lapos",
+"src": "/melegen-hengerelt-laposacel/k"
+},{
+"id": "laposacel-30x-8-hossz.-6-fm-laposvas",
+"name": "Laposacél, 30x 8, hossz.: 6 fm (laposvas)",
+"price": 7968,
+"unit": "szál",
+"url": "https://timarvasker.hu/laposacel-30x-8-hossz.-6-fm-laposvas/t",
+"cat": "lapos",
+"src": "/melegen-hengerelt-laposacel/k"
+},{
+"id": "laposacel-30x10-hossz.-6-fm-laposvas",
+"name": "Laposacél, 30x10, hossz.: 6 fm (laposvas)",
+"price": 10011,
+"unit": "szál",
+"url": "https://timarvasker.hu/laposacel-30x10-hossz.-6-fm-laposvas/t",
+"cat": "lapos",
+"src": "/melegen-hengerelt-laposacel/k"
+},{
+"id": "laposacel-30x15-hossz-6-fm-laposvas",
+"name": "Laposacél, 30x15, hossz: 6 fm (laposvas)",
+"price": 14914,
+"unit": "szál",
+"url": "https://timarvasker.hu/laposacel-30x15-hossz-6-fm-laposvas/t",
+"cat": "lapos",
+"src": "/melegen-hengerelt-laposacel/k"
+},{
+"id": "laposacel-30x20-hossz-6-fm-laposvas",
+"name": "Laposacél, 30x20, hossz: 6 fm (laposvas)",
+"price": 30420,
+"unit": "szál",
+"url": "https://timarvasker.hu/laposacel-30x20-hossz-6-fm-laposvas/t",
+"cat": "lapos",
+"src": "/melegen-hengerelt-laposacel/k"
+},{
+"id": "laposacel-35x-4-hossz-6-fm-laposvas",
+"name": "Laposacél, 35x 4, hossz: 6 fm (laposvas)",
+"price": 4631,
+"unit": "szál",
+"url": "https://timarvasker.hu/laposacel-35x-4-hossz-6-fm-laposvas/t",
+"cat": "lapos",
+"src": "/melegen-hengerelt-laposacel/k"
+},{
+"id": "laposacel-35x-5-hossz-6-fm-laposacel",
+"name": "Laposacél, 35x 5, hossz: 6 fm (laposacél)",
+"price": 6511,
+"unit": "szál",
+"url": "https://timarvasker.hu/laposacel-35x-5-hossz-6-fm-laposacel/t",
+"cat": "lapos",
+"src": "/melegen-hengerelt-laposacel/k"
+},{
+"id": "laposacel-35x-8-hossz-6-fm-laposacel",
+"name": "Laposacél, 35x 8, hossz: 6 fm (laposacél)",
+"price": 16212,
+"unit": "szál",
+"url": "https://timarvasker.hu/laposacel-35x-8-hossz-6-fm-laposacel/t",
+"cat": "lapos",
+"src": "/melegen-hengerelt-laposacel/k"
+},{
+"id": "laposacel-40x-3-hossz.-6-fm-laposvas",
+"name": "Laposacél, 40x 3, hossz.: 6 fm (laposvas)",
+"price": 3648,
+"unit": "szál",
+"url": "https://timarvasker.hu/laposacel-40x-3-hossz.-6-fm-laposvas/t",
+"cat": "lapos",
+"src": "/melegen-hengerelt-laposacel/k"
+},{
+"id": "laposacel-40x-4-hossz.-6-fm-laposvas",
+"name": "Laposacél, 40x 4, hossz.: 6 fm (laposvas)",
+"price": 4771,
+"unit": "szál",
+"url": "https://timarvasker.hu/laposacel-40x-4-hossz.-6-fm-laposvas/t",
+"cat": "lapos",
+"src": "/melegen-hengerelt-laposacel/k"
+},{
+"id": "laposacel-40x-5-hossz.-6-fm-laposvas",
+"name": "Laposacél, 40x 5, hossz.: 6 fm (laposvas)",
+"price": 5760,
+"unit": "szál",
+"url": "https://timarvasker.hu/laposacel-40x-5-hossz.-6-fm-laposvas/t",
+"cat": "lapos",
+"src": "/melegen-hengerelt-laposacel/k"
+},{
+"id": "laposacel-40x-6-hossz-6-fm-laposvas",
+"name": "Laposacél, 40x 6, hossz: 6 fm (laposvas)",
+"price": 7831,
+"unit": "szál",
+"url": "https://timarvasker.hu/laposacel-40x-6-hossz-6-fm-laposvas/t",
+"cat": "lapos",
+"src": "/melegen-hengerelt-laposacel/k"
+},{
+"id": "laposacel-40x-8-hossz.-6-fm-laposvas",
+"name": "Laposacél, 40x 8, hossz.: 6 fm (laposvas)",
+"price": 10828,
+"unit": "szál",
+"url": "https://timarvasker.hu/laposacel-40x-8-hossz.-6-fm-laposvas/t",
+"cat": "lapos",
+"src": "/melegen-hengerelt-laposacel/k"
+},{
+"id": "laposacel-40x10-hossz.-6-fm-laposvas",
+"name": "Laposacél, 40x10, hossz.: 6 fm (laposvas)",
+"price": 13484,
+"unit": "szál",
+"url": "https://timarvasker.hu/laposacel-40x10-hossz.-6-fm-laposvas/t",
+"cat": "lapos",
+"src": "/melegen-hengerelt-laposacel/k"
+},{
+"id": "laposacel-40x20-hossz-6-fm-laposvas",
+"name": "Laposacél, 40x20, hossz: 6 fm (laposvas)",
+"price": 26218,
+"unit": "szál",
+"url": "https://timarvasker.hu/laposacel-40x20-hossz-6-fm-laposvas/t",
+"cat": "lapos",
+"src": "/melegen-hengerelt-laposacel/k"
+},{
+"id": "laposacel-50x-3-hossz.-6-fm-laposvas",
+"name": "Laposacél, 50x 3, hossz.: 6 fm (laposvas)",
+"price": 4803,
+"unit": "szál",
+"url": "https://timarvasker.hu/laposacel-50x-3-hossz.-6-fm-laposvas/t",
+"cat": "lapos",
+"src": "/melegen-hengerelt-laposacel/k"
+},{
+"id": "laposacel-50x-4-hossz.-6-fm-laposvas",
+"name": "Laposacél, 50x 4, hossz.: 6 fm (laposvas)",
+"price": 5831,
+"unit": "szál",
+"url": "https://timarvasker.hu/laposacel-50x-4-hossz.-6-fm-laposvas/t",
+"cat": "lapos",
+"src": "/melegen-hengerelt-laposacel/k"
+},{
+"id": "laposacel-50x-5-hossz.-6-fm-laposvas",
+"name": "Laposacél, 50x 5, hossz.: 6 fm (laposvas)",
+"price": 7142,
+"unit": "szál",
+"url": "https://timarvasker.hu/laposacel-50x-5-hossz.-6-fm-laposvas/t",
+"cat": "lapos",
+"src": "/melegen-hengerelt-laposacel/k"
+},{
+"id": "laposacel-50x-6-hossz-6-fm-laposvas",
+"name": "Laposacél, 50x 6, hossz: 6 fm (laposvas)",
+"price": 9806,
+"unit": "szál",
+"url": "https://timarvasker.hu/laposacel-50x-6-hossz-6-fm-laposvas/t",
+"cat": "lapos",
+"src": "/melegen-hengerelt-laposacel/k"
+},{
+"id": "laposacel-50x-8-hossz.-6-fm-laposvas",
+"name": "Laposacél, 50x 8, hossz.: 6 fm (laposvas)",
+"price": 13484,
+"unit": "szál",
+"url": "https://timarvasker.hu/laposacel-50x-8-hossz.-6-fm-laposvas/t",
+"cat": "lapos",
+"src": "/melegen-hengerelt-laposacel/k"
+},{
+"id": "laposacel-50x10-hossz.-6-fm-laposvas",
+"name": "Laposacél, 50x10, hossz.: 6 fm (laposvas)",
+"price": 16889,
+"unit": "szál",
+"url": "https://timarvasker.hu/laposacel-50x10-hossz.-6-fm-laposvas/t",
+"cat": "lapos",
+"src": "/melegen-hengerelt-laposacel/k"
+},{
+"id": "laposacel-50x12-hossz-6-fm-laposvas",
+"name": "Laposacél, 50x12, hossz: 6 fm (laposvas)",
+"price": 31419,
+"unit": "szál",
+"url": "https://timarvasker.hu/laposacel-50x12-hossz-6-fm-laposvas/t",
+"cat": "lapos",
+"src": "/melegen-hengerelt-laposacel/k"
+},{
+"id": "laposacel-50x15-hossz-6-fm-laposvas",
+"name": "Laposacél, 50x15, hossz: 6 fm (laposvas)",
+"price": 681,
+"unit": "kg",
+"url": "https://timarvasker.hu/laposacel-50x15-hossz-6-fm-laposvas/t",
+"cat": "lapos",
+"src": "/melegen-hengerelt-laposacel/k"
+},{
+"id": "laposacel-50x20-hossz-6-fm-laposvas",
+"name": "Laposacél, 50x20, hossz: 6 fm (laposvas)",
+"price": 40202,
+"unit": "szál",
+"url": "https://timarvasker.hu/laposacel-50x20-hossz-6-fm-laposvas/t",
+"cat": "lapos",
+"src": "/melegen-hengerelt-laposacel/k"
+},{
+"id": "laposacel-60x-3-hossz-6-fm-laposvas",
+"name": "Laposacél, 60x 3, hossz: 6 fm (laposvas)",
+"price": 7180,
+"unit": "szál",
+"url": "https://timarvasker.hu/laposacel-60x-3-hossz-6-fm-laposvas/t",
+"cat": "lapos",
+"src": "/melegen-hengerelt-laposacel/k"
+},{
+"id": "laposacel-60x-4-hossz-6-fm-laposvas",
+"name": "Laposacél, 60x 4, hossz: 6 fm (laposvas)",
+"price": 8190,
+"unit": "szál",
+"url": "https://timarvasker.hu/laposacel-60x-4-hossz-6-fm-laposvas/t",
+"cat": "lapos",
+"src": "/melegen-hengerelt-laposacel/k"
+},{
+"id": "laposacel-60x-5-hossz.-6-fm-laposvas",
+"name": "Laposacél, 60x 5, hossz.: 6 fm (laposvas)",
+"price": 8467,
+"unit": "szál",
+"url": "https://timarvasker.hu/laposacel-60x-5-hossz.-6-fm-laposvas/t",
+"cat": "lapos",
+"src": "/melegen-hengerelt-laposacel/k"
+},{
+"id": "laposacel-60x-6-hossz.-6-fm-laposvas",
+"name": "Laposacél, 60x 6, hossz.: 6 fm (laposvas)",
+"price": 11986,
+"unit": "szál",
+"url": "https://timarvasker.hu/laposacel-60x-6-hossz.-6-fm-laposvas/t",
+"cat": "lapos",
+"src": "/melegen-hengerelt-laposacel/k"
+},{
+"id": "laposacel-60x-8-hossz.-6-fm-laposvas",
+"name": "Laposacél, 60x 8, hossz.: 6 fm (laposvas)",
+"price": 15935,
+"unit": "szál",
+"url": "https://timarvasker.hu/laposacel-60x-8-hossz.-6-fm-laposvas/t",
+"cat": "lapos",
+"src": "/melegen-hengerelt-laposacel/k"
+},{
+"id": "laposacel-60x10-hossz.-6-fm-laposvas",
+"name": "Laposacél, 60x10, hossz.: 6 fm (laposvas)",
+"price": 20294,
+"unit": "szál",
+"url": "https://timarvasker.hu/laposacel-60x10-hossz.-6-fm-laposvas/t",
+"cat": "lapos",
+"src": "/melegen-hengerelt-laposacel/k"
+},{
+"id": "laposacel-70x-5-hossz-6-fm-laposvas",
+"name": "Laposacél, 70x 5, hossz: 6 fm (laposvas)",
+"price": 11645,
+"unit": "szál",
+"url": "https://timarvasker.hu/laposacel-70x-5-hossz-6-fm-laposvas/t",
+"cat": "lapos",
+"src": "/melegen-hengerelt-laposacel/k"
+},{
+"id": "laposacel-70x-8-hossz-6-fm-laposvas",
+"name": "Laposacél, 70x 8, hossz: 6 fm (laposvas)",
+"price": 20912,
+"unit": "szál",
+"url": "https://timarvasker.hu/laposacel-70x-8-hossz-6-fm-laposvas/t",
+"cat": "lapos",
+"src": "/melegen-hengerelt-laposacel/k"
+},{
+"id": "laposacel-70x10-hossz-6-fm-laposvas",
+"name": "Laposacél, 70x10, hossz: 6 fm (laposvas)",
+"price": 23222,
+"unit": "szál",
+"url": "https://timarvasker.hu/laposacel-70x10-hossz-6-fm-laposvas/t",
+"cat": "lapos",
+"src": "/melegen-hengerelt-laposacel/k"
+},{
+"id": "laposacel-80x-5-hossz.-6-fm-laposvas",
+"name": "Laposacél, 80x 5, hossz.: 6 fm (laposvas)",
+"price": 11462,
+"unit": "szál",
+"url": "https://timarvasker.hu/laposacel-80x-5-hossz.-6-fm-laposvas/t",
+"cat": "lapos",
+"src": "/melegen-hengerelt-laposacel/k"
+},{
+"id": "laposacel-80x-6-hossz-6-fm-laposvas",
+"name": "Laposacél, 80x 6, hossz: 6 fm (laposvas)",
+"price": 16344,
+"unit": "szál",
+"url": "https://timarvasker.hu/laposacel-80x-6-hossz-6-fm-laposvas/t",
+"cat": "lapos",
+"src": "/melegen-hengerelt-laposacel/k"
+},{
+"id": "laposacel-80x-8-hossz.-6-fm-laposvas",
+"name": "Laposacél, 80x 8, hossz.: 6 fm (laposvas)",
+"price": 21247,
+"unit": "szál",
+"url": "https://timarvasker.hu/laposacel-80x-8-hossz.-6-fm-laposvas/t",
+"cat": "lapos",
+"src": "/melegen-hengerelt-laposacel/k"
+},{
+"id": "laposacel-80x10-hossz.-6-fm-laposvas",
+"name": "Laposacél, 80x10, hossz.: 6 fm (laposvas)",
+"price": 26627,
+"unit": "szál",
+"url": "https://timarvasker.hu/laposacel-80x10-hossz.-6-fm-laposvas/t",
+"cat": "lapos",
+"src": "/melegen-hengerelt-laposacel/k"
+},{
+"id": "laposacel-90x-5-hossz-6-fm-laposvas",
+"name": "Laposacél, 90x 5, hossz: 6 fm (laposvas)",
+"price": 16315,
+"unit": "szál",
+"url": "https://timarvasker.hu/laposacel-90x-5-hossz-6-fm-laposvas/t",
+"cat": "lapos",
+"src": "/melegen-hengerelt-laposacel/k"
+},{
+"id": "laposacel-90x-8-hossz-6-fm-laposvas",
+"name": "Laposacél, 90x 8, hossz: 6 fm (laposvas)",
+"price": 26110,
+"unit": "szál",
+"url": "https://timarvasker.hu/laposacel-90x-8-hossz-6-fm-laposvas/t",
+"cat": "lapos",
+"src": "/melegen-hengerelt-laposacel/k"
+},{
+"id": "laposacel100x-3-hossz-6-fm-laposvas",
+"name": "Laposacél,100x 3, hossz: 6 fm (laposvas)",
+"price": 14499,
+"unit": "szál",
+"url": "https://timarvasker.hu/laposacel100x-3-hossz-6-fm-laposvas/t",
+"cat": "lapos",
+"src": "/melegen-hengerelt-laposacel/k"
+},{
+"id": "laposacel100x-4-hossz-6-fm-laposvas",
+"name": "Laposacél,100x 4, hossz: 6 fm (laposvas)",
+"price": 14099,
+"unit": "szál",
+"url": "https://timarvasker.hu/laposacel100x-4-hossz-6-fm-laposvas/t",
+"cat": "lapos",
+"src": "/melegen-hengerelt-laposacel/k"
+},{
+"id": "laposacel100x-5-hossz.-6-fm-laposvas",
+"name": "Laposacél,100x 5, hossz.: 6 fm (laposvas)",
+"price": 14285,
+"unit": "szál",
+"url": "https://timarvasker.hu/laposacel100x-5-hossz.-6-fm-laposvas/t",
+"cat": "lapos",
+"src": "/melegen-hengerelt-laposacel/k"
+},{
+"id": "laposacel100x-6-hossz-6-fm-laposvas",
+"name": "Laposacél,100x 6, hossz: 6 fm (laposvas)",
+"price": 19408,
+"unit": "szál",
+"url": "https://timarvasker.hu/laposacel100x-6-hossz-6-fm-laposvas/t",
+"cat": "lapos",
+"src": "/melegen-hengerelt-laposacel/k"
+},{
+"id": "laposacel100x-8-hossz.-6-fm-laposvas",
+"name": "Laposacél,100x 8, hossz.: 6 fm (laposvas)",
+"price": 26627,
+"unit": "szál",
+"url": "https://timarvasker.hu/laposacel100x-8-hossz.-6-fm-laposvas/t",
+"cat": "lapos",
+"src": "/melegen-hengerelt-laposacel/k"
+},{
+"id": "laposacel100x10-hossz.-6-fm-laposvas",
+"name": "Laposacél,100x10, hossz.: 6 fm (laposvas)",
+"price": 33778,
+"unit": "szál",
+"url": "https://timarvasker.hu/laposacel100x10-hossz.-6-fm-laposvas/t",
+"cat": "lapos",
+"src": "/melegen-hengerelt-laposacel/k"
+},{
+"id": "laposacel120x-5-hossz-6-fm-laposvas",
+"name": "Laposacél,120x 5, hossz: 6 fm (laposvas)",
+"price": 16819,
+"unit": "szál",
+"url": "https://timarvasker.hu/laposacel120x-5-hossz-6-fm-laposvas/t",
+"cat": "lapos",
+"src": "/melegen-hengerelt-laposacel/k"
+},{
+"id": "laposacel120x-6-hossz-6-fm-laposvas",
+"name": "Laposacél,120x 6, hossz: 6 fm (laposvas)",
+"price": 24500,
+"unit": "szál",
+"url": "https://timarvasker.hu/laposacel120x-6-hossz-6-fm-laposvas/t",
+"cat": "lapos",
+"src": "/melegen-hengerelt-laposacel/k"
+},{
+"id": "laposacel120x-8-hossz-6-fm-laposvas",
+"name": "Laposacél,120x 8, hossz: 6 fm (laposvas)",
+"price": 31871,
+"unit": "szál",
+"url": "https://timarvasker.hu/laposacel120x-8-hossz-6-fm-laposvas/t",
+"cat": "lapos",
+"src": "/melegen-hengerelt-laposacel/k"
+},{
+"id": "laposacel120x10-hossz-6-fm-laposvas",
+"name": "Laposacél,120x10, hossz: 6 fm (laposvas)",
+"price": 39770,
+"unit": "szál",
+"url": "https://timarvasker.hu/laposacel120x10-hossz-6-fm-laposvas/t",
+"cat": "lapos",
+"src": "/melegen-hengerelt-laposacel/k"
+},{
+"id": "laposacel150x-5-hossz-6-fm-laposvas",
+"name": "Laposacél,150x 5, hossz: 6 fm (laposvas)",
+"price": 25562,
+"unit": "szál",
+"url": "https://timarvasker.hu/laposacel150x-5-hossz-6-fm-laposvas/t",
+"cat": "lapos",
+"src": "/melegen-hengerelt-laposacel/k"
+},{
+"id": "laposacel150x-6-hossz-6-fm-laposvas",
+"name": "Laposacél,150x 6, hossz: 6 fm (laposvas)",
+"price": 29828,
+"unit": "szál",
+"url": "https://timarvasker.hu/laposacel150x-6-hossz-6-fm-laposvas/t",
+"cat": "lapos",
+"src": "/melegen-hengerelt-laposacel/k"
+},{
+"id": "laposacel150x10-hossz-6-fm-laposvas",
+"name": "Laposacél,150x10, hossz: 6 fm (laposvas)",
+"price": 49849,
+"unit": "szál",
+"url": "https://timarvasker.hu/laposacel150x10-hossz-6-fm-laposvas/t",
+"cat": "lapos",
+"src": "/melegen-hengerelt-laposacel/k"
+},{
+"id": "laposacel200x-5-hossz-6-fm-laposvas",
+"name": "Laposacél,200x 5, hossz: 6 fm (laposvas)",
+"price": 34050,
+"unit": "szál",
+"url": "https://timarvasker.hu/laposacel200x-5-hossz-6-fm-laposvas/t",
+"cat": "lapos",
+"src": "/melegen-hengerelt-laposacel/k"
+},{
+"id": "laposacel200x-8-hossz-6-fm-laposvas",
+"name": "Laposacél,200x 8, hossz: 6 fm (laposvas)",
+"price": 53186,
+"unit": "szál",
+"url": "https://timarvasker.hu/laposacel200x-8-hossz-6-fm-laposvas/t",
+"cat": "lapos",
+"src": "/melegen-hengerelt-laposacel/k"
+},{
+"id": "laposacel200x10-hossz-6-fm-laposvas",
+"name": "Laposacél,200x10, hossz: 6 fm (laposvas)",
+"price": 66261,
+"unit": "szál",
+"url": "https://timarvasker.hu/laposacel200x10-hossz-6-fm-laposvas/t",
+"cat": "lapos",
+"src": "/melegen-hengerelt-laposacel/k"
+},{
+"id": "vaslemez-m.h.-15x1000x2000",
+"name": "Vaslemez M.H. 1,5x1000x2000",
+"price": 17736,
+"unit": "db",
+"url": "https://timarvasker.hu/vaslemez-m.h.-15x1000x2000/t",
+"cat": "lemez",
+"src": "/melegen-hengerelt-vaslemez/k"
+},{
+"id": "vaslemez-m.h.-20x1000x2000",
+"name": "Vaslemez M.H. 2,0x1000x2000",
+"price": 23648,
+"unit": "db",
+"url": "https://timarvasker.hu/vaslemez-m.h.-20x1000x2000/t",
+"cat": "lemez",
+"src": "/melegen-hengerelt-vaslemez/k"
+},{
+"id": "vaslemez-m.h.-20x1250x2500",
+"name": "Vaslemez M.H. 2,0x1250x2500",
+"price": 36950,
+"unit": "db",
+"url": "https://timarvasker.hu/vaslemez-m.h.-20x1250x2500/t",
+"cat": "lemez",
+"src": "/melegen-hengerelt-vaslemez/k"
+},{
+"id": "vaslemez-m.h.-20x1500x3000",
+"name": "Vaslemez M.H. 2,0x1500x3000",
+"price": 53799,
+"unit": "db",
+"url": "https://timarvasker.hu/vaslemez-m.h.-20x1500x3000/t",
+"cat": "lemez",
+"src": "/melegen-hengerelt-vaslemez/k"
+},{
+"id": "vaslemez-m.h.-25x1000x2000",
+"name": "Vaslemez M.H. 2,5x1000x2000",
+"price": 29560,
+"unit": "db",
+"url": "https://timarvasker.hu/vaslemez-m.h.-25x1000x2000/t",
+"cat": "lemez",
+"src": "/melegen-hengerelt-vaslemez/k"
+},{
+"id": "vaslemez-m.h.-25x1250x2500",
+"name": "Vaslemez M.H. 2,5x1250x2500",
+"price": 46188,
+"unit": "db",
+"url": "https://timarvasker.hu/vaslemez-m.h.-25x1250x2500/t",
+"cat": "lemez",
+"src": "/melegen-hengerelt-vaslemez/k"
+},{
+"id": "vaslemez-m.h.-30x1000x2000",
+"name": "Vaslemez M.H. 3,0x1000x2000",
+"price": 33072,
+"unit": "db",
+"url": "https://timarvasker.hu/vaslemez-m.h.-30x1000x2000/t",
+"cat": "lemez",
+"src": "/melegen-hengerelt-vaslemez/k"
+},{
+"id": "vaslemez-m.h.-30x1250x25002",
+"name": "Vaslemez M.H. 3,0x1250x2500",
+"price": 51675,
+"unit": "db",
+"url": "https://timarvasker.hu/vaslemez-m.h.-30x1250x25002/t",
+"cat": "lemez",
+"src": "/melegen-hengerelt-vaslemez/k"
+},{
+"id": "vaslemez-m.h.-30x1500x3000",
+"name": "Vaslemez M.H. 3,0x1500x3000",
+"price": 74412,
+"unit": "db",
+"url": "https://timarvasker.hu/vaslemez-m.h.-30x1500x3000/t",
+"cat": "lemez",
+"src": "/melegen-hengerelt-vaslemez/k"
+},{
+"id": "vaslemez-m.h.-40x1000x20002",
+"name": "Vaslemez M.H. 4,0x1000x2000",
+"price": 44096,
+"unit": "db",
+"url": "https://timarvasker.hu/vaslemez-m.h.-40x1000x20002/t",
+"cat": "lemez",
+"src": "/melegen-hengerelt-vaslemez/k"
+},{
+"id": "vaslemez-m.h.-40x1250x25002",
+"name": "Vaslemez M.H. 4,0x1250x2500",
+"price": 68900,
+"unit": "db",
+"url": "https://timarvasker.hu/vaslemez-m.h.-40x1250x25002/t",
+"cat": "lemez",
+"src": "/melegen-hengerelt-vaslemez/k"
+},{
+"id": "vaslemez-m.h.-40x1500x30002",
+"name": "Vaslemez M.H. 4,0x1500x3000",
+"price": 106416,
+"unit": "db",
+"url": "https://timarvasker.hu/vaslemez-m.h.-40x1500x30002/t",
+"cat": "lemez",
+"src": "/melegen-hengerelt-vaslemez/k"
+},{
+"id": "vaslemez-m.h.-50x1000x20002",
+"name": "Vaslemez M.H. 5,0x1000x2000",
+"price": 55120,
+"unit": "db",
+"url": "https://timarvasker.hu/vaslemez-m.h.-50x1000x20002/t",
+"cat": "lemez",
+"src": "/melegen-hengerelt-vaslemez/k"
+},{
+"id": "vaslemez-m.h.-50x1250x2500",
+"name": "Vaslemez M.H. 5,0x1250x2500",
+"price": 87985,
+"unit": "db",
+"url": "https://timarvasker.hu/vaslemez-m.h.-50x1250x2500/t",
+"cat": "lemez",
+"src": "/melegen-hengerelt-vaslemez/k"
+},{
+"id": "vaslemez-m.h.-50x1500x3000",
+"name": "Vaslemez M.H. 5,0x1500x3000",
+"price": 133020,
+"unit": "db",
+"url": "https://timarvasker.hu/vaslemez-m.h.-50x1500x3000/t",
+"cat": "lemez",
+"src": "/melegen-hengerelt-vaslemez/k"
+},{
+"id": "vaslemez-m.h.-60x1000x20002",
+"name": "Vaslemez M.H. 6,0x1000x2000",
+"price": 70944,
+"unit": "db",
+"url": "https://timarvasker.hu/vaslemez-m.h.-60x1000x20002/t",
+"cat": "lemez",
+"src": "/melegen-hengerelt-vaslemez/k"
+},{
+"id": "vaslemez-m.h.-60x1250x2500",
+"name": "Vaslemez M.H. 6,0x1250x2500",
+"price": 110850,
+"unit": "db",
+"url": "https://timarvasker.hu/vaslemez-m.h.-60x1250x2500/t",
+"cat": "lemez",
+"src": "/melegen-hengerelt-vaslemez/k"
+},{
+"id": "vaslemez-m.h.-60x1500x30002",
+"name": "Vaslemez M.H. 6,0x1500x3000",
+"price": 159624,
+"unit": "db",
+"url": "https://timarvasker.hu/vaslemez-m.h.-60x1500x30002/t",
+"cat": "lemez",
+"src": "/melegen-hengerelt-vaslemez/k"
+},{
+"id": "vaslemez-m.h.-80x1000x20002",
+"name": "Vaslemez M.H. 8,0x1000x2000",
+"price": 94592,
+"unit": "db",
+"url": "https://timarvasker.hu/vaslemez-m.h.-80x1000x20002/t",
+"cat": "lemez",
+"src": "/melegen-hengerelt-vaslemez/k"
+},{
+"id": "vaslemez-m.h.-80x1250x25002",
+"name": "Vaslemez M.H. 8,0x1250x2500",
+"price": 147800,
+"unit": "db",
+"url": "https://timarvasker.hu/vaslemez-m.h.-80x1250x25002/t",
+"cat": "lemez",
+"src": "/melegen-hengerelt-vaslemez/k"
+},{
+"id": "vaslemez-m.h.-80x1500x3000",
+"name": "Vaslemez M.H. 8,0x1500x3000",
+"price": 212832,
+"unit": "db",
+"url": "https://timarvasker.hu/vaslemez-m.h.-80x1500x3000/t",
+"cat": "lemez",
+"src": "/melegen-hengerelt-vaslemez/k"
+},{
+"id": "vaslemez-m.h.10x1000x2000",
+"name": "Vaslemez M.H.10x1000x2000",
+"price": 118240,
+"unit": "db",
+"url": "https://timarvasker.hu/vaslemez-m.h.10x1000x2000/t",
+"cat": "lemez",
+"src": "/melegen-hengerelt-vaslemez/k"
+},{
+"id": "vaslemez-m.h.10x1250x2500",
+"name": "Vaslemez M.H.10x1250x2500",
+"price": 184750,
+"unit": "db",
+"url": "https://timarvasker.hu/vaslemez-m.h.10x1250x2500/t",
+"cat": "lemez",
+"src": "/melegen-hengerelt-vaslemez/k"
+},{
+"id": "vaslemez-m.h.10x1500x3000",
+"name": "Vaslemez M.H.10x1500x3000",
+"price": 266040,
+"unit": "db",
+"url": "https://timarvasker.hu/vaslemez-m.h.10x1500x3000/t",
+"cat": "lemez",
+"src": "/melegen-hengerelt-vaslemez/k"
+},{
+"id": "szogacel-100x-50x-6-hossz.-6-fm-szogvas",
+"name": "Szögacél, 100x 50x 6, hossz.: 6 fm (szögvas)",
+"price": 35356,
+"unit": "szál",
+"url": "https://timarvasker.hu/szogacel-100x-50x-6-hossz.-6-fm-szogvas/t",
+"cat": "szog",
+"src": "/szogacel/k"
+},{
+"id": "szogacel-100x100x10-hossz.-6-fm-szogvas",
+"name": "Szögacél, 100x100x10, hossz.: 6 fm (szögvas)",
+"price": 59028,
+"unit": "szál",
+"url": "https://timarvasker.hu/szogacel-100x100x10-hossz.-6-fm-szogvas/t",
+"cat": "szog",
+"src": "/szogacel/k"
+},{
+"id": "szogacel-120x-80x-8-hossz.-6-fm-szogvas2",
+"name": "Szögacél, 120x 80x 8, hossz.: 6 fm (szögvas)",
+"price": 62025,
+"unit": "szál",
+"url": "https://timarvasker.hu/szogacel-120x-80x-8-hossz.-6-fm-szogvas2/t",
+"cat": "szog",
+"src": "/szogacel/k"
+},{
+"id": "szogacel-120x120x12-hossz.-6-fm-szogvas",
+"name": "Szögacél, 120x120x12, hossz.: 6 fm (szögvas)",
+"price": 93298,
+"unit": "szál",
+"url": "https://timarvasker.hu/szogacel-120x120x12-hossz.-6-fm-szogvas/t",
+"cat": "szog",
+"src": "/szogacel/k"
+},{
+"id": "szogacel-20x20x-3-hossz.-6-fm-szogvas",
+"name": "Szögacél, 20x20x 3, hossz.: 6 fm (szögvas)",
+"price": 3444,
+"unit": "szál",
+"url": "https://timarvasker.hu/szogacel-20x20x-3-hossz.-6-fm-szogvas/t",
+"cat": "szog",
+"src": "/szogacel/k"
+},{
+"id": "szogacel-25x25x-3-hossz.-6-fm-szogvas",
+"name": "Szögacél, 25x25x 3, hossz.: 6 fm (szögvas)",
+"price": 4367,
+"unit": "szál",
+"url": "https://timarvasker.hu/szogacel-25x25x-3-hossz.-6-fm-szogvas/t",
+"cat": "szog",
+"src": "/szogacel/k"
+},{
+"id": "szogacel-30x30x-3-hossz.-6-fm-szogvas",
+"name": "Szögacél, 30x30x 3, hossz.: 6 fm (szögvas)",
+"price": 4954,
+"unit": "szál",
+"url": "https://timarvasker.hu/szogacel-30x30x-3-hossz.-6-fm-szogvas/t",
+"cat": "szog",
+"src": "/szogacel/k"
+},{
+"id": "szogacel-35x35x-4-hossz.-6-fm-szogvas",
+"name": "Szögacél, 35x35x 4, hossz.: 6 fm (szögvas)",
+"price": 7603,
+"unit": "szál",
+"url": "https://timarvasker.hu/szogacel-35x35x-4-hossz.-6-fm-szogvas/t",
+"cat": "szog",
+"src": "/szogacel/k"
+},{
+"id": "szogacel-40x20x-3-hossz.-6-fm-szogvas2",
+"name": "Szögacél, 40x20x 3, hossz.: 6 fm (szögvas)",
+"price": 8519,
+"unit": "szál",
+"url": "https://timarvasker.hu/szogacel-40x20x-3-hossz.-6-fm-szogvas2/t",
+"cat": "szog",
+"src": "/szogacel/k"
+},{
+"id": "szogacel-40x40x-4-hossz.-6-fm-szogvas",
+"name": "Szögacél, 40x40x 4, hossz.: 6 fm (szögvas)",
+"price": 8813,
+"unit": "szál",
+"url": "https://timarvasker.hu/szogacel-40x40x-4-hossz.-6-fm-szogvas/t",
+"cat": "szog",
+"src": "/szogacel/k"
+},{
+"id": "szogacel-45x45x-5-hossz.-6-fm-szogvas",
+"name": "Szögacél, 45x45x 5, hossz.: 6 fm (szögvas)",
+"price": 12733,
+"unit": "szál",
+"url": "https://timarvasker.hu/szogacel-45x45x-5-hossz.-6-fm-szogvas/t",
+"cat": "szog",
+"src": "/szogacel/k"
+},{
+"id": "szogacel-50x30x-5-hossz.-6-fm-szogvas2",
+"name": "Szögacél, 50x30x 5, hossz.: 6 fm (szögvas)",
+"price": 14904,
+"unit": "szál",
+"url": "https://timarvasker.hu/szogacel-50x30x-5-hossz.-6-fm-szogvas2/t",
+"cat": "szog",
+"src": "/szogacel/k"
+},{
+"id": "szogacel-50x50x-5-hossz.-6-fm-szogvas",
+"name": "Szögacél, 50x50x 5, hossz.: 6 fm (szögvas)",
+"price": 13910,
+"unit": "szál",
+"url": "https://timarvasker.hu/szogacel-50x50x-5-hossz.-6-fm-szogvas/t",
+"cat": "szog",
+"src": "/szogacel/k"
+},{
+"id": "szogacel-60x40x-5-hossz.-6-fm-szogvas2",
+"name": "Szögacél, 60x40x 5, hossz.: 6 fm (szögvas)",
+"price": 20534,
+"unit": "szál",
+"url": "https://timarvasker.hu/szogacel-60x40x-5-hossz.-6-fm-szogvas2/t",
+"cat": "szog",
+"src": "/szogacel/k"
+},{
+"id": "szogacel-60x60x-6-hossz.-6-fm-szogvas",
+"name": "Szögacél, 60x60x 6, hossz.: 6 fm (szögvas)",
+"price": 19757,
+"unit": "szál",
+"url": "https://timarvasker.hu/szogacel-60x60x-6-hossz.-6-fm-szogvas/t",
+"cat": "szog",
+"src": "/szogacel/k"
+},{
+"id": "szogacel-70x70x-7-hossz.-6-fm-szogvas",
+"name": "Szögacél, 70x70x 7, hossz.: 6 fm (szögvas)",
+"price": 26899,
+"unit": "szál",
+"url": "https://timarvasker.hu/szogacel-70x70x-7-hossz.-6-fm-szogvas/t",
+"cat": "szog",
+"src": "/szogacel/k"
+},{
+"id": "szogacel-80x80x-8-hossz.-6-fm-szogvas",
+"name": "Szögacél, 80x80x 8, hossz.: 6 fm (szögvas)",
+"price": 35078,
+"unit": "szál",
+"url": "https://timarvasker.hu/szogacel-80x80x-8-hossz.-6-fm-szogvas/t",
+"cat": "szog",
+"src": "/szogacel/k"
+},{
+"id": "szogacel-90x90x-9-hossz.-6-fm-szogvas",
+"name": "Szögacél, 90x90x 9, hossz.: 6 fm (szögvas)",
+"price": 47956,
+"unit": "szál",
+"url": "https://timarvasker.hu/szogacel-90x90x-9-hossz.-6-fm-szogvas/t",
+"cat": "szog",
+"src": "/szogacel/k"
+},{
+"id": "00353-zartok-40x40mm-es-zartszelvenybe-bemarva-4cm-es-portalzarhoz-50-cm",
+"name": "00353 Zártok 40x40mm-es zártszelvénybe bemarva (4cm-es portálzárhoz) 50 cm",
+"price": 1480,
+"unit": "db",
+"url": "https://timarvasker.hu/00353-zartok-40x40mm-es-zartszelvenybe-bemarva-4cm-es-portalzarhoz-50-cm/t",
+"cat": "vasalat",
+"src": "/kaputechnika/k"
+},{
+"id": "00355-zartok-60x40x2-mm-5-cm-es-portalzarhoz-05-m",
+"name": "00355 Zártok 60x40x2 mm, 5 cm-es portálzárhoz, 0,5 m",
+"price": 1860,
+"unit": "db",
+"url": "https://timarvasker.hu/00355-zartok-60x40x2-mm-5-cm-es-portalzarhoz-05-m/t",
+"cat": "vasalat",
+"src": "/kaputechnika/k"
+},{
+"id": "00476g-tolouszo-kapuhoz-vegallas-utkozo",
+"name": "00476G Toló/úszó kapuhóz végállás ütköző",
+"price": 4000,
+"unit": "db",
+"url": "https://timarvasker.hu/00476g-tolouszo-kapuhoz-vegallas-utkozo/t",
+"cat": "vasalat",
+"src": "/kaputechnika/k"
+},{
+"id": "87013-kovacsolt-kapupant-100-mm-uj",
+"name": "87013 Kovácsolt kapupánt 100 mm (új)",
+"price": 660,
+"unit": "db",
+"url": "https://timarvasker.hu/87013-kovacsolt-kapupant-100-mm-uj/t",
+"cat": "vasalat",
+"src": "/kaputechnika/k"
+},{
+"id": "87014-kovacsolt-kapupant-122-mm-uj",
+"name": "87014 Kovácsolt kapupánt 122 mm (új)",
+"price": 955,
+"unit": "db",
+"url": "https://timarvasker.hu/87014-kovacsolt-kapupant-122-mm-uj/t",
+"cat": "vasalat",
+"src": "/kaputechnika/k"
+},{
+"id": "87101-kovacsoltvas-fogantyu-330-mm",
+"name": "87101 Kovácsoltvas fogantyú 330 mm",
+"price": 5930,
+"unit": "db",
+"url": "https://timarvasker.hu/87101-kovacsoltvas-fogantyu-330-mm/t",
+"cat": "vasalat",
+"src": "/kaputechnika/k"
+},{
+"id": "also-csapagy-40-mm-jl12a",
+"name": "Alsó csapágy 40 mm JL12A",
+"price": 1835,
+"unit": "db",
+"url": "https://timarvasker.hu/also-csapagy-40-mm-jl12a/t",
+"cat": "vasalat",
+"src": "/kaputechnika/k"
+},{
+"id": "also-forgaspont-24-mm-jl16b",
+"name": "Alsó forgáspont 24 mm JL16B",
+"price": 1475,
+"unit": "db",
+"url": "https://timarvasker.hu/also-forgaspont-24-mm-jl16b/t",
+"cat": "vasalat",
+"src": "/kaputechnika/k"
+},{
+"id": "also-villas-talpas-gorgo-uprofil-atm-78-mm-r8.ht1u80",
+"name": "Alsó villás, talpas görgő U profil; átm: 78 mm R8.HT1U80",
+"price": 2095,
+"unit": "db",
+"url": "https://timarvasker.hu/also-villas-talpas-gorgo-uprofil-atm-78-mm-r8.ht1u80/t",
+"cat": "vasalat",
+"src": "/kaputechnika/k"
+},{
+"id": "betonozhato-felso-vezeto-gorgo-kj11a",
+"name": "Betonozható felső vezető görgő KJ11A",
+"price": 2880,
+"unit": "db",
+"url": "https://timarvasker.hu/betonozhato-felso-vezeto-gorgo-kj11a/t",
+"cat": "vasalat",
+"src": "/kaputechnika/k"
+},{
+"id": "betetanya-40x40m10",
+"name": "Betétanya 40x40/M10",
+"price": 335,
+"unit": "db",
+"url": "https://timarvasker.hu/betetanya-40x40m10/t",
+"cat": "vasalat",
+"src": "/kaputechnika/k"
+},{
+"id": "csobetetes-forgaspont-komplett-m20-jl09a",
+"name": "Csőbetétes forgáspont komplett M20 JL09A",
+"price": 2010,
+"unit": "db",
+"url": "https://timarvasker.hu/csobetetes-forgaspont-komplett-m20-jl09a/t",
+"cat": "vasalat",
+"src": "/kaputechnika/k"
+},{
+"id": "csobetetes-forgaspont-komplett-m24-jl09b",
+"name": "Csőbetétes forgáspont komplett M24 JL09B",
+"price": 2755,
+"unit": "db",
+"url": "https://timarvasker.hu/csobetetes-forgaspont-komplett-m24-jl09b/t",
+"cat": "vasalat",
+"src": "/kaputechnika/k"
+},{
+"id": "diopant-csepp-alaku-hegesztheto-zsaner-100mm-414100",
+"name": "Diópánt (csepp alakú hegeszthető zsanér) 100mm 414100",
+"price": 530,
+"unit": "db",
+"url": "https://timarvasker.hu/diopant-csepp-alaku-hegesztheto-zsaner-100mm-414100/t",
+"cat": "vasalat",
+"src": "/kaputechnika/k"
+},{
+"id": "diopant-csepp-alaku-hegesztheto-zsaner-120mm-414120",
+"name": "Diópánt (csepp alakú hegeszthető zsanér) 120mm 414120",
+"price": 675,
+"unit": "db",
+"url": "https://timarvasker.hu/diopant-csepp-alaku-hegesztheto-zsaner-120mm-414120/t",
+"cat": "vasalat",
+"src": "/kaputechnika/k"
+},{
+"id": "diopant-csepp-alaku-hegesztheto-zsaner-140mm-414140",
+"name": "Diópánt (csepp alakú hegeszthető zsanér) 140mm 414140",
+"price": 725,
+"unit": "db",
+"url": "https://timarvasker.hu/diopant-csepp-alaku-hegesztheto-zsaner-140mm-414140/t",
+"cat": "vasalat",
+"src": "/kaputechnika/k"
+},{
+"id": "diopant-csepp-alaku-hegesztheto-zsaner-160mm-414160a",
+"name": "Diópánt (csepp alakú hegeszthető zsanér) 160mm 414160A",
+"price": 1235,
+"unit": "db",
+"url": "https://timarvasker.hu/diopant-csepp-alaku-hegesztheto-zsaner-160mm-414160a/t",
+"cat": "vasalat",
+"src": "/kaputechnika/k"
+},{
+"id": "diopant-csepp-alaku-hegesztheto-zsaner-60mm-414060",
+"name": "Diópánt (csepp alakú hegeszthető zsanér) 60mm 414060",
+"price": 325,
+"unit": "db",
+"url": "https://timarvasker.hu/diopant-csepp-alaku-hegesztheto-zsaner-60mm-414060/t",
+"cat": "vasalat",
+"src": "/kaputechnika/k"
+},{
+"id": "diopant-csepp-alaku-hegesztheto-zsaner-80mm-414080",
+"name": "Diópánt (csepp alakú hegeszthető zsanér) 80mm 414080",
+"price": 345,
+"unit": "db",
+"url": "https://timarvasker.hu/diopant-csepp-alaku-hegesztheto-zsaner-80mm-414080/t",
+"cat": "vasalat",
+"src": "/kaputechnika/k"
+},{
+"id": "diopant-csepp-alaku-hegesztheto-zsaner-40mm-414040",
+"name": "Diópánt csepp alakú hegeszthető zsanér 40mm 414040",
+"price": 425,
+"unit": "db",
+"url": "https://timarvasker.hu/diopant-csepp-alaku-hegesztheto-zsaner-40mm-414040/t",
+"cat": "vasalat",
+"src": "/kaputechnika/k"
+},{
+"id": "felso-csapagy-50-mm-jl11b",
+"name": "Felső csapágy 50 mm JL11B",
+"price": 1860,
+"unit": "db",
+"url": "https://timarvasker.hu/felso-csapagy-50-mm-jl11b/t",
+"cat": "vasalat",
+"src": "/kaputechnika/k"
+},{
+"id": "felso-vezeto-gorgopar-horganyzott-kj07b",
+"name": "Felső vezető görgőpár, horganyzott KJ07B",
+"price": 2490,
+"unit": "db",
+"url": "https://timarvasker.hu/felso-vezeto-gorgopar-horganyzott-kj07b/t",
+"cat": "vasalat",
+"src": "/kaputechnika/k"
+},{
+"id": "fem-oszlopsapka-120x120mm-natur-szenacel-art398120",
+"name": "Fém oszlopsapka 120x120mm natúr szénacél Art:398120",
+"price": 475,
+"unit": "db",
+"url": "https://timarvasker.hu/fem-oszlopsapka-120x120mm-natur-szenacel-art398120/t",
+"cat": "vasalat",
+"src": "/kaputechnika/k"
+},{
+"id": "fem-oszlopsapka-40x-40mm-natur-szenacel-art398040",
+"name": "Fém oszlopsapka 40x 40mm natúr szénacél Art:398040",
+"price": 130,
+"unit": "db",
+"url": "https://timarvasker.hu/fem-oszlopsapka-40x-40mm-natur-szenacel-art398040/t",
+"cat": "vasalat",
+"src": "/kaputechnika/k"
+},{
+"id": "fem-oszlopsapka-50x-50mm-natur-szenacel-art398050",
+"name": "Fém oszlopsapka 50x 50mm natúr szénacél Art:398050",
+"price": 155,
+"unit": "db",
+"url": "https://timarvasker.hu/fem-oszlopsapka-50x-50mm-natur-szenacel-art398050/t",
+"cat": "vasalat",
+"src": "/kaputechnika/k"
+},{
+"id": "fem-oszlopsapka-60x-60mm-natur-szenacel-art398060",
+"name": "Fém oszlopsapka 60x 60mm natúr szénacél Art:398060",
+"price": 185,
+"unit": "db",
+"url": "https://timarvasker.hu/fem-oszlopsapka-60x-60mm-natur-szenacel-art398060/t",
+"cat": "vasalat",
+"src": "/kaputechnika/k"
+},{
+"id": "fem-oszlopsapka-80x-80mm-natur-szenacel-art398080",
+"name": "Fém oszlopsapka 80x 80mm natúr szénacél Art:398080",
+"price": 225,
+"unit": "db",
+"url": "https://timarvasker.hu/fem-oszlopsapka-80x-80mm-natur-szenacel-art398080/t",
+"cat": "vasalat",
+"src": "/kaputechnika/k"
+},{
+"id": "ht1u100-also-villas-talpas-gorgo-u-100mm",
+"name": "HT1U100 Alsó villás, talpas görgő U 100mm",
+"price": 3265,
+"unit": "db",
+"url": "https://timarvasker.hu/ht1u100-also-villas-talpas-gorgo-u-100mm/t",
+"cat": "vasalat",
+"src": "/kaputechnika/k"
+},{
+"id": "kapu-forgaspont-felso-csapagyas-art438",
+"name": "Kapu forgáspont felső csapágyas Art:438",
+"price": 6415,
+"unit": "db",
+"url": "https://timarvasker.hu/kapu-forgaspont-felso-csapagyas-art438/t",
+"cat": "vasalat",
+"src": "/kaputechnika/k"
+},{
+"id": "kapu-allithato-forgaspont-acel-oszlopraalatetesm18eh",
+"name": "Kapu állítható forgáspont acél oszlopra,alátétes,M18EH",
+"price": 1100,
+"unit": "db",
+"url": "https://timarvasker.hu/kapu-allithato-forgaspont-acel-oszlopraalatetesm18eh/t",
+"cat": "vasalat",
+"src": "/kaputechnika/k"
+},{
+"id": "kapu-allithato-rogzitolemezes-forgaspont-komplettehs18",
+"name": "Kapu állítható rögzítőlemezes forgáspont komplett,EHS18",
+"price": 1420,
+"unit": "db",
+"url": "https://timarvasker.hu/kapu-allithato-rogzitolemezes-forgaspont-komplettehs18/t",
+"cat": "vasalat",
+"src": "/kaputechnika/k"
+},{
+"id": "kaputolozar-fordith.-horg.-300-x-190-x-50-mm-rugos-3217712-2",
+"name": "Kaputolózár fordíth. horg. 300 x 190 x 50 mm rugós 3217712 (2)",
+"price": 4575,
+"unit": "db",
+"url": "https://timarvasker.hu/kaputolozar-fordith.-horg.-300-x-190-x-50-mm-rugos-3217712-2/t",
+"cat": "vasalat",
+"src": "/kaputechnika/k"
+},{
+"id": "kertajtozar-80-x-60-mm-horganyzott-3238401-1",
+"name": "Kertajtózár 80 x 60 mm horganyzott 3238401 (1)",
+"price": 2580,
+"unit": "db",
+"url": "https://timarvasker.hu/kertajtozar-80-x-60-mm-horganyzott-3238401-1/t",
+"cat": "vasalat",
+"src": "/kaputechnika/k"
+},{
+"id": "ketszarnyu-kapuhoz-utkozobak-csavarozhato-100x120x43-mm-horganyzott-mx05a",
+"name": "Kétszárnyú kapuhoz ütközőbak, csavarozható 100x120x43 mm (horganyzott) MX05A",
+"price": 945,
+"unit": "db",
+"url": "https://timarvasker.hu/ketszarnyu-kapuhoz-utkozobak-csavarozhato-100x120x43-mm-horganyzott-mx05a/t",
+"cat": "vasalat",
+"src": "/kaputechnika/k"
+},{
+"id": "ketszarnyu-utkozobak-betonozhato-95x98-mm-mx06a",
+"name": "Kétszárnyú ütközőbak betonozható 95x98 mm MX06A",
+"price": 900,
+"unit": "db",
+"url": "https://timarvasker.hu/ketszarnyu-utkozobak-betonozhato-95x98-mm-mx06a/t",
+"cat": "vasalat",
+"src": "/kaputechnika/k"
+},{
+"id": "lakatszem-hegesztett-45-x-30-horg.-3254164-10",
+"name": "Lakatszem hegesztett 45 x 30 horg. 3254164 (10)",
+"price": 330,
+"unit": "db",
+"url": "https://timarvasker.hu/lakatszem-hegesztett-45-x-30-horg.-3254164-10/t",
+"cat": "vasalat",
+"src": "/kaputechnika/k"
+},{
+"id": "menetes-forgaspont-40-mm.jl30a",
+"name": "Menetes forgáspont 40 mm.JL30A",
+"price": 2125,
+"unit": "db",
+"url": "https://timarvasker.hu/menetes-forgaspont-40-mm.jl30a/t",
+"cat": "vasalat",
+"src": "/kaputechnika/k"
+},{
+"id": "muanyag-dugo-lamellas-100x100-mm-fekete",
+"name": "Műanyag dugó lamellás 100x100 mm fekete",
+"price": 785,
+"unit": "db",
+"url": "https://timarvasker.hu/muanyag-dugo-lamellas-100x100-mm-fekete/t",
+"cat": "vasalat",
+"src": "/kaputechnika/k"
+},{
+"id": "muanyag-dugo-lamellas-20x20-mm-fekete",
+"name": "Műanyag dugó lamellás 20x20 mm fekete",
+"price": 27,
+"unit": "db",
+"url": "https://timarvasker.hu/muanyag-dugo-lamellas-20x20-mm-fekete/t",
+"cat": "vasalat",
+"src": "/kaputechnika/k"
+},{
+"id": "muanyag-dugo-lamellas-25x25-mm-fekete",
+"name": "Műanyag dugó lamellás 25x25 mm fekete",
+"price": 32,
+"unit": "db",
+"url": "https://timarvasker.hu/muanyag-dugo-lamellas-25x25-mm-fekete/t",
+"cat": "vasalat",
+"src": "/kaputechnika/k"
+},{
+"id": "muanyag-dugo-lamellas-30x30-mm-fekete",
+"name": "Műanyag dugó lamellás 30x30 mm fekete",
+"price": 47,
+"unit": "db",
+"url": "https://timarvasker.hu/muanyag-dugo-lamellas-30x30-mm-fekete/t",
+"cat": "vasalat",
+"src": "/kaputechnika/k"
+},{
+"id": "muanyag-dugo-lamellas-40x20-mm-fekete",
+"name": "Műanyag dugó lamellás 40x20 mm fekete",
+"price": 51,
+"unit": "db",
+"url": "https://timarvasker.hu/muanyag-dugo-lamellas-40x20-mm-fekete/t",
+"cat": "vasalat",
+"src": "/kaputechnika/k"
+},{
+"id": "muanyag-dugo-lamellas-40x40-mm-fekete",
+"name": "Műanyag dugó lamellás 40x40 mm fekete",
+"price": 66,
+"unit": "db",
+"url": "https://timarvasker.hu/muanyag-dugo-lamellas-40x40-mm-fekete/t",
+"cat": "vasalat",
+"src": "/kaputechnika/k"
+},{
+"id": "muanyag-dugo-lamellas-50x50-mm-fekete",
+"name": "Műanyag dugó lamellás 50x50 mm fekete",
+"price": 106,
+"unit": "db",
+"url": "https://timarvasker.hu/muanyag-dugo-lamellas-50x50-mm-fekete/t",
+"cat": "vasalat",
+"src": "/kaputechnika/k"
+},{
+"id": "muanyag-dugo-lamellas-60x40-mm-fekete",
+"name": "Műanyag dugó lamellás 60x40 mm fekete",
+"price": 124,
+"unit": "db",
+"url": "https://timarvasker.hu/muanyag-dugo-lamellas-60x40-mm-fekete/t",
+"cat": "vasalat",
+"src": "/kaputechnika/k"
+},{
+"id": "muanyag-dugo-lamellas-60x60-mm-fekete",
+"name": "Műanyag dugó lamellás 60x60 mm fekete",
+"price": 154,
+"unit": "db",
+"url": "https://timarvasker.hu/muanyag-dugo-lamellas-60x60-mm-fekete/t",
+"cat": "vasalat",
+"src": "/kaputechnika/k"
+},{
+"id": "muanyag-dugo-lamellas-80x804-mm-fekete",
+"name": "Műanyag dugó lamellás 80x80/4 mm fekete",
+"price": 430,
+"unit": "db",
+"url": "https://timarvasker.hu/muanyag-dugo-lamellas-80x804-mm-fekete/t",
+"cat": "vasalat",
+"src": "/kaputechnika/k"
+},{
+"id": "rejtett-villas-gorgo-hegesztheto-uprofil-atm-98-mm-hs1u100-r8",
+"name": "Rejtett villás görgő, hegeszthető U profil; átm: 98 mm HS1U100 R8",
+"price": 1850,
+"unit": "db",
+"url": "https://timarvasker.hu/rejtett-villas-gorgo-hegesztheto-uprofil-atm-98-mm-hs1u100-r8/t",
+"cat": "vasalat",
+"src": "/kaputechnika/k"
+},{
+"id": "tolozar-190-mm-atm.-175-mm-cx05c",
+"name": "Tolózár 190 mm, átm.: 17,5 mm CX05C",
+"price": 875,
+"unit": "db",
+"url": "https://timarvasker.hu/tolozar-190-mm-atm.-175-mm-cx05c/t",
+"cat": "vasalat",
+"src": "/kaputechnika/k"
+},{
+"id": "tolozar-500-mm-16-mm-cx17c",
+"name": "Tolózár 500 mm; 16 mm CX17C",
+"price": 3875,
+"unit": "db",
+"url": "https://timarvasker.hu/tolozar-500-mm-16-mm-cx17c/t",
+"cat": "vasalat",
+"src": "/kaputechnika/k"
+},{
+"id": "zar-1530007-portalzar-3cmovalbetet-sib-1203",
+"name": "Zár 1530007 Portálzár 3cm+oválbetét SIB 1203",
+"price": 6320,
+"unit": "db",
+"url": "https://timarvasker.hu/zar-1530007-portalzar-3cmovalbetet-sib-1203/t",
+"cat": "vasalat",
+"src": "/kaputechnika/k"
+},{
+"id": "zar-1530009-portalzar-gorgos-3cmovalbetet-sib1204",
+"name": "Zár 1530009 Portálzár görgős 3cm+oválbetét SIB1204",
+"price": 4060,
+"unit": "db",
+"url": "https://timarvasker.hu/zar-1530009-portalzar-gorgos-3cmovalbetet-sib1204/t",
+"cat": "vasalat",
+"src": "/kaputechnika/k"
+},{
+"id": "zar-1530168-portalzar-valtos-5cmcilinder-betet-sib.sl500-35",
+"name": "Zár 1530168 Portálzár váltós 5cm+cilinder betét SIB.SL500-35",
+"price": 5595,
+"unit": "db",
+"url": "https://timarvasker.hu/zar-1530168-portalzar-valtos-5cmcilinder-betet-sib.sl500-35/t",
+"cat": "vasalat",
+"src": "/kaputechnika/k"
+},{
+"id": "zar-1530169-portalzar-gorgos-5cmcilinder-betet-sib.sr500-35",
+"name": "Zár 1530169 Portálzár görgős 5cm+cilinder betét SIB.SR500-35",
+"price": 5910,
+"unit": "db",
+"url": "https://timarvasker.hu/zar-1530169-portalzar-gorgos-5cmcilinder-betet-sib.sr500-35/t",
+"cat": "vasalat",
+"src": "/kaputechnika/k"
+},{
+"id": "zar-1530170-portalzar-valtos-4cmcilinder-betet-sib.sl500-25",
+"name": "Zár 1530170 Portálzár váltós 4cm+cilinder betét SIB.SL500-25",
+"price": 5415,
+"unit": "db",
+"url": "https://timarvasker.hu/zar-1530170-portalzar-valtos-4cmcilinder-betet-sib.sl500-25/t",
+"cat": "vasalat",
+"src": "/kaputechnika/k"
+},{
+"id": "zar-1530171-portalzar-gorgos-4cmcilinder-betet-sib.sr500-25",
+"name": "Zár 1530171 Portálzár görgős 4cm+cilinder betét SIB.SR500-25",
+"price": 5850,
+"unit": "db",
+"url": "https://timarvasker.hu/zar-1530171-portalzar-gorgos-4cmcilinder-betet-sib.sr500-25/t",
+"cat": "vasalat",
+"src": "/kaputechnika/k"
+},{
+"id": "zar-1530180-portalzar-kampos-4cmcilinder-betetvedopajzs-sib.1210",
+"name": "Zár 1530180 Portálzár kampós 4cm+cilinder betét+védőpajzs SIB.1210",
+"price": 6345,
+"unit": "db",
+"url": "https://timarvasker.hu/zar-1530180-portalzar-kampos-4cmcilinder-betetvedopajzs-sib.1210/t",
+"cat": "vasalat",
+"src": "/kaputechnika/k"
+},{
+"id": "zar-1530185-portalzar-kampos-3cmcilinder-betet-sib.1680hp",
+"name": "Zár 1530185 Portálzár kampós 3cm+cilinder betét SIB.1680HP",
+"price": 4530,
+"unit": "db",
+"url": "https://timarvasker.hu/zar-1530185-portalzar-kampos-3cmcilinder-betet-sib.1680hp/t",
+"cat": "vasalat",
+"src": "/kaputechnika/k"
+},{
+"id": "zar-ajtokilincs-alu-portal",
+"name": "Zár Ajtókilincs ALU portál",
+"price": 1650,
+"unit": "pár",
+"url": "https://timarvasker.hu/zar-ajtokilincs-alu-portal/t",
+"cat": "vasalat",
+"src": "/kaputechnika/k"
+},{
+"id": "zar-ajtokilincs-f2-portal",
+"name": "Zár Ajtókilincs F2 portál",
+"price": 1930,
+"unit": "pár",
+"url": "https://timarvasker.hu/zar-ajtokilincs-f2-portal/t",
+"cat": "vasalat",
+"src": "/kaputechnika/k"
+},{
+"id": "zar-elzett-338925-cilinderes-beveso-portalzar-25",
+"name": "Zár ELZETT 3389/25 Cilinderes bevéső portálzár (25)",
+"price": 9390,
+"unit": "db",
+"url": "https://timarvasker.hu/zar-elzett-338925-cilinderes-beveso-portalzar-25/t",
+"cat": "vasalat",
+"src": "/kaputechnika/k"
+},{
+"id": "zar-elzett-europortal-359022-valtos-portalzar",
+"name": "Zár ELZETT EUROPORTÁL 35/90/22 váltós portálzár",
+"price": 9040,
+"unit": "db",
+"url": "https://timarvasker.hu/zar-elzett-europortal-359022-valtos-portalzar/t",
+"cat": "vasalat",
+"src": "/kaputechnika/k"
+},{
+"id": "zar-gombos-kilincsgarnitura-f2-portal-85",
+"name": "Zár Gombos kilincsgarnitúra F2 portál 85",
+"price": 3880,
+"unit": "garn",
+"url": "https://timarvasker.hu/zar-gombos-kilincsgarnitura-f2-portal-85/t",
+"cat": "vasalat",
+"src": "/kaputechnika/k"
+},{
+"id": "zar-hosszitott-horganyzott-zsaner-150mm-5857",
+"name": "Zár Hosszított horganyzott zsanér 150mm 5857",
+"price": 1055,
+"unit": "db",
+"url": "https://timarvasker.hu/zar-hosszitott-horganyzott-zsaner-150mm-5857/t",
+"cat": "vasalat",
+"src": "/kaputechnika/k"
+},{
+"id": "zarolemez-3389-portalzarhoz-3286580",
+"name": "Zárólemez 3389 portálzárhoz 3286580",
+"price": 630,
+"unit": "db",
+"url": "https://timarvasker.hu/zarolemez-3389-portalzarhoz-3286580/t",
+"cat": "vasalat",
+"src": "/kaputechnika/k"
+},{
+"id": "allithato-forgaspont-acel-oszlopra-alatetes-m20",
+"name": "Állítható forgáspont acél oszlopra alátétes M20",
+"price": 1220,
+"unit": "db",
+"url": "https://timarvasker.hu/allithato-forgaspont-acel-oszlopra-alatetes-m20/t",
+"cat": "vasalat",
+"src": "/kaputechnika/k"
+},{
+"id": "allithato-forgaspont-acel-oszlopra-anyas-kivitel-m16-jl01a",
+"name": "Állítható forgáspont acél oszlopra, anyás kivitel M16, JL01A",
+"price": 945,
+"unit": "db",
+"url": "https://timarvasker.hu/allithato-forgaspont-acel-oszlopra-anyas-kivitel-m16-jl01a/t",
+"cat": "vasalat",
+"src": "/kaputechnika/k"
+},{
+"id": "allithato-forgaspont-acel-oszlopra-anyas-kivitel-m18",
+"name": "Állítható forgáspont acél oszlopra, anyás kivitel M18",
+"price": 985,
+"unit": "db",
+"url": "https://timarvasker.hu/allithato-forgaspont-acel-oszlopra-anyas-kivitel-m18/t",
+"cat": "vasalat",
+"src": "/kaputechnika/k"
+},{
+"id": "allithato-forgaspont-acel-oszlopra-anyas-kivitel-m20",
+"name": "Állítható forgáspont acél oszlopra, anyás kivitel M20",
+"price": 1065,
+"unit": "db",
+"url": "https://timarvasker.hu/allithato-forgaspont-acel-oszlopra-anyas-kivitel-m20/t",
+"cat": "vasalat",
+"src": "/kaputechnika/k"
+},{
+"id": "allithato-forgaspont-acel-oszlopra-anyas-kivitel-m24-jl01d",
+"name": "Állítható forgáspont acél oszlopra, anyás kivitel M24 JL01D",
+"price": 1470,
+"unit": "db",
+"url": "https://timarvasker.hu/allithato-forgaspont-acel-oszlopra-anyas-kivitel-m24-jl01d/t",
+"cat": "vasalat",
+"src": "/kaputechnika/k"
+},{
+"id": "allithato-uszokapu-utkozo-00461",
+"name": "Állítható úszókapu ütköző 00461",
+"price": 4040,
+"unit": "db",
+"url": "https://timarvasker.hu/allithato-uszokapu-utkozo-00461/t",
+"cat": "vasalat",
+"src": "/kaputechnika/k"
+},{
+"id": "uszo-tolokapuhoz-furhato-utkozobak-mx02a",
+"name": "Úszó / tolókapuhoz fúrható ütközőbak MX02A",
+"price": 1900,
+"unit": "db",
+"url": "https://timarvasker.hu/uszo-tolokapuhoz-furhato-utkozobak-mx02a/t",
+"cat": "vasalat",
+"src": "/kaputechnika/k"
+},{
+"id": "uszo-tolokapuhoz-hegesztheto-utkozobak-mx01a",
+"name": "Úszó / tolókapuhoz hegeszthető ütközőbak MX01A",
+"price": 775,
+"unit": "db",
+"url": "https://timarvasker.hu/uszo-tolokapuhoz-hegesztheto-utkozobak-mx01a/t",
+"cat": "vasalat",
+"src": "/kaputechnika/k"
+},{
+"id": "zartszelveny-100x-20x20-6-fm",
+"name": "Zártszelvény 100x 20x2,0 6 fm",
+"price": 17712,
+"unit": "szál",
+"url": "https://timarvasker.hu/zartszelveny-100x-20x20-6-fm/t",
+"cat": "zart",
+"src": "/zartszelvenyek/k"
+},{
+"id": "zartszelveny-100x-40x20-6-fm",
+"name": "Zártszelvény 100x 40x2,0 6 fm",
+"price": 16709,
+"unit": "szál",
+"url": "https://timarvasker.hu/zartszelveny-100x-40x20-6-fm/t",
+"cat": "zart",
+"src": "/zartszelvenyek/k"
+},{
+"id": "zartszelveny-100x-40x30-6-fm",
+"name": "Zártszelvény 100x 40x3,0 6 fm",
+"price": 24162,
+"unit": "szál",
+"url": "https://timarvasker.hu/zartszelveny-100x-40x30-6-fm/t",
+"cat": "zart",
+"src": "/zartszelvenyek/k"
+},{
+"id": "zartszelveny-100x-40x40-6-fm",
+"name": "Zártszelvény 100x 40x4,0 6 fm",
+"price": 41461,
+"unit": "szál",
+"url": "https://timarvasker.hu/zartszelveny-100x-40x40-6-fm/t",
+"cat": "zart",
+"src": "/zartszelvenyek/k"
+},{
+"id": "zartszelveny-100x-50x30-6-fm",
+"name": "Zártszelvény 100x 50x3,0 6 fm",
+"price": 26006,
+"unit": "szál",
+"url": "https://timarvasker.hu/zartszelveny-100x-50x30-6-fm/t",
+"cat": "zart",
+"src": "/zartszelvenyek/k"
+},{
+"id": "zartszelveny-100x-50x40-6-fm",
+"name": "Zártszelvény 100x 50x4,0 6 fm",
+"price": 33925,
+"unit": "szál",
+"url": "https://timarvasker.hu/zartszelveny-100x-50x40-6-fm/t",
+"cat": "zart",
+"src": "/zartszelvenyek/k"
+},{
+"id": "zartszelveny-100x-50x50-6-fm",
+"name": "Zártszelvény 100x 50x5,0 6 fm",
+"price": 43718,
+"unit": "szál",
+"url": "https://timarvasker.hu/zartszelveny-100x-50x50-6-fm/t",
+"cat": "zart",
+"src": "/zartszelvenyek/k"
+},{
+"id": "zartszelveny-100x-60x30-6-fm",
+"name": "Zártszelvény 100x 60x3,0 6 fm",
+"price": 27852,
+"unit": "szál",
+"url": "https://timarvasker.hu/zartszelveny-100x-60x30-6-fm/t",
+"cat": "zart",
+"src": "/zartszelvenyek/k"
+},{
+"id": "zartszelveny-100x-60x40-6-fm",
+"name": "Zártszelvény 100x 60x4,0 6 fm",
+"price": 36381,
+"unit": "szál",
+"url": "https://timarvasker.hu/zartszelveny-100x-60x40-6-fm/t",
+"cat": "zart",
+"src": "/zartszelvenyek/k"
+},{
+"id": "zartszelveny-100x-60x50-6-fm",
+"name": "Zártszelvény 100x 60x5,0 6 fm",
+"price": 45625,
+"unit": "szál",
+"url": "https://timarvasker.hu/zartszelveny-100x-60x50-6-fm/t",
+"cat": "zart",
+"src": "/zartszelvenyek/k"
+},{
+"id": "zartszelveny-100x-80x30-6-fm",
+"name": "Zártszelvény 100x 80x3,0 6 fm",
+"price": 31531,
+"unit": "szál",
+"url": "https://timarvasker.hu/zartszelveny-100x-80x30-6-fm/t",
+"cat": "zart",
+"src": "/zartszelvenyek/k"
+},{
+"id": "zartszelveny-100x-80x40-6-fm",
+"name": "Zártszelvény 100x 80x4,0 6 fm",
+"price": 49377,
+"unit": "szál",
+"url": "https://timarvasker.hu/zartszelveny-100x-80x40-6-fm/t",
+"cat": "zart",
+"src": "/zartszelvenyek/k"
+},{
+"id": "zartszelveny-100x-80x50-6-fm",
+"name": "Zártszelvény 100x 80x5,0 6 fm",
+"price": 61421,
+"unit": "szál",
+"url": "https://timarvasker.hu/zartszelveny-100x-80x50-6-fm/t",
+"cat": "zart",
+"src": "/zartszelvenyek/k"
+},{
+"id": "zartszelveny-100x100x-30-6-fm",
+"name": "Zártszelvény 100x100x 3,0 6 fm",
+"price": 31903,
+"unit": "szál",
+"url": "https://timarvasker.hu/zartszelveny-100x100x-30-6-fm/t",
+"cat": "zart",
+"src": "/zartszelvenyek/k"
+},{
+"id": "zartszelveny-100x100x-40-6-fm",
+"name": "Zártszelvény 100x100x 4,0 6 fm",
+"price": 46235,
+"unit": "szál",
+"url": "https://timarvasker.hu/zartszelveny-100x100x-40-6-fm/t",
+"cat": "zart",
+"src": "/zartszelvenyek/k"
+},{
+"id": "zartszelveny-100x100x-50-6-fm",
+"name": "Zártszelvény 100x100x 5,0 6 fm",
+"price": 58296,
+"unit": "szál",
+"url": "https://timarvasker.hu/zartszelveny-100x100x-50-6-fm/t",
+"cat": "zart",
+"src": "/zartszelvenyek/k"
+},{
+"id": "zartszelveny-100x100x-60-6-fm",
+"name": "Zártszelvény 100x100x 6,0 6 fm",
+"price": 96051,
+"unit": "szál",
+"url": "https://timarvasker.hu/zartszelveny-100x100x-60-6-fm/t",
+"cat": "zart",
+"src": "/zartszelvenyek/k"
+},{
+"id": "zartszelveny-100x100x-80-6-fm",
+"name": "Zártszelvény 100x100x 8,0 6 fm",
+"price": 93838,
+"unit": "szál",
+"url": "https://timarvasker.hu/zartszelveny-100x100x-80-6-fm/t",
+"cat": "zart",
+"src": "/zartszelvenyek/k"
+},{
+"id": "zartszelveny-100x100x10-6-fm",
+"name": "Zártszelvény 100x100x10 6 fm",
+"price": 144101,
+"unit": "szál",
+"url": "https://timarvasker.hu/zartszelveny-100x100x10-6-fm/t",
+"cat": "zart",
+"src": "/zartszelvenyek/k"
+},{
+"id": "zartszelveny-10x20x15-6-fm",
+"name": "Zártszelvény 10x20x1,5 6 fm",
+"price": 2795,
+"unit": "szál",
+"url": "https://timarvasker.hu/zartszelveny-10x20x15-6-fm/t",
+"cat": "zart",
+"src": "/zartszelvenyek/k"
+},{
+"id": "zartszelveny-120x-40x20-6-fm",
+"name": "Zártszelvény 120x 40x2,0 6 fm",
+"price": 24095,
+"unit": "szál",
+"url": "https://timarvasker.hu/zartszelveny-120x-40x20-6-fm/t",
+"cat": "zart",
+"src": "/zartszelvenyek/k"
+},{
+"id": "zartszelveny-120x-40x30-6-fm",
+"name": "Zártszelvény 120x 40x3,0 6 fm",
+"price": 31123,
+"unit": "szál",
+"url": "https://timarvasker.hu/zartszelveny-120x-40x30-6-fm/t",
+"cat": "zart",
+"src": "/zartszelvenyek/k"
+},{
+"id": "zartszelveny-120x-40x40-6-fm",
+"name": "Zártszelvény 120x 40x4,0 6 fm",
+"price": 68326,
+"unit": "szál",
+"url": "https://timarvasker.hu/zartszelveny-120x-40x40-6-fm/t",
+"cat": "zart",
+"src": "/zartszelvenyek/k"
+},{
+"id": "zartszelveny-120x-60x30-6-fm",
+"name": "Zártszelvény 120x 60x3,0 6 fm",
+"price": 36348,
+"unit": "szál",
+"url": "https://timarvasker.hu/zartszelveny-120x-60x30-6-fm/t",
+"cat": "zart",
+"src": "/zartszelvenyek/k"
+},{
+"id": "zartszelveny-120x-60x4-6-fm",
+"name": "Zártszelvény 120x 60x4 6 fm",
+"price": 41303,
+"unit": "szál",
+"url": "https://timarvasker.hu/zartszelveny-120x-60x4-6-fm/t",
+"cat": "zart",
+"src": "/zartszelvenyek/k"
+},{
+"id": "zartszelveny-120x-60x50-6-fm",
+"name": "Zártszelvény 120x 60x5,0 6 fm",
+"price": 51981,
+"unit": "szál",
+"url": "https://timarvasker.hu/zartszelveny-120x-60x50-6-fm/t",
+"cat": "zart",
+"src": "/zartszelvenyek/k"
+},{
+"id": "zartszelveny-120x-80x30-6-fm",
+"name": "Zártszelvény 120x 80x3,0 6 fm",
+"price": 35263,
+"unit": "szál",
+"url": "https://timarvasker.hu/zartszelveny-120x-80x30-6-fm/t",
+"cat": "zart",
+"src": "/zartszelvenyek/k"
+},{
+"id": "zartszelveny-120x-80x40-6-fm",
+"name": "Zártszelvény 120x 80x4,0 6 fm",
+"price": 46235,
+"unit": "szál",
+"url": "https://timarvasker.hu/zartszelveny-120x-80x40-6-fm/t",
+"cat": "zart",
+"src": "/zartszelvenyek/k"
+},{
+"id": "zartszelveny-120x-80x50-6-fm",
+"name": "Zártszelvény 120x 80x5,0 6 fm",
+"price": 70333,
+"unit": "szál",
+"url": "https://timarvasker.hu/zartszelveny-120x-80x50-6-fm/t",
+"cat": "zart",
+"src": "/zartszelvenyek/k"
+},{
+"id": "zartszelveny-120x120x30-6-fm",
+"name": "Zártszelvény 120x120x3,0 6 fm",
+"price": 42515,
+"unit": "szál",
+"url": "https://timarvasker.hu/zartszelveny-120x120x30-6-fm/t",
+"cat": "zart",
+"src": "/zartszelvenyek/k"
+},{
+"id": "zartszelveny-120x120x40-6-fm",
+"name": "Zártszelvény 120x120x4,0 6 fm",
+"price": 56472,
+"unit": "szál",
+"url": "https://timarvasker.hu/zartszelveny-120x120x40-6-fm/t",
+"cat": "zart",
+"src": "/zartszelvenyek/k"
+},{
+"id": "zartszelveny-120x120x50-6-fm",
+"name": "Zártszelvény 120x120x5,0 6 fm",
+"price": 71049,
+"unit": "szál",
+"url": "https://timarvasker.hu/zartszelveny-120x120x50-6-fm/t",
+"cat": "zart",
+"src": "/zartszelvenyek/k"
+},{
+"id": "zartszelveny-140x-60x4-6-fm",
+"name": "Zártszelvény 140x 60x4 6 fm",
+"price": 45888,
+"unit": "szál",
+"url": "https://timarvasker.hu/zartszelveny-140x-60x4-6-fm/t",
+"cat": "zart",
+"src": "/zartszelvenyek/k"
+},{
+"id": "zartszelveny-140x-80x4",
+"name": "Zártszelvény 140x 80x4",
+"price": 12969,
+"unit": "fm",
+"url": "https://timarvasker.hu/zartszelveny-140x-80x4/t",
+"cat": "zart",
+"src": "/zartszelvenyek/k"
+},{
+"id": "zartszelveny-140x-80x50-6-fm",
+"name": "Zártszelvény 140x 80x5,0 6 fm",
+"price": 92181,
+"unit": "szál",
+"url": "https://timarvasker.hu/zartszelveny-140x-80x50-6-fm/t",
+"cat": "zart",
+"src": "/zartszelvenyek/k"
+},{
+"id": "zartszelveny-140x140x50-6-fm",
+"name": "Zártszelvény 140x140x5,0 6 fm",
+"price": 83817,
+"unit": "szál",
+"url": "https://timarvasker.hu/zartszelveny-140x140x50-6-fm/t",
+"cat": "zart",
+"src": "/zartszelvenyek/k"
+},{
+"id": "zartszelveny-150x-50x30-6-fm",
+"name": "Zártszelvény 150x 50x3,0 6 fm",
+"price": 43371,
+"unit": "szál",
+"url": "https://timarvasker.hu/zartszelveny-150x-50x30-6-fm/t",
+"cat": "zart",
+"src": "/zartszelvenyek/k"
+},{
+"id": "zartszelveny-150x-50x40-6-fm",
+"name": "Zártszelvény 150x 50x4,0 6 fm",
+"price": 55950,
+"unit": "szál",
+"url": "https://timarvasker.hu/zartszelveny-150x-50x40-6-fm/t",
+"cat": "zart",
+"src": "/zartszelvenyek/k"
+},{
+"id": "zartszelveny-150x-50x50-6-fm",
+"name": "Zártszelvény 150x 50x5,0 6 fm",
+"price": 66413,
+"unit": "szál",
+"url": "https://timarvasker.hu/zartszelveny-150x-50x50-6-fm/t",
+"cat": "zart",
+"src": "/zartszelvenyek/k"
+},{
+"id": "zartszelveny-150x100x30-6-fm",
+"name": "Zártszelvény 150x100x3,0 6 fm",
+"price": 53722,
+"unit": "szál",
+"url": "https://timarvasker.hu/zartszelveny-150x100x30-6-fm/t",
+"cat": "zart",
+"src": "/zartszelvenyek/k"
+},{
+"id": "zartszelveny-150x100x50-6-fm",
+"name": "Zártszelvény 150x100x5,0 6 fm",
+"price": 75298,
+"unit": "szál",
+"url": "https://timarvasker.hu/zartszelveny-150x100x50-6-fm/t",
+"cat": "zart",
+"src": "/zartszelvenyek/k"
+},{
+"id": "zartszelveny-150x150x40-6-fm",
+"name": "Zártszelvény 150x150x4,0 6 fm",
+"price": 78514,
+"unit": "szál",
+"url": "https://timarvasker.hu/zartszelveny-150x150x40-6-fm/t",
+"cat": "zart",
+"src": "/zartszelvenyek/k"
+},{
+"id": "zartszelveny-150x150x50-6-fm",
+"name": "Zártszelvény 150x150x5,0 6 fm",
+"price": 94330,
+"unit": "szál",
+"url": "https://timarvasker.hu/zartszelveny-150x150x50-6-fm/t",
+"cat": "zart",
+"src": "/zartszelvenyek/k"
+},{
+"id": "zartszelveny-15x15x15-6-fm",
+"name": "Zártszelvény 15x15x1,5 6 fm",
+"price": 2584,
+"unit": "szál",
+"url": "https://timarvasker.hu/zartszelveny-15x15x15-6-fm/t",
+"cat": "zart",
+"src": "/zartszelvenyek/k"
+},{
+"id": "zartszelveny-160x-80x30-6-fm",
+"name": "Zártszelvény 160x 80x3,0 6 fm",
+"price": 42357,
+"unit": "szál",
+"url": "https://timarvasker.hu/zartszelveny-160x-80x30-6-fm/t",
+"cat": "zart",
+"src": "/zartszelvenyek/k"
+},{
+"id": "horganyzott-zartszelveny160x-80x6-6-fm",
+"name": "Zártszelvény 160x 80x6 6 fm",
+"price": 204567,
+"unit": "szál",
+"url": "https://timarvasker.hu/horganyzott-zartszelveny160x-80x6-6-fm/t",
+"cat": "zart",
+"src": "/zartszelvenyek/k"
+},{
+"id": "zartszelveny-160x160x50-6-fm",
+"name": "Zártszelvény 160x160x5,0 6 fm",
+"price": 117928,
+"unit": "szál",
+"url": "https://timarvasker.hu/zartszelveny-160x160x50-6-fm/t",
+"cat": "zart",
+"src": "/zartszelvenyek/k"
+},{
+"id": "zartszelveny-160x80x50-6-fm",
+"name": "Zártszelvény 160x80x5,0 6 fm",
+"price": 84331,
+"unit": "szál",
+"url": "https://timarvasker.hu/zartszelveny-160x80x50-6-fm/t",
+"cat": "zart",
+"src": "/zartszelvenyek/k"
+},{
+"id": "zartszelveny-180x180x60-6-fm",
+"name": "Zártszelvény 180x180x6,0 6 fm",
+"price": 131558,
+"unit": "szál",
+"url": "https://timarvasker.hu/zartszelveny-180x180x60-6-fm/t",
+"cat": "zart",
+"src": "/zartszelvenyek/k"
+},{
+"id": "zartszelveny-200x100x50",
+"name": "Zártszelvény 200x100x5,0",
+"price": 14760,
+"unit": "fm",
+"url": "https://timarvasker.hu/zartszelveny-200x100x50/t",
+"cat": "zart",
+"src": "/zartszelvenyek/k"
+},{
+"id": "zartszelveny-20x20x15-6-fm",
+"name": "Zártszelvény 20x20x1,5 6 fm",
+"price": 3860,
+"unit": "szál",
+"url": "https://timarvasker.hu/zartszelveny-20x20x15-6-fm/t",
+"cat": "zart",
+"src": "/zartszelvenyek/k"
+},{
+"id": "zartszelveny-20x20x20-6-fm",
+"name": "Zártszelvény 20x20x2,0 6 fm",
+"price": 3991,
+"unit": "szál",
+"url": "https://timarvasker.hu/zartszelveny-20x20x20-6-fm/t",
+"cat": "zart",
+"src": "/zartszelvenyek/k"
+},{
+"id": "zartszelveny-25x25x15-6-fm",
+"name": "Zártszelvény 25x25x1,5 6 fm",
+"price": 4892,
+"unit": "szál",
+"url": "https://timarvasker.hu/zartszelveny-25x25x15-6-fm/t",
+"cat": "zart",
+"src": "/zartszelvenyek/k"
+},{
+"id": "zartszelveny-25x25x20-6-fm",
+"name": "Zártszelvény 25x25x2,0 6 fm",
+"price": 5110,
+"unit": "szál",
+"url": "https://timarvasker.hu/zartszelveny-25x25x20-6-fm/t",
+"cat": "zart",
+"src": "/zartszelvenyek/k"
+},{
+"id": "zartszelveny-25x25x30-6-fm",
+"name": "Zártszelvény 25x25x3,0 6 fm",
+"price": 7540,
+"unit": "szál",
+"url": "https://timarvasker.hu/zartszelveny-25x25x30-6-fm/t",
+"cat": "zart",
+"src": "/zartszelvenyek/k"
+},{
+"id": "zartszelveny-30x10x15-6-fm",
+"name": "Zártszelvény 30x10x1,5 6 fm",
+"price": 3849,
+"unit": "szál",
+"url": "https://timarvasker.hu/zartszelveny-30x10x15-6-fm/t",
+"cat": "zart",
+"src": "/zartszelvenyek/k"
+},{
+"id": "zartszelveny-30x10x20-6-fm",
+"name": "Zártszelvény 30x10x2,0 6 fm",
+"price": 14760,
+"unit": "szál",
+"url": "https://timarvasker.hu/zartszelveny-30x10x20-6-fm/t",
+"cat": "zart",
+"src": "/zartszelvenyek/k"
+},{
+"id": "zartszelveny-30x15x15-6-fm",
+"name": "Zártszelvény 30x15x1,5 6 fm",
+"price": 5624,
+"unit": "szál",
+"url": "https://timarvasker.hu/zartszelveny-30x15x15-6-fm/t",
+"cat": "zart",
+"src": "/zartszelvenyek/k"
+},{
+"id": "zartszelveny-30x20x15-6-fm",
+"name": "Zártszelvény 30x20x1,5 6 fm",
+"price": 4892,
+"unit": "szál",
+"url": "https://timarvasker.hu/zartszelveny-30x20x15-6-fm/t",
+"cat": "zart",
+"src": "/zartszelvenyek/k"
+},{
+"id": "zartszelveny-30x20x20-6-fm",
+"name": "Zártszelvény 30x20x2,0 6 fm",
+"price": 5110,
+"unit": "szál",
+"url": "https://timarvasker.hu/zartszelveny-30x20x20-6-fm/t",
+"cat": "zart",
+"src": "/zartszelvenyek/k"
+},{
+"id": "zartszelveny-30x20x30-6-fm",
+"name": "Zártszelvény 30x20x3,0 6 fm",
+"price": 7698,
+"unit": "szál",
+"url": "https://timarvasker.hu/zartszelveny-30x20x30-6-fm/t",
+"cat": "zart",
+"src": "/zartszelvenyek/k"
+},{
+"id": "zartszelveny-30x30x15-6-fm",
+"name": "Zártszelvény 30x30x1,5 6 fm",
+"price": 5937,
+"unit": "szál",
+"url": "https://timarvasker.hu/zartszelveny-30x30x15-6-fm/t",
+"cat": "zart",
+"src": "/zartszelvenyek/k"
+},{
+"id": "zartszelveny-30x30x20-6-fm",
+"name": "Zártszelvény 30x30x2,0 6 fm",
+"price": 6222,
+"unit": "szál",
+"url": "https://timarvasker.hu/zartszelveny-30x30x20-6-fm/t",
+"cat": "zart",
+"src": "/zartszelvenyek/k"
+},{
+"id": "zartszelveny-30x30x30-6-fm",
+"name": "Zártszelvény 30x30x3,0 6 fm",
+"price": 9384,
+"unit": "szál",
+"url": "https://timarvasker.hu/zartszelveny-30x30x30-6-fm/t",
+"cat": "zart",
+"src": "/zartszelvenyek/k"
+},{
+"id": "zartszelveny-35x35x15-6-fm",
+"name": "Zártszelvény 35x35x1,5 6 fm",
+"price": 6960,
+"unit": "szál",
+"url": "https://timarvasker.hu/zartszelveny-35x35x15-6-fm/t",
+"cat": "zart",
+"src": "/zartszelvenyek/k"
+},{
+"id": "zartszelveny-35x35x20-6-fm",
+"name": "Zártszelvény 35x35x2,0 6 fm",
+"price": 8109,
+"unit": "szál",
+"url": "https://timarvasker.hu/zartszelveny-35x35x20-6-fm/t",
+"cat": "zart",
+"src": "/zartszelvenyek/k"
+},{
+"id": "zartszelveny-35x35x30-6-fm",
+"name": "Zártszelvény 35x35x3,0 6 fm",
+"price": 14760,
+"unit": "szál",
+"url": "https://timarvasker.hu/zartszelveny-35x35x30-6-fm/t",
+"cat": "zart",
+"src": "/zartszelvenyek/k"
+},{
+"id": "zartszelveny-40x20x15-6-fm",
+"name": "Zártszelvény 40x20x1,5 6 fm",
+"price": 5937,
+"unit": "szál",
+"url": "https://timarvasker.hu/zartszelveny-40x20x15-6-fm/t",
+"cat": "zart",
+"src": "/zartszelvenyek/k"
+},{
+"id": "zartszelveny-40x20x20-6-fm",
+"name": "Zártszelvény 40x20x2,0 6 fm",
+"price": 6222,
+"unit": "szál",
+"url": "https://timarvasker.hu/zartszelveny-40x20x20-6-fm/t",
+"cat": "zart",
+"src": "/zartszelvenyek/k"
+},{
+"id": "zartszelveny-40x20x30-6-fm",
+"name": "Zártszelvény 40x20x3,0 6 fm",
+"price": 9384,
+"unit": "szál",
+"url": "https://timarvasker.hu/zartszelveny-40x20x30-6-fm/t",
+"cat": "zart",
+"src": "/zartszelvenyek/k"
+},{
+"id": "zartszelveny-40x25x20-6-fm",
+"name": "Zártszelvény 40x25x2,0 6 fm",
+"price": 10816,
+"unit": "szál",
+"url": "https://timarvasker.hu/zartszelveny-40x25x20-6-fm/t",
+"cat": "zart",
+"src": "/zartszelvenyek/k"
+},{
+"id": "zartszelveny-40x25x30-6-fm",
+"name": "Zártszelvény 40x25x3,0 6 fm",
+"price": 14360,
+"unit": "szál",
+"url": "https://timarvasker.hu/zartszelveny-40x25x30-6-fm/t",
+"cat": "zart",
+"src": "/zartszelvenyek/k"
+},{
+"id": "zartszelveny-40x30x20-6-fm",
+"name": "Zártszelvény 40x30x2,0 6 fm",
+"price": 8109,
+"unit": "szál",
+"url": "https://timarvasker.hu/zartszelveny-40x30x20-6-fm/t",
+"cat": "zart",
+"src": "/zartszelvenyek/k"
+},{
+"id": "zartszelveny-40x30x30-6-fm",
+"name": "Zártszelvény 40x30x3,0 6 fm",
+"price": 13727,
+"unit": "szál",
+"url": "https://timarvasker.hu/zartszelveny-40x30x30-6-fm/t",
+"cat": "zart",
+"src": "/zartszelvenyek/k"
+},{
+"id": "zartszelveny-40x40x15-6-fm",
+"name": "Zártszelvény 40x40x1,5 6 fm",
+"price": 8023,
+"unit": "szál",
+"url": "https://timarvasker.hu/zartszelveny-40x40x15-6-fm/t",
+"cat": "zart",
+"src": "/zartszelvenyek/k"
+},{
+"id": "zartszelveny-40x40x20-6-fm",
+"name": "Zártszelvény 40x40x2,0 6 fm",
+"price": 8451,
+"unit": "szál",
+"url": "https://timarvasker.hu/zartszelveny-40x40x20-6-fm/t",
+"cat": "zart",
+"src": "/zartszelvenyek/k"
+},{
+"id": "zartszelveny-40x40x30-6-fm",
+"name": "Zártszelvény 40x40x3,0 6 fm",
+"price": 11838,
+"unit": "szál",
+"url": "https://timarvasker.hu/zartszelveny-40x40x30-6-fm/t",
+"cat": "zart",
+"src": "/zartszelvenyek/k"
+},{
+"id": "zartszelveny-40x40x40-6-fm",
+"name": "Zártszelvény 40x40x4,0 6 fm",
+"price": 16677,
+"unit": "szál",
+"url": "https://timarvasker.hu/zartszelveny-40x40x40-6-fm/t",
+"cat": "zart",
+"src": "/zartszelvenyek/k"
+},{
+"id": "zartszelveny-40x40x50-6-fm",
+"name": "Zártszelvény 40x40x5,0 6 fm",
+"price": 26355,
+"unit": "szál",
+"url": "https://timarvasker.hu/zartszelveny-40x40x50-6-fm/t",
+"cat": "zart",
+"src": "/zartszelvenyek/k"
+},{
+"id": "zartszelveny-45x25x20-6-fm",
+"name": "Zártszelvény 45x25x2,0 6 fm",
+"price": 11953,
+"unit": "szál",
+"url": "https://timarvasker.hu/zartszelveny-45x25x20-6-fm/t",
+"cat": "zart",
+"src": "/zartszelvenyek/k"
+},{
+"id": "zartszelveny-45x45x20-6-fm",
+"name": "Zártszelvény 45x45x2,0 6 fm",
+"price": 13918,
+"unit": "szál",
+"url": "https://timarvasker.hu/zartszelveny-45x45x20-6-fm/t",
+"cat": "zart",
+"src": "/zartszelvenyek/k"
+},{
+"id": "zartszelveny-45x45x30-6-fm",
+"name": "Zártszelvény 45x45x3,0 6 fm",
+"price": 14929,
+"unit": "szál",
+"url": "https://timarvasker.hu/zartszelveny-45x45x30-6-fm/t",
+"cat": "zart",
+"src": "/zartszelvenyek/k"
+},{
+"id": "zartszelveny-50x20x20-6-fm",
+"name": "Zártszelvény 50x20x2,0 6 fm",
+"price": 8118,
+"unit": "szál",
+"url": "https://timarvasker.hu/zartszelveny-50x20x20-6-fm/t",
+"cat": "zart",
+"src": "/zartszelvenyek/k"
+},{
+"id": "zartszelveny-50x25x20-6-fm",
+"name": "Zártszelvény 50x25x2,0 6 fm",
+"price": 14612,
+"unit": "szál",
+"url": "https://timarvasker.hu/zartszelveny-50x25x20-6-fm/t",
+"cat": "zart",
+"src": "/zartszelvenyek/k"
+},{
+"id": "zartszelveny-50x25x30-6-fm",
+"name": "Zártszelvény 50x25x3,0 6 fm",
+"price": 17080,
+"unit": "szál",
+"url": "https://timarvasker.hu/zartszelveny-50x25x30-6-fm/t",
+"cat": "zart",
+"src": "/zartszelvenyek/k"
+},{
+"id": "zartszelveny-50x30x20-6-fm",
+"name": "Zártszelvény 50x30x2,0 6 fm",
+"price": 8451,
+"unit": "szál",
+"url": "https://timarvasker.hu/zartszelveny-50x30x20-6-fm/t",
+"cat": "zart",
+"src": "/zartszelvenyek/k"
+},{
+"id": "zartszelveny-50x30x30-6-fm",
+"name": "Zártszelvény 50x30x3,0 6 fm",
+"price": 13084,
+"unit": "szál",
+"url": "https://timarvasker.hu/zartszelveny-50x30x30-6-fm/t",
+"cat": "zart",
+"src": "/zartszelvenyek/k"
+},{
+"id": "zartszelveny-50x30x40-6-fm",
+"name": "Zártszelvény 50x30x4,0 6 fm",
+"price": 16668,
+"unit": "szál",
+"url": "https://timarvasker.hu/zartszelveny-50x30x40-6-fm/t",
+"cat": "zart",
+"src": "/zartszelvenyek/k"
+},{
+"id": "zartszelveny-50x40x20-6-fm",
+"name": "Zártszelvény 50x40x2,0 6 fm",
+"price": 10564,
+"unit": "szál",
+"url": "https://timarvasker.hu/zartszelveny-50x40x20-6-fm/t",
+"cat": "zart",
+"src": "/zartszelvenyek/k"
+},{
+"id": "zartszelveny-50x40x30-6-fm",
+"name": "Zártszelvény 50x40x3,0 6 fm",
+"price": 14918,
+"unit": "szál",
+"url": "https://timarvasker.hu/zartszelveny-50x40x30-6-fm/t",
+"cat": "zart",
+"src": "/zartszelvenyek/k"
+},{
+"id": "zartszelveny-50x50x20-6-fm",
+"name": "Zártszelvény 50x50x2,0 6 fm",
+"price": 10680,
+"unit": "szál",
+"url": "https://timarvasker.hu/zartszelveny-50x50x20-6-fm/t",
+"cat": "zart",
+"src": "/zartszelvenyek/k"
+},{
+"id": "zartszelveny-50x50x30-6-fm",
+"name": "Zártszelvény 50x50x3,0 6 fm",
+"price": 15181,
+"unit": "szál",
+"url": "https://timarvasker.hu/zartszelveny-50x50x30-6-fm/t",
+"cat": "zart",
+"src": "/zartszelvenyek/k"
+},{
+"id": "zartszelveny-50x50x40-6-fm",
+"name": "Zártszelvény 50x50x4,0 6 fm",
+"price": 21601,
+"unit": "szál",
+"url": "https://timarvasker.hu/zartszelveny-50x50x40-6-fm/t",
+"cat": "zart",
+"src": "/zartszelvenyek/k"
+},{
+"id": "zartszelveny-50x50x50-6-fm",
+"name": "Zártszelvény 50x50x5,0 6 fm",
+"price": 27736,
+"unit": "szál",
+"url": "https://timarvasker.hu/zartszelveny-50x50x50-6-fm/t",
+"cat": "zart",
+"src": "/zartszelvenyek/k"
+},{
+"id": "zartszelveny-60x20x20-6-fm",
+"name": "Zártszelvény 60x20x2,0 6 fm",
+"price": 9922,
+"unit": "szál",
+"url": "https://timarvasker.hu/zartszelveny-60x20x20-6-fm/t",
+"cat": "zart",
+"src": "/zartszelvenyek/k"
+},{
+"id": "zartszelveny-60x30x20-6-fm",
+"name": "Zártszelvény 60x30x2,0 6 fm",
+"price": 10564,
+"unit": "szál",
+"url": "https://timarvasker.hu/zartszelveny-60x30x20-6-fm/t",
+"cat": "zart",
+"src": "/zartszelvenyek/k"
+},{
+"id": "zartszelveny-60x30x30-6-fm",
+"name": "Zártszelvény 60x30x3,0 6 fm",
+"price": 14929,
+"unit": "szál",
+"url": "https://timarvasker.hu/zartszelveny-60x30x30-6-fm/t",
+"cat": "zart",
+"src": "/zartszelvenyek/k"
+},{
+"id": "zartszelveny-60x40x20-6-fm",
+"name": "Zártszelvény 60x40x2,0 6 fm",
+"price": 10680,
+"unit": "szál",
+"url": "https://timarvasker.hu/zartszelveny-60x40x20-6-fm/t",
+"cat": "zart",
+"src": "/zartszelvenyek/k"
+},{
+"id": "zartszelveny-60x40x30-6-fm",
+"name": "Zártszelvény 60x40x3,0 6 fm",
+"price": 15181,
+"unit": "szál",
+"url": "https://timarvasker.hu/zartszelveny-60x40x30-6-fm/t",
+"cat": "zart",
+"src": "/zartszelvenyek/k"
+},{
+"id": "zartszelveny-60x40x40-6-fm",
+"name": "Zártszelvény 60x40x4,0 6 fm",
+"price": 21601,
+"unit": "szál",
+"url": "https://timarvasker.hu/zartszelveny-60x40x40-6-fm/t",
+"cat": "zart",
+"src": "/zartszelvenyek/k"
+},{
+"id": "zartszelveny-60x40x50-6-fm",
+"name": "Zártszelvény 60x40x5,0 6 fm",
+"price": 40607,
+"unit": "szál",
+"url": "https://timarvasker.hu/zartszelveny-60x40x50-6-fm/t",
+"cat": "zart",
+"src": "/zartszelvenyek/k"
+},{
+"id": "zartszelveny-60x50x30-6-fm",
+"name": "Zártszelvény 60x50x3,0 6 fm",
+"price": 59153,
+"unit": "szál",
+"url": "https://timarvasker.hu/zartszelveny-60x50x30-6-fm/t",
+"cat": "zart",
+"src": "/zartszelvenyek/k"
+},{
+"id": "zartszelveny-60x50x40-6-fm",
+"name": "Zártszelvény 60x50x4,0 6 fm",
+"price": 24078,
+"unit": "szál",
+"url": "https://timarvasker.hu/zartszelveny-60x50x40-6-fm/t",
+"cat": "zart",
+"src": "/zartszelvenyek/k"
+},{
+"id": "zartszelveny-60x60x20-6-fm",
+"name": "Zártszelvény 60x60x2,0 6 fm",
+"price": 12910,
+"unit": "szál",
+"url": "https://timarvasker.hu/zartszelveny-60x60x20-6-fm/t",
+"cat": "zart",
+"src": "/zartszelvenyek/k"
+},{
+"id": "zartszelveny-60x60x30-6-fm",
+"name": "Zártszelvény 60x60x3,0 6 fm",
+"price": 18344,
+"unit": "szál",
+"url": "https://timarvasker.hu/zartszelveny-60x60x30-6-fm/t",
+"cat": "zart",
+"src": "/zartszelvenyek/k"
+},{
+"id": "zartszelveny-60x60x40-6-fm",
+"name": "Zártszelvény 60x60x4,0 6 fm",
+"price": 26535,
+"unit": "szál",
+"url": "https://timarvasker.hu/zartszelveny-60x60x40-6-fm/t",
+"cat": "zart",
+"src": "/zartszelvenyek/k"
+},{
+"id": "zartszelveny-60x60x50-6-fm",
+"name": "Zártszelvény 60x60x5,0 6 fm",
+"price": 34093,
+"unit": "szál",
+"url": "https://timarvasker.hu/zartszelveny-60x60x50-6-fm/t",
+"cat": "zart",
+"src": "/zartszelvenyek/k"
+},{
+"id": "zartszelveny-60x60x60-6-fm",
+"name": "Zártszelvény 60x60x6,0 6 fm",
+"price": 45603,
+"unit": "szál",
+"url": "https://timarvasker.hu/zartszelveny-60x60x60-6-fm/t",
+"cat": "zart",
+"src": "/zartszelvenyek/k"
+},{
+"id": "zartszelveny-70x40x30-6-fm",
+"name": "Zártszelvény 70x40x3,0 6 fm",
+"price": 24721,
+"unit": "szál",
+"url": "https://timarvasker.hu/zartszelveny-70x40x30-6-fm/t",
+"cat": "zart",
+"src": "/zartszelvenyek/k"
+},{
+"id": "zartszelveny-70x40x40-6-fm",
+"name": "Zártszelvény 70x40x4,0 6 fm",
+"price": 39995,
+"unit": "szál",
+"url": "https://timarvasker.hu/zartszelveny-70x40x40-6-fm/t",
+"cat": "zart",
+"src": "/zartszelvenyek/k"
+},{
+"id": "zartszelveny-70x50x20-6-fm",
+"name": "Zártszelvény 70x50x2,0 6 fm",
+"price": 14265,
+"unit": "szál",
+"url": "https://timarvasker.hu/zartszelveny-70x50x20-6-fm/t",
+"cat": "zart",
+"src": "/zartszelvenyek/k"
+},{
+"id": "zartszelveny-70x50x30-6-fm",
+"name": "Zártszelvény 70x50x3,0 6 fm",
+"price": 24095,
+"unit": "szál",
+"url": "https://timarvasker.hu/zartszelveny-70x50x30-6-fm/t",
+"cat": "zart",
+"src": "/zartszelvenyek/k"
+},{
+"id": "zartszelveny-70x50x40-6-fm",
+"name": "Zártszelvény 70x50x4,0 6 fm",
+"price": 27818,
+"unit": "szál",
+"url": "https://timarvasker.hu/zartszelveny-70x50x40-6-fm/t",
+"cat": "zart",
+"src": "/zartszelvenyek/k"
+},{
+"id": "zartszelveny-70x70x30-6-fm",
+"name": "Zártszelvény 70x70x3,0 6 fm",
+"price": 24162,
+"unit": "szál",
+"url": "https://timarvasker.hu/zartszelveny-70x70x30-6-fm/t",
+"cat": "zart",
+"src": "/zartszelvenyek/k"
+},{
+"id": "zartszelveny-70x70x40-6-fm",
+"name": "Zártszelvény 70x70x4,0 6 fm",
+"price": 31456,
+"unit": "szál",
+"url": "https://timarvasker.hu/zartszelveny-70x70x40-6-fm/t",
+"cat": "zart",
+"src": "/zartszelvenyek/k"
+},{
+"id": "zartszelveny-70x70x60-6-fm",
+"name": "Zártszelvény 70x70x6,0 6 fm",
+"price": 47776,
+"unit": "szál",
+"url": "https://timarvasker.hu/zartszelveny-70x70x60-6-fm/t",
+"cat": "zart",
+"src": "/zartszelvenyek/k"
+},{
+"id": "zartszelveny-80x20x20-6-fm",
+"name": "Zártszelvény 80x20x2,0 6 fm",
+"price": 11798,
+"unit": "szál",
+"url": "https://timarvasker.hu/zartszelveny-80x20x20-6-fm/t",
+"cat": "zart",
+"src": "/zartszelvenyek/k"
+},{
+"id": "zartszelveny-80x30x20-6-fm",
+"name": "Zártszelvény 80x30x2,0 6 fm",
+"price": 16065,
+"unit": "szál",
+"url": "https://timarvasker.hu/zartszelveny-80x30x20-6-fm/t",
+"cat": "zart",
+"src": "/zartszelvenyek/k"
+},{
+"id": "zartszelveny-80x40x20-6-fm",
+"name": "Zártszelvény 80x40x2,0 6 fm",
+"price": 12910,
+"unit": "szál",
+"url": "https://timarvasker.hu/zartszelveny-80x40x20-6-fm/t",
+"cat": "zart",
+"src": "/zartszelvenyek/k"
+},{
+"id": "zartszelveny-80x40x30-6-fm",
+"name": "Zártszelvény 80x40x3,0 6 fm",
+"price": 18526,
+"unit": "szál",
+"url": "https://timarvasker.hu/zartszelveny-80x40x30-6-fm/t",
+"cat": "zart",
+"src": "/zartszelvenyek/k"
+},{
+"id": "zartszelveny-80x40x40-6-fm",
+"name": "Zártszelvény 80x40x4,0 6 fm",
+"price": 26535,
+"unit": "szál",
+"url": "https://timarvasker.hu/zartszelveny-80x40x40-6-fm/t",
+"cat": "zart",
+"src": "/zartszelvenyek/k"
+},{
+"id": "zartszelveny-80x50x30-6-fm",
+"name": "Zártszelvény 80x50x3,0 6 fm",
+"price": 22319,
+"unit": "szál",
+"url": "https://timarvasker.hu/zartszelveny-80x50x30-6-fm/t",
+"cat": "zart",
+"src": "/zartszelvenyek/k"
+},{
+"id": "zartszelveny-80x60x30-6-fm",
+"name": "Zártszelvény 80x60x3,0 6 fm",
+"price": 24162,
+"unit": "szál",
+"url": "https://timarvasker.hu/zartszelveny-80x60x30-6-fm/t",
+"cat": "zart",
+"src": "/zartszelvenyek/k"
+},{
+"id": "zartszelveny-80x60x40-6-fm",
+"name": "Zártszelvény 80x60x4,0 6 fm",
+"price": 31456,
+"unit": "szál",
+"url": "https://timarvasker.hu/zartszelveny-80x60x40-6-fm/t",
+"cat": "zart",
+"src": "/zartszelvenyek/k"
+},{
+"id": "zartszelveny-80x60x50-6-fm",
+"name": "Zártszelvény 80x60x5,0 6 fm",
+"price": 40449,
+"unit": "szál",
+"url": "https://timarvasker.hu/zartszelveny-80x60x50-6-fm/t",
+"cat": "zart",
+"src": "/zartszelvenyek/k"
+},{
+"id": "zartszelveny-80x80x20-6-fm",
+"name": "Zártszelvény 80x80x2,0 6 fm",
+"price": 22834,
+"unit": "szál",
+"url": "https://timarvasker.hu/zartszelveny-80x80x20-6-fm/t",
+"cat": "zart",
+"src": "/zartszelvenyek/k"
+},{
+"id": "zartszelveny-80x80x30-6-fm",
+"name": "Zártszelvény 80x80x3,0 6 fm",
+"price": 25216,
+"unit": "szál",
+"url": "https://timarvasker.hu/zartszelveny-80x80x30-6-fm/t",
+"cat": "zart",
+"src": "/zartszelvenyek/k"
+},{
+"id": "zartszelveny-80x80x40-6-fm",
+"name": "Zártszelvény 80x80x4,0 6 fm",
+"price": 36381,
+"unit": "szál",
+"url": "https://timarvasker.hu/zartszelveny-80x80x40-6-fm/t",
+"cat": "zart",
+"src": "/zartszelvenyek/k"
+},{
+"id": "zartszelveny-80x80x50-6-fm",
+"name": "Zártszelvény 80x80x5,0 6 fm",
+"price": 46964,
+"unit": "szál",
+"url": "https://timarvasker.hu/zartszelveny-80x80x50-6-fm/t",
+"cat": "zart",
+"src": "/zartszelvenyek/k"
+},{
+"id": "zartszelveny-90x50x30-6-fm",
+"name": "Zártszelvény 90x50x3,0 6 fm",
+"price": 24162,
+"unit": "szál",
+"url": "https://timarvasker.hu/zartszelveny-90x50x30-6-fm/t",
+"cat": "zart",
+"src": "/zartszelvenyek/k"
+},{
+"id": "zartszelveny-90x50x40-6-fm",
+"name": "Zártszelvény 90x50x4,0 6 fm",
+"price": 31456,
+"unit": "szál",
+"url": "https://timarvasker.hu/zartszelveny-90x50x40-6-fm/t",
+"cat": "zart",
+"src": "/zartszelvenyek/k"
+},{
+"id": "zartszelveny-90x90x30-6-fm",
+"name": "Zártszelvény 90x90x3,0 6 fm",
+"price": 31552,
+"unit": "szál",
+"url": "https://timarvasker.hu/zartszelveny-90x90x30-6-fm/t",
+"cat": "zart",
+"src": "/zartszelvenyek/k"
+},{
+"id": "zartszelveny-90x90x40-6-fm",
+"name": "Zártszelvény 90x90x4,0 6 fm",
+"price": 42636,
+"unit": "szál",
+"url": "https://timarvasker.hu/zartszelveny-90x90x40-6-fm/t",
+"cat": "zart",
+"src": "/zartszelvenyek/k"
+},{
+"id": "zartszelveny-90x90x50-6-fm",
+"name": "Zártszelvény 90x90x5,0 6 fm",
+"price": 53035,
+"unit": "szál",
+"url": "https://timarvasker.hu/zartszelveny-90x90x50-6-fm/t",
+"cat": "zart",
+"src": "/zartszelvenyek/k"
+}
+]
+}
