@@ -65,6 +65,8 @@ ol{margin:0;padding-left:22px;font-size:14px}ol li{margin:2px 0}
 .parts .r{text-align:right;white-space:nowrap}
 .parts .tot{grid-column:1/-1;color:var(--mut);font-size:13px;margin-bottom:8px}
 .btns{display:grid;gap:10px}
+.hw{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:6px 12px;font-size:14px;align-items:baseline}
+.hw .r{text-align:right;white-space:nowrap}
 </style></head><body>
 <header><h1>Fém tervező</h1><p>Kapuk, kerítések tervezése és szálanyag-optimalizálás gérvágással – offline is működik.</p></header>
 <nav class="tabs"><button data-tab="gate" class="on">Kapu tervező</button><button data-tab="cut">Darabolás</button></nav>
@@ -74,17 +76,33 @@ ol{margin:0;padding-left:22px;font-size:14px}ol li{margin:2px 0}
   <div class="card"><h2>Kapu</h2>
     <div class="row g2"><label>Megnevezés<input data-g="name" placeholder="pl. Bejárati kapu"></label><label>Darabszám<input inputmode="numeric" data-g="count"></label></div>
     <label style="margin-bottom:8px">Típus<select data-g="type">
-      <option value="single">Egyszárnyú kapu</option><option value="double">Kétszárnyú kapu</option><option value="slide">Tolókapu</option><option value="cant">Úszó (konzolos) kapu</option><option value="fence">Kerítésmező</option></select></label>
-    <div class="row g2"><label><span id="lblW">Nyílás szélessége (mm)</span><input inputmode="decimal" data-g="W"></label><label>Magasság, keret külső (mm)<input inputmode="decimal" data-g="H"></label></div>
+      <option value="single">Egyszárnyú kapu</option><option value="double">Kétszárnyú kapu</option><option value="wicket">Kiskapu (gyalogajtó)</option><option value="slide">Tolókapu</option><option value="cant">Úszó (konzolos) kapu</option><option value="fence">Kerítésmező</option></select></label>
+    <div class="row g2"><label id="lblWrap"><span id="lblW">Nyílás szélessége (mm)</span><input inputmode="decimal" data-g="W"></label><label>Magasság, keret külső (mm)<input inputmode="decimal" data-g="H"></label></div>
     <div class="row g2">
-      <label data-for="single double">Hézag szárnyanként (mm)<input inputmode="decimal" data-g="gapSide"></label>
+      <label data-for="single double wicket">Hézag szárnyanként (mm)<input inputmode="decimal" data-g="gapSide"></label>
       <label data-for="double">Középrés (mm)<input inputmode="decimal" data-g="gapMid"></label>
       <label data-for="slide cant">Átfedés oldalanként (mm)<input inputmode="decimal" data-g="ov"></label>
       <label data-for="slide cant">Farok a nyíláson túl (mm)<input inputmode="decimal" data-g="tail"></label>
       <label>Talaj fölötti rés (mm)<input inputmode="decimal" data-g="ground"></label>
     </div>
-    <p class="help" data-for="single double">A szárny szélessége a nyílásból a hézagok levonásával adódik.</p>
+    <p class="help" data-for="single double wicket">A szárny szélessége a nyílásból a hézagok levonásával adódik.</p>
     <p class="help" data-for="slide cant">A szárny szélessége = nyílás + átfedés mindkét oldalon + farok.</p>
+  </div>
+  <div class="card" data-for="wicket"><h2>Kiskapu részletei</h2>
+    <label style="margin-bottom:8px">Kivitelezés<select data-g="mode">
+      <option value="uj">Új építés</option><option value="csere">Régi helyére csere (felmérés)</option></select></label>
+    <div data-mode="csere">
+      <div class="row g"><label>Szélesség felül (mm)<input inputmode="decimal" data-g="wT"></label><label>Szélesség középen (mm)<input inputmode="decimal" data-g="wM"></label><label>Szélesség alul (mm)<input inputmode="decimal" data-g="wB"></label></div>
+      <p class="help">A régi pillérek gyakran ferdék, ezért mérj több magasságban. A program a legkisebb mért értékkel számol. Elég egy szélességet is megadni.</p>
+    </div>
+    <label style="margin-bottom:8px">Hová kerül<select data-g="post">
+      <option value="zsalu">Zsalukő pillérek közé</option><option value="tegla">Tégla / beton pillérek közé</option><option value="acel">Acél oszlopok közé</option></select></label>
+    <div class="row g2"><label>Pillér szélessége (mm)<input inputmode="decimal" data-g="pw"></label><label>Kilincs magassága a talajtól (mm)<input inputmode="decimal" data-g="hh"></label></div>
+    <div class="row g2"><label>Zsanér oldala (a rajz szerint)<select data-g="hingeSide"><option value="L">Bal</option><option value="R">Jobb</option></select></label><label>Zsanérok száma<input inputmode="numeric" data-g="hn"></label></div>
+    <label style="margin-bottom:8px">Zsanér típusa<select data-g="hinge"><option value="adj">Állítható, csavaros talppal</option><option value="weld">Hegeszthető</option></select></label>
+    <label style="margin-bottom:8px">Zár<select data-g="lock"><option value="portal">Portálzár</option><option value="box">Zárláda, zárbetéttel</option><option value="none">Nincs</option></select></label>
+    <label style="margin-bottom:8px">Kilincs<select data-g="handle"><option value="norm">Normál</option><option value="off">Eltolt</option><option value="none">Nincs</option></select></label>
+    <label data-handle="off">Kilincs eltolása a zár oldali éltől (mm)<input inputmode="decimal" data-g="ho"></label>
   </div>
   <div class="card"><h2>Keret (gérvágott zártszelvény)</h2>
     <div class="row g2"><label>Szélesség a kapu síkjában (mm)<input inputmode="decimal" data-g="fw"></label><label>Vastagság (mm)<input inputmode="decimal" data-g="fd"></label></div>
@@ -285,24 +303,32 @@ function renderRes(){
 function calc(){save();last=solve();renderRes();}
 
 /* ============ KAPU TERVEZŐ ============ */
-const GDEF={name:'',type:'double',count:1,W:3000,H:1500,gapSide:15,gapMid:10,ov:100,tail:0,ground:100,fw:40,fd:40,infill:'vert',bw:20,bd:20,maxGap:100,sheetT:2,brace:true,bracew:30,braced:30};
+const GDEF={name:'',type:'double',count:1,W:3000,H:1500,gapSide:15,gapMid:10,ov:100,tail:0,ground:100,fw:40,fd:40,infill:'vert',bw:20,bd:20,maxGap:100,sheetT:2,brace:true,bracew:30,braced:30,
+  mode:'uj',wT:'',wM:'',wB:'',post:'zsalu',pw:300,hh:1000,hingeSide:'L',hn:2,hinge:'adj',lock:'portal',handle:'norm',ho:150};
 let g=Object.assign(clone(GDEF),lsGet('femkapu',{}));
 const gSave=()=>lsSet('femkapu',g);
 let gMod=null;
 const lab=(a,b)=>'Zártszelvény '+pl(Math.max(a,b))+'×'+pl(Math.min(a,b));
-const TYPES={single:'Egyszárnyú kapu',double:'Kétszárnyú kapu',slide:'Tolókapu',cant:'Úszó kapu',fence:'Kerítésmező'};
+const TYPES={single:'Egyszárnyú kapu',double:'Kétszárnyú kapu',wicket:'Kiskapu',slide:'Tolókapu',cant:'Úszó kapu',fence:'Kerítésmező'};
+const POSTS={zsalu:'Zsalukő pillérek között',tegla:'Tégla/beton pillérek között',acel:'Acél oszlopok között'};
+/* Nyílás szélessége. Régi helyére cserénél a legkisebb mért érték számít. */
+function effW(){
+  if(g.type==='wicket'&&g.mode==='csere'){const v=[g.wT,g.wM,g.wB].map(num).filter(x=>x>0);return v.length?Math.min(...v):0;}
+  return num(g.W);
+}
 
 function gateModel(){
-  const W=num(g.W),H=num(g.H),fw=num(g.fw),fd=num(g.fd),cnt=Math.max(1,Math.floor(num(g.count))||1);
+  const W=effW(),H=num(g.H),fw=num(g.fw),fd=num(g.fd),cnt=Math.max(1,Math.floor(num(g.count))||1);
   const gs=Math.max(0,num(g.gapSide)),gm=Math.max(0,num(g.gapMid)),ov=Math.max(0,num(g.ov)),tail=Math.max(0,num(g.tail));
   let Wl,leaves=1;
   switch(g.type){
-    case 'single':Wl=W-2*gs;break;
+    case 'single':case 'wicket':Wl=W-2*gs;break;
     case 'double':Wl=(W-2*gs-gm)/2;leaves=2;break;
     case 'slide':case 'cant':Wl=W+2*ov+tail;break;
     default:Wl=W;
   }
-  const m={leaf:{Wl,H},leaves,cnt,pieces:[],warn:[],errs:[],fill:{nv:0,nh:0,gv:0,gh:0},sheet:null,brace:null};
+  const m={leaf:{Wl,H},leaves,cnt,W,pieces:[],hw:[],warn:[],errs:[],fill:{nv:0,nh:0,gv:0,gh:0},sheet:null,brace:null};
+  if(g.type==='wicket'&&g.mode==='csere'&&!(W>0)){m.errs.push('Add meg legalább egy mért szélességet (felül, középen vagy alul).');return m;}
   if(!(W>0&&H>0&&fw>0&&fd>0)){m.errs.push('Add meg a szélességet, a magasságot és a keret profilját.');return m;}
   const Wi=Wl-2*fw,Hi=H-2*fw;m.Wi=Wi;m.Hi=Hi;
   if(Wi<=0||Hi<=0){m.errs.push('A keret profilja túl nagy ehhez a mérethez, vagy a szárny szélessége nulla alá esik.');return m;}
@@ -350,14 +376,22 @@ function gateModel(){
       }
     }
   }
+  if(g.type==='wicket'){
+    const hn=Math.max(1,Math.floor(num(g.hn))||2),side=g.hingeSide==='R'?'jobb':'bal';
+    m.hw.push({name:'Zsanér – '+(g.hinge==='weld'?'hegeszthető':'állítható, csavaros talppal'),note:side+' oldalon',qty:hn*cnt});
+    if(g.lock==='portal')m.hw.push({name:'Portálzár',note:'',qty:cnt});
+    else if(g.lock==='box')m.hw.push({name:'Zárláda zárbetéttel',note:'',qty:cnt});
+    if(g.handle==='norm')m.hw.push({name:'Kilincs',note:'',qty:cnt});
+    else if(g.handle==='off')m.hw.push({name:'Kilincs – eltolt',note:fi(Math.max(0,num(g.ho)))+' mm-re a zár oldali éltől',qty:cnt});
+  }
   return m;
 }
 
 function gateSVG(m,Wpx){
-  const W=num(g.W),H=num(g.H),fw=num(g.fw),gr=Math.max(0,num(g.ground)),pw=100;
+  const W=m.W,H=num(g.H),fw=num(g.fw),gr=Math.max(0,num(g.ground)),wk=g.type==='wicket',pw=wk?Math.max(50,num(g.pw)||300):100;
   const Wl=m.leaf.Wl,gs=Math.max(0,num(g.gapSide)),gm=Math.max(0,num(g.gapMid)),ov=Math.max(0,num(g.ov)),tail=Math.max(0,num(g.tail));
   let xs=[0],xL=0,xR=W;
-  if(g.type==='single')xs=[gs];
+  if(g.type==='single'||wk)xs=[gs];
   else if(g.type==='double')xs=[gs,gs+Wl+gm];
   else if(g.type==='slide'||g.type==='cant'){xs=[0];xL=tail+ov;xR=tail+ov+W;}
   const minX=Math.min(xL-pw,...xs),maxX=Math.max(xR+pw,...xs.map(x=>x+Wl));
@@ -370,6 +404,7 @@ function gateSVG(m,Wpx){
   o+=`<rect x="${ml-8}" y="${Y(0)}" width="${Wpx-ml-mr+8}" height="6" fill="var(--steel)"/>`;
   o+=`<rect x="${X(xL-pw)}" y="${Y(top)}" width="${r1(pw*s)}" height="${r1(top*s)}" fill="var(--post)"/>`;
   o+=`<rect x="${X(xR)}" y="${Y(top)}" width="${r1(pw*s)}" height="${r1(top*s)}" fill="var(--post)"/>`;
+  if(wk&&g.post==='zsalu'){for(let y=250;y<top;y+=250){const yy=Y(y);o+=`<path d="M${X(xL-pw)} ${yy}h${r1(pw*s)}M${X(xR)} ${yy}h${r1(pw*s)}" stroke="var(--bg)" stroke-opacity=".45" stroke-width="1"/>`;}}
   const yT=gr+H,f=m.fill,bw=num(g.bw);
   xs.forEach(x0=>{
     const ix=x0+fw,iy=gr+fw,Wi=m.Wi,Hi=m.Hi;
@@ -384,6 +419,23 @@ function gateSVG(m,Wpx){
               [[x0+Wl,yT],[x0+Wl,gr],[x0+Wl-fw,gr+fw],[x0+Wl-fw,yT-fw]]];
     fr.forEach(p=>{o+=`<polygon points="${pts(p)}" fill="var(--frame)" stroke="var(--card)" stroke-width="1.2" stroke-linejoin="round"/>`;});
   });
+  if(wk){
+    const x0=xs[0],hR=g.hingeSide==='R',n=Math.max(1,Math.floor(num(g.hn))||2);
+    /* zsanérok: a pillér és a szárny széle között */
+    const xa=hR?x0+Wl-20:xL,xb=hR?xR:x0+20,inset=Math.min(150,H/4);
+    const ys=n===1?[gr+H/2]:Array.from({length:n},(_,k)=>gr+inset+(H-2*inset)*k/(n-1));
+    ys.forEach(yc=>{o+=`<rect x="${X(xa)}" y="${Y(yc+50)}" width="${r1(Math.max(3,(xb-xa)*s))}" height="${r1(Math.max(4,100*s))}" rx="1" fill="var(--acc)" stroke="var(--card)" stroke-width=".8"/>`;});
+    /* zár és kilincs a zsanérral szemközti élen */
+    const lockEdge=hR?x0:x0+Wl,dir=hR?1:-1,yh=gr+Math.min(Math.max(num(g.hh)||1000,100),Math.max(100,H-100));
+    if(g.lock==='portal'||g.lock==='box'){
+      const lw=g.lock==='portal'?70:45,lh=g.lock==='portal'?150:110,xa2=Math.min(lockEdge,lockEdge+dir*lw);
+      o+=`<rect x="${X(xa2)}" y="${Y(yh+lh/2)}" width="${r1(Math.max(4,lw*s))}" height="${r1(Math.max(6,lh*s))}" rx="2" fill="var(--post)" stroke="var(--card)" stroke-width=".8"/>`;
+    }
+    if(g.handle==='norm'||g.handle==='off'){
+      const ho=g.handle==='off'?Math.min(Math.max(0,num(g.ho)),Wl):fw/2,hx=lockEdge+dir*ho;
+      o+=`<circle cx="${X(hx)}" cy="${Y(yh)}" r="${r1(Math.max(3.5,22*s))}" fill="var(--card)" stroke="var(--post)" stroke-width="2"/>`;
+    }
+  }
   const dimH=(xa,xb,y,label)=>`<path class="dl" d="M${X(xa)} ${y-5}v10M${X(xb)} ${y-5}v10M${X(xa)} ${y}H${X(xb)}"/><text class="dimt" x="${r1((X(xa)+X(xb))/2)}" y="${y+17}" text-anchor="middle">${label}</text>`;
   xs.forEach(x0=>{o+=dimH(x0,x0+Wl,Y(0)+22,fi(Wl));});
   if(g.type!=='fence')o+=dimH(xL,xR,Y(0)+54,'nyílás '+fi(W));
@@ -403,6 +455,10 @@ function gateRender(){
   if(m.leaves===2)bits.push(`2 szárny, egyenként ${fi(m.leaf.Wl)} × ${fi(m.leaf.H)} mm`);
   else bits.push(`${TYPES[g.type]}: ${fi(m.leaf.Wl)} × ${fi(m.leaf.H)} mm`);
   if(m.cnt>1)bits.push(`${m.cnt} db`);
+  if(g.type==='wicket'){
+    bits.push(POSTS[g.post]||POSTS.zsalu);
+    bits.push(g.mode==='csere'?`régi helyére, nyílás ${fi(m.W)} mm (a legkisebb mért érték)`:'új építés');
+  }
   if(f.nv)bits.push(`${f.nv} függőleges rúd, rés ${pl(f.gv)} mm`);
   if(f.nh)bits.push(`${f.nh} vízszintes rúd, rés ${pl(f.gh)} mm`);
   if(m.brace)bits.push(`merevítő ${fi(m.brace.len)} mm, vágásszög ${pl(m.brace.a)}°`);
@@ -417,6 +473,7 @@ function gateRender(){
   });
   if(m.sheet)h+=`<div class="parts"><div class="tot"><b>Lemez ${pl(m.sheet.t)} mm</b> – nem a darabolóba való</div><div>Betét</div><div class="r">${m.sheet.qty}×</div><div class="r"><b>${fi(m.sheet.w)} × ${fi(m.sheet.h)}</b> mm</div><div class="r"></div></div>`;
   h+=`</div>`;
+  if(m.hw.length)h+=`<div class="card"><h2>Szerelvények</h2><p class="help">Ezek nem a darabolóba valók, hanem a beszerzési listára.</p><div class="hw">${m.hw.map(x=>`<div>${esc(x.name)}${x.note?` <span class="mut">(${esc(x.note)})</span>`:''}</div><div class="r"><b>${x.qty}</b> db</div>`).join('')}</div></div>`;
   if(m.pieces.length)h+=`<div class="btns"><button class="go" id="toCutAdd">Hozzáadás a darabolóhoz</button><button class="alt" id="toCutRep">Darabolóban lévő lista cseréje erre</button></div>`;
   el.innerHTML=h;
 }
@@ -433,11 +490,15 @@ function fillGate(){
   $$('[data-for]').forEach(el=>el.hidden=!el.dataset.for.split(' ').includes(g.type));
   $$('[data-inf]').forEach(el=>el.hidden=!el.dataset.inf.split(' ').includes(g.infill));
   $$('[data-brace]').forEach(el=>el.hidden=!g.brace);
-  $('#lblW').textContent=g.type==='fence'?'Mező szélessége (mm)':'Nyílás szélessége az oszlopok között (mm)';
+  $$('[data-mode]').forEach(el=>el.hidden=!(g.type==='wicket'&&g.mode===el.dataset.mode));
+  $$('[data-handle]').forEach(el=>el.hidden=g.handle!==el.dataset.handle);
+  $('#lblWrap').hidden=g.type==='wicket'&&g.mode==='csere';
+  $('#lblW').textContent=g.type==='fence'?'Mező szélessége (mm)':g.type==='wicket'?'Nyílás szélessége a pillérek között (mm)':'Nyílás szélessége az oszlopok között (mm)';
 }
 function onType(){
   if(g.type==='cant'){g.tail=Math.round(num(g.W)*0.5/10)*10;if(!(num(g.ov)>0))g.ov=100;}
   else if(g.type==='slide'){g.tail=0;if(!(num(g.ov)>0))g.ov=100;}
+  else if(g.type==='wicket'){if(num(g.W)>1500)g.W=1000;}
 }
 
 /* ============ FÜLEK ÉS ESEMÉNYEK ============ */
@@ -457,6 +518,7 @@ document.addEventListener('change',ev=>{
   if(t.dataset.g&&(t.tagName==='SELECT'||t.type==='checkbox')){
     g[t.dataset.g]=t.type==='checkbox'?t.checked:t.value;
     if(t.dataset.g==='type')onType();
+    if(t.dataset.g==='post')g.pw=t.value==='acel'?100:300;
     fillGate();gSave();gateRender();return;
   }
   if(t.tagName==='SELECT'&&t.dataset.k){const[a,i,f]=t.dataset.k.split('.');st[a][+i][f]=t.value;save();}
