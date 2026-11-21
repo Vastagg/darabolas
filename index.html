@@ -79,13 +79,13 @@ ol{margin:0;padding-left:22px;font-size:14px}ol li{margin:2px 0}
       <option value="single">Egyszárnyú kapu</option><option value="double">Kétszárnyú kapu</option><option value="wicket">Kiskapu (gyalogajtó)</option><option value="slide">Tolókapu</option><option value="cant">Úszó (konzolos) kapu</option><option value="fence">Kerítésmező</option></select></label>
     <div class="row g2"><label id="lblWrap"><span id="lblW">Nyílás szélessége (mm)</span><input inputmode="decimal" data-g="W"></label><label>Magasság, keret külső (mm)<input inputmode="decimal" data-g="H"></label></div>
     <div class="row g2">
-      <label data-for="single double wicket">Hézag szárnyanként (mm)<input inputmode="decimal" data-g="gapSide"></label>
+      <label data-for="single double">Hézag szárnyanként (mm)<input inputmode="decimal" data-g="gapSide"></label>
       <label data-for="double">Középrés (mm)<input inputmode="decimal" data-g="gapMid"></label>
       <label data-for="slide cant">Átfedés oldalanként (mm)<input inputmode="decimal" data-g="ov"></label>
       <label data-for="slide cant">Farok a nyíláson túl (mm)<input inputmode="decimal" data-g="tail"></label>
       <label>Talaj fölötti rés (mm)<input inputmode="decimal" data-g="ground"></label>
     </div>
-    <p class="help" data-for="single double wicket">A szárny szélessége a nyílásból a hézagok levonásával adódik.</p>
+    <p class="help" data-for="single double">A szárny szélessége a nyílásból a hézagok levonásával adódik.</p>
     <p class="help" data-for="slide cant">A szárny szélessége = nyílás + átfedés mindkét oldalon + farok.</p>
   </div>
   <div class="card" data-for="wicket"><h2>Kiskapu részletei</h2>
@@ -100,6 +100,9 @@ ol{margin:0;padding-left:22px;font-size:14px}ol li{margin:2px 0}
     <div class="row g2"><label>Pillér szélessége (mm)<input inputmode="decimal" data-g="pw"></label><label>Kilincs magassága a talajtól (mm)<input inputmode="decimal" data-g="hh"></label></div>
     <div class="row g2"><label>Zsanér oldala (a rajz szerint)<select data-g="hingeSide"><option value="L">Bal</option><option value="R">Jobb</option></select></label><label>Zsanérok száma<input inputmode="numeric" data-g="hn"></label></div>
     <label style="margin-bottom:8px">Zsanér típusa<select data-g="hinge"><option value="adj">Állítható, csavaros talppal</option><option value="weld">Hegeszthető</option></select></label>
+    <div class="row g2"><label>Zsanér oldali levonás (mm)<input inputmode="decimal" data-g="gapHinge"></label><label>Zár oldali hézag (mm)<input inputmode="decimal" data-g="gapLock"></label></div>
+    <p class="help">A zsanér oldali levonás a zsanér és a hézag együtt (16-os állítható talpnál kb. 60 mm). A szárny szélessége = nyílás − zsanér oldali levonás − zár oldali hézag.</p>
+    <p class="help" data-hinge="weld">Hegeszthető zsanérnál a levonás a zsanér fajtájától és a felhelyezés módjától függ, ezért írd át a saját mérted szerint.</p>
     <label style="margin-bottom:8px">Zár<select data-g="lock"><option value="portal">Portálzár</option><option value="box">Zárláda, zárbetéttel</option><option value="none">Nincs</option></select></label>
     <label style="margin-bottom:8px">Kilincs<select data-g="handle"><option value="norm">Normál</option><option value="off">Eltolt</option><option value="none">Nincs</option></select></label>
     <label data-handle="off">Kilincs eltolása a zár oldali éltől (mm)<input inputmode="decimal" data-g="ho"></label>
@@ -304,7 +307,7 @@ function calc(){save();last=solve();renderRes();}
 
 /* ============ KAPU TERVEZŐ ============ */
 const GDEF={name:'',type:'double',count:1,W:3000,H:1500,gapSide:15,gapMid:10,ov:100,tail:0,ground:100,fw:40,fd:40,infill:'vert',bw:20,bd:20,maxGap:100,sheetT:2,brace:true,bracew:30,braced:30,
-  mode:'uj',wT:'',wM:'',wB:'',post:'zsalu',pw:300,hh:1000,hingeSide:'L',hn:2,hinge:'adj',lock:'portal',handle:'norm',ho:150};
+  mode:'uj',gapHinge:60,gapLock:5,wT:'',wM:'',wB:'',post:'zsalu',pw:300,hh:1000,hingeSide:'L',hn:2,hinge:'adj',lock:'portal',handle:'norm',ho:150};
 let g=Object.assign(clone(GDEF),lsGet('femkapu',{}));
 const gSave=()=>lsSet('femkapu',g);
 let gMod=null;
@@ -322,7 +325,8 @@ function gateModel(){
   const gs=Math.max(0,num(g.gapSide)),gm=Math.max(0,num(g.gapMid)),ov=Math.max(0,num(g.ov)),tail=Math.max(0,num(g.tail));
   let Wl,leaves=1;
   switch(g.type){
-    case 'single':case 'wicket':Wl=W-2*gs;break;
+    case 'single':Wl=W-2*gs;break;
+    case 'wicket':Wl=W-Math.max(0,num(g.gapHinge))-Math.max(0,num(g.gapLock));break;
     case 'double':Wl=(W-2*gs-gm)/2;leaves=2;break;
     case 'slide':case 'cant':Wl=W+2*ov+tail;break;
     default:Wl=W;
@@ -391,7 +395,8 @@ function gateSVG(m,Wpx){
   const W=m.W,H=num(g.H),fw=num(g.fw),gr=Math.max(0,num(g.ground)),wk=g.type==='wicket',pw=wk?Math.max(50,num(g.pw)||300):100;
   const Wl=m.leaf.Wl,gs=Math.max(0,num(g.gapSide)),gm=Math.max(0,num(g.gapMid)),ov=Math.max(0,num(g.ov)),tail=Math.max(0,num(g.tail));
   let xs=[0],xL=0,xR=W;
-  if(g.type==='single'||wk)xs=[gs];
+  if(g.type==='single')xs=[gs];
+  else if(wk)xs=[g.hingeSide==='R'?Math.max(0,num(g.gapLock)):Math.max(0,num(g.gapHinge))];
   else if(g.type==='double')xs=[gs,gs+Wl+gm];
   else if(g.type==='slide'||g.type==='cant'){xs=[0];xL=tail+ov;xR=tail+ov+W;}
   const minX=Math.min(xL-pw,...xs),maxX=Math.max(xR+pw,...xs.map(x=>x+Wl));
@@ -457,6 +462,7 @@ function gateRender(){
   if(m.cnt>1)bits.push(`${m.cnt} db`);
   if(g.type==='wicket'){
     bits.push(POSTS[g.post]||POSTS.zsalu);
+    bits.push(`levonás: zsanér oldalon ${fi(num(g.gapHinge))} mm, zár oldalon ${fi(num(g.gapLock))} mm`);
     bits.push(g.mode==='csere'?`régi helyére, nyílás ${fi(m.W)} mm (a legkisebb mért érték)`:'új építés');
   }
   if(f.nv)bits.push(`${f.nv} függőleges rúd, rés ${pl(f.gv)} mm`);
@@ -492,6 +498,7 @@ function fillGate(){
   $$('[data-brace]').forEach(el=>el.hidden=!g.brace);
   $$('[data-mode]').forEach(el=>el.hidden=!(g.type==='wicket'&&g.mode===el.dataset.mode));
   $$('[data-handle]').forEach(el=>el.hidden=g.handle!==el.dataset.handle);
+  $$('[data-hinge]').forEach(el=>el.hidden=g.hinge!==el.dataset.hinge);
   $('#lblWrap').hidden=g.type==='wicket'&&g.mode==='csere';
   $('#lblW').textContent=g.type==='fence'?'Mező szélessége (mm)':g.type==='wicket'?'Nyílás szélessége a pillérek között (mm)':'Nyílás szélessége az oszlopok között (mm)';
 }
