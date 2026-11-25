@@ -113,10 +113,29 @@ ol{margin:0;padding-left:22px;font-size:14px}ol li{margin:2px 0}
 .total b{font-size:clamp(26px,6vw,36px);color:var(--acc);white-space:nowrap}
 .status{display:flex;gap:10px;align-items:center;justify-content:space-between;flex-wrap:wrap}
 .toast{position:fixed;left:50%;bottom:20px;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 18px;border-radius:10px;font-size:15px;z-index:9;box-shadow:0 4px 16px #0004}
+/* anyagtár */
+.tg summary{cursor:pointer;font-weight:600;font-size:17px;padding:4px 0;display:flex;justify-content:space-between;gap:8px;align-items:baseline}
+.tg summary span{color:var(--mut);font-weight:400;font-size:14px;text-align:right}
+.ti{display:grid;grid-template-columns:44px minmax(0,1fr) auto 44px;gap:2px 10px;align-items:center;border-top:1px solid var(--line);padding:6px 0}
+.ti:first-child{margin-top:8px}
+.ti .tn b{font-weight:600;font-size:15px;overflow-wrap:anywhere}
+.ti .tn small{display:block;color:var(--mut);font-size:12.5px;line-height:1.35}
+.ti .tp{text-align:right;white-space:nowrap;font-weight:600}
+.ti .tp small{display:block;font-weight:400;color:var(--mut);font-size:12px}
+.ti .ted{grid-column:1/-1;background:var(--bg);border-radius:8px;padding:10px;margin:4px 0 6px}
+.ti .sm{padding:0;min-width:44px}
+.star{background:transparent;font-size:26px;line-height:1;padding:0;min-height:44px;color:var(--mut)}
+.star.on{color:var(--acc)}
+.tw{color:var(--acc)}
+.cmpi{border-top:1px solid var(--line);padding:12px 0}
+.cmpi textarea{font:16px system-ui,sans-serif;padding:9px 10px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink);width:100%;resize:vertical}
+.dm{display:grid;grid-template-columns:minmax(0,1fr) 80px 44px;gap:6px;align-items:center;margin-bottom:6px}
+.bnd{font-size:12px;color:var(--ok);margin:-2px 0 6px}
+@media(max-width:600px){.ti{grid-template-columns:44px minmax(0,1fr) 44px}.ti .tp{grid-column:2;grid-row:2;text-align:left}.ti .tp small{display:inline;margin-left:6px}.ti>.sm{grid-column:3;grid-row:1}}
 @media(max-width:600px){.ct thead{display:none}.ct tr{display:grid;grid-template-columns:1fr auto auto;gap:0 12px;padding:8px 0;border-bottom:1px solid var(--line)}.ct td{border:0;padding:2px 0}.ct td.q,.ct td.u{color:var(--mut)}.ct td:first-child{grid-column:1/-1}}
 </style></head><body>
 <header><h1>Fém tervező</h1><p>Gyártmányok tervezése, látványterv, anyagköltség és szálanyag-optimalizálás – offline is működik.</p></header>
-<nav class="tabs"><button data-tab="work" class="on">Új munka</button><button data-tab="plan">Látványterv</button><button data-tab="works">Korábbi munkák</button><button data-tab="cart">Kosár</button><button data-tab="cut">Darabolás</button></nav>
+<nav class="tabs"><button data-tab="work" class="on">Új munka</button><button data-tab="plan">Látványterv</button><button data-tab="works">Korábbi munkák</button><button data-tab="cart">Kosár</button><button data-tab="tar">Anyagtár</button><button data-tab="cut">Darabolás</button></nav>
 
 <main id="tab-work" class="one">
   <div class="card"><h2>Mivel foglalkozol most?</h2><p class="help">Válaszd ki a gyártmány fajtáját. A kérdések a választásod szerint jelennek meg.</p><div class="cats" id="cats"></div></div>
@@ -161,6 +180,20 @@ ol{margin:0;padding-left:22px;font-size:14px}ol li{margin:2px 0}
 <main id="tab-cart" class="one" hidden>
   <div class="card status"><div id="pstatus" class="mut"></div><button class="sm" id="priceBtn">Árak frissítése</button></div>
   <div id="cartBox"></div>
+</main>
+
+<main id="tab-tar" class="one" hidden>
+  <div class="card"><h2>Anyagtár</h2>
+    <p class="help">Itt vannak témák szerint a Timárvasker tételei súllyal és árral, mint egy vastelepen. A ★ jelöléssel kiválasztod, mi legyen az alap, a ✎ gombbal saját árat vagy megjegyzést adsz egy tételhez. A saját ár és a ★ az automatikus árfrissítés után is megmarad. A kg/m és a tábla súlya számolt érték (acél, 7,85 kg/dm³), kb. ±3% pontossággal.</p>
+    <div id="tstatus" class="mut" style="margin-bottom:10px"></div>
+    <label style="margin-bottom:10px">Keresés<input id="tSearch" placeholder="pl. 40x40, portálzár, M16, görgő"></label>
+    <label class="chk" style="margin-bottom:8px"><input type="checkbox" id="tOnly">Itt csak a kiválasztott (★) tételek látszanak</label>
+    <label class="chk"><input type="checkbox" id="tPick">Az Új munka és a Látványterv listáiban csak a ★ tételek jelenjenek meg</label>
+    <div class="row g2" style="margin:12px 0 0"><button class="sm" id="tExp">Anyagtár mentése fájlba</button><label class="sm" style="display:flex;align-items:center;justify-content:center;flex-direction:row;color:var(--ink);font-weight:600;font-size:14px;border-radius:8px;min-height:40px;cursor:pointer">Visszatöltés fájlból<input type="file" id="tImp" accept=".json,application/json" hidden></label></div>
+  </div>
+  <div id="tList"></div>
+  <div id="tAdd"></div>
+  <div id="tComp"></div>
 </main>
 
 <main id="tab-cut" class="two" hidden>
@@ -349,6 +382,23 @@ function renderRes(){
 function calc(){save();last=solve();renderRes();}
 
 
+/* ============ ANYAGTÁR: állapot (az árak betöltése előtt kell) ============ */
+/* A kiválasztott (★) tételek, a saját árak, a saját tételek és a komponensek méretei. A prices.json frissítése ezeket nem írja felül. */
+const COMP_BIND=['gapHinge','gapLock','ground','hh'];
+const COMP_SEED=()=>[
+ {id:'c1',name:'Zsanér oldal – 16-os állítható zsanér',note:'Kiskapunál a nyílásból ennyi vonódik le a zsanér oldalon, a hézaggal együtt.',dims:[{k:'gapHinge',l:'Levonás a nyílásból',v:'60'}]},
+ {id:'c2',name:'Zár oldal',note:'A hézag esettől függően 3–8 mm.',dims:[{k:'gapLock',l:'Hézag a zár oldalon',v:'5'}]},
+ {id:'c3',name:'Kiskapu – általános méretek',note:'',dims:[{k:'ground',l:'Talaj fölötti rés',v:'50'},{k:'hh',l:'Kilincs magassága a talajtól',v:'1000'}]},
+ {id:'c4',name:'Fogadó oszlop (zár oldalon)',note:'Utólag a pillérhez rögzítve, tiplivel vagy alapcsavarral. Hossza a kapu magassága, vagy 5 mm-rel kevesebb a zártszelvény dugó miatt. Az Új munka még nem használja.',dims:[{k:'',l:'Profil szélessége',v:'40'},{k:'',l:'Profil mélysége',v:'40'},{k:'',l:'Falvastagság',v:'2'},{k:'',l:'Rövidítés a dugó miatt',v:'5'}]},
+ {id:'c5',name:'Portálzár (zárszerkezet)',note:'Töltsd ki a saját méreteid szerint. Az Új munka még nem használja.',dims:[{k:'',l:'Zárház szélessége',v:''},{k:'',l:'Nyelvfogadó ablak szélessége',v:''},{k:'',l:'Nyelvfogadó ablak magassága',v:''},{k:'',l:'Zár közepe a kapu aljától',v:''}]},
+ {id:'c6',name:'Tolókapu – sín és görgő',note:'Az Új munka még nem használja.',dims:[{k:'',l:'Omega sín magassága',v:'20'},{k:'',l:'Görgő átmérője',v:''},{k:'',l:'Szárny emelése a talajtól',v:''}]}
+];
+let tar=lsGet('femtar',null);
+tar=Object.assign({fav:{},over:{},own:[],comp:null,pickOnly:false,onlyFav:false,open:['zart']},tar&&typeof tar==='object'?tar:{});
+if(!Array.isArray(tar.comp))tar.comp=COMP_SEED();if(!Array.isArray(tar.own))tar.own=[];if(!Array.isArray(tar.open))tar.open=['zart'];
+['fav','over'].forEach(k=>{if(!tar[k]||typeof tar[k]!=='object')tar[k]={};});
+const saveTar=()=>{if(!lsSet('femtar',tar))toast('Nem sikerült menteni: megtelt a böngésző tárhelye.');};
+
 /* ============ ÁRAK ============ */
 const PR={data:null,src:'none'};
 {const c=lsGet('femarak',null);if(c&&c.data&&Array.isArray(c.data.products)){PR.data=c.data;PR.src='offline';}}
@@ -363,8 +413,13 @@ function parseDims(p){
   if(p.cat==='lapos')return{a:+m[1],b:+m[2],s:+m[2],len};
   return{a:+m[1],b:+m[2],s:m[3]?+m[3]:0,len};
 }
-function indexPrices(){PIDX=new Map();(PR.data?.products||[]).forEach(p=>{p.d=parseDims(p);PIDX.set(p.id,p);});}
+/* Az árlista árai mellé a saját árak (felülírják) és a saját tételek kerülnek. p.price0 = az árlista eredeti ára. */
+function indexPrices(){PIDX=new Map();
+  (PR.data?.products||[]).forEach(p=>{p.d=parseDims(p);if(p.price0==null)p.price0=p.price;const o=tar.over[p.id];p.own=!!(o&&num(o.price)>0);p.price=p.own?num(o.price):p.price0;PIDX.set(p.id,p);});
+  tar.own.forEach(o=>{const p={id:o.id,name:o.name,price:num(o.price),price0:num(o.price),unit:o.unit||'db',cat:o.cat,theme:o.theme,url:'',own:true,mine:true};p.d=parseDims(p);PIDX.set(p.id,p);});}
 indexPrices();
+/* Az Új munka és a Látványterv listáiban: ha az Anyagtárban így kérted, csak a ★ tételek (és az éppen kiválasztott) látszanak. */
+function pickList(cat,cur){const l=catList(cat);if(!tar.pickOnly)return l;const f=l.filter(p=>tar.fav[p.id]||p.id===cur);return f.some(p=>tar.fav[p.id])?f:l;}
 function catList(cat){return[...PIDX.values()].filter(p=>p.cat===cat&&p.d&&p.unit!=='kg').sort((x,y)=>cat==='lemez'?(x.d.t-y.d.t||x.d.W-y.d.W):(x.d.a-y.d.a||x.d.b-y.d.b||x.d.s-y.d.s));}
 function shortName(p){const d=p.d;if(!d)return p.name;if(p.cat==='lapos')return`${pl(d.a)}×${pl(d.b)}`;return`${pl(d.a)}×${pl(d.b)}×${pl(d.s)}`;}
 function sheetTs(){const s=new Set(catList('lemez').map(p=>p.d.t));[1.5,2,3,4,5].forEach(t=>s.add(t));return[...s].sort((a,b)=>a-b);}
@@ -389,7 +444,7 @@ async function loadPrices(manual){
   if(!ok&&PR.data)PR.src='offline';
   indexPrices();
   if(manual)toast(ok?'Árak frissítve.':'Nincs internet – a legutolsó ismert árakkal számolok.');
-  fillHwList();renderForm();if(!$('#tab-cart').hidden)renderCart();if(!$('#tab-plan').hidden)renderPanel();
+  fillHwList();renderForm();if(!$('#tab-cart').hidden)renderCart();if(!$('#tab-plan').hidden)renderPanel();if(!$('#tab-tar').hidden)renderTar();
 }
 function priceStatus(){
   if(!PR.data)return'Nincs még árlista ezen a készüléken. Kapcsolódj az internetre, és nyomd meg az „Árak frissítése” gombot.';
@@ -667,6 +722,8 @@ function defAns(cat){
       if(cat==='kapu'&&['single','double','slide','cant'].includes(old.type))a.type=old.type;
       if(old.fw)a.fp=`${old.fw}x${old.fd||old.fw}x2`;if(old.bw)a.bp=`${old.bw}x${old.bd||old.bw}x1.5`;}
   }
+  /* Az Anyagtár komponens-méretei a kiskapu kérdéseinek alapértékei (ahol van kitöltött érték). */
+  if(cat==='kiskapu')tar.comp.forEach(c=>c.dims.forEach(d=>{if(COMP_BIND.includes(d.k)&&String(d.v).trim()!==''&&d.k in a)a[d.k]=d.v;}));
   return a;
 }
 function newPlan(cat){return{id:uid(),name:'',cat,ans:defAns(cat),members:[],rects:[],texts:[],hw:[],manual:{},info:[],status:'draft',dirty:false,created:Date.now(),updated:Date.now()};}
@@ -694,7 +751,7 @@ function prevVals(k){const cnt={};catWorks(plan.cat).forEach(w=>{const v=w.ans?.
 function usedPids(cat,pcat){const cnt={};catWorks(cat).forEach(w=>w.members.forEach(m=>{if(m.pid&&m.qty>0&&m.cat===pcat)cnt[m.pid]=(cnt[m.pid]||0)+1;}));return Object.entries(cnt).sort((a,b)=>b[1]-a[1]).map(e=>e[0]);}
 function profField(f,a){
   if(f.c==='lemez')return`<label>${esc(f.l)}<select data-a="${f.k}">${sheetTs().map(t=>`<option value="${t}"${num(a[f.k])===t?' selected':''}>${pl(t)} mm</option>`).join('')}</select></label>`;
-  const list=catList(f.c),cur=resolve(f.c,a[f.k]);
+  const cur=resolve(f.c,a[f.k]),list=pickList(f.c,cur.pid);
   if(!list.length)return`<label>${esc(f.l)} (pl. 40x40x2)<input data-a="${f.k}" value="${esc(a[f.k])}" placeholder="40x40x2"></label>`;
   const used=usedPids(plan.cat,f.c).filter(id=>PIDX.has(id)).slice(0,4);
   const opt=p=>`<option value="${p.id}"${p.id===cur.pid?' selected':''}>${esc(shortName(p))}</option>`;
@@ -848,7 +905,7 @@ function setTool(t){tool=t;$$('[data-tool]').forEach(b=>b.classList.toggle('on',
 
 /* Tulajdonságok panel */
 function profOptions(cur,cats=['zart','lapos','szog']){
-  let h='';cats.forEach(c=>{const l=catList(c);if(l.length)h+=`<optgroup label="${CATN[c]}">${l.map(p=>`<option value="${p.id}"${p.id===cur?' selected':''}>${esc(CATN[c]+' '+shortName(p))}</option>`).join('')}</optgroup>`;});return h;
+  let h='';cats.forEach(c=>{const l=pickList(c,cur);if(l.length)h+=`<optgroup label="${CATN[c]}">${l.map(p=>`<option value="${p.id}"${p.id===cur?' selected':''}>${esc(CATN[c]+' '+shortName(p))}</option>`).join('')}</optgroup>`;});return h;
 }
 const fld=(k,l,v,o='')=>`<label>${l}<input inputmode="decimal" data-mp="${k}" value="${esc(v)}" ${o}></label>`;
 function renderPanel(){
@@ -925,7 +982,7 @@ function doAct(a){
   else if(a==='rot'){const R=resolve(o.cat||'zart',o.pid||o.mat);o.w=o.w===R.d.a?R.d.b:R.d.a;}
   changed(true);renderPanel();
 }
-function fillHwList(){$('#hwlist').innerHTML=[...PIDX.values()].filter(p=>p.cat==='vasalat').map(p=>`<option value="${esc(p.name)}">`).join('');}
+function fillHwList(){const all=[...PIDX.values()].filter(p=>p.cat==='vasalat'),fv=all.filter(p=>tar.fav[p.id]);$('#hwlist').innerHTML=(tar.pickOnly&&fv.length?fv:all).map(p=>`<option value="${esc(p.name)}">`).join('');}
 function renderHw(){
   $('#hwbox').innerHTML=`<div class="card"><h2>Vasalat, kiegészítők</h2><p class="help">Zsanér, zár, kilincs, dugó és minden, ami nem szálanyag. Kezdd el gépelni a nevét, és válassz a Timárvasker listájából.</p>
   ${plan.hw.map((h,i)=>{const p=PIDX.get(h.pid);return`<div class="hwr"><input data-hw="${i}.name" list="hwlist" value="${esc(h.name)}" placeholder="pl. portálzár"><input inputmode="numeric" data-hw="${i}.qty" value="${esc(h.qty)}" aria-label="Darab"><button class="x" data-hwdel="${i}" aria-label="Törlés">×</button><small>${p?ft(p.price)+' / '+esc(p.unit):'nincs az árlistán – az ára a Kosárban beírható'}${h.note?' · '+esc(h.note):''}</small></div>`;}).join('')}
@@ -972,11 +1029,12 @@ function packSheets(pcs,W,L){
   return{n:sheets.length,over};
 }
 function cartCompute(p){
-  K=Math.max(0,num(st.kerf));const lines=[],warns=[];
+  K=Math.max(0,num(st.kerf));const lines=[],warns=[];let kg=0;
   planGroups(p).forEach(g=>{
     const prod=PIDX.get(g.pid)||PIDX.get(resolve(g.cat||'zart',g.mat).pid),items=[];g.rows.forEach((r,i)=>{const P={i,name:r.name,len:r.len,a1:r.a1,a2:r.a2,h:r.h,shape:r.shape};for(let k=0;k<r.qty;k++)items.push(P);});
     const len=prod?.d?.len||6000,best=optimize(items,[{len,qty:Infinity}],150),bars=best.bars.length,used=g.rows.reduce((t,r)=>t+r.len*r.qty,0)/1000;
     if(best.left.length)warns.push(`${g.mat}: ${best.left.length} darab hosszabb, mint egy ${fmt(len/1000)} m-es szál – ezt toldani kell, vagy hosszabb szálat kérni.`);
+    if(prod){const km=kgPerM(prod);if(km>0)kg+=km*used;}
     const mk='m:'+g.key;let qty=bars,unit='szál',price=null,how='';
     if(prod&&prod.unit==='fm'){qty=Math.ceil(used*10)/10;unit='fm';price=prod.price;}
     else if(prod&&prod.unit==='kg'){price=Math.round(kgPerM(prod)*len/1000*prod.price);how=` · ${pl(kgPerM(prod)*len/1000)} kg/szál × ${ft(prod.price)}/kg`;}
@@ -988,7 +1046,7 @@ function cartCompute(p){
   byT.forEach((pcs,t)=>{
     const opts=catList('lemez').filter(q=>q.d.t===t);let best=null;
     opts.forEach(q=>{const r=packSheets(pcs,q.d.W,q.d.L);if(r.over)return;const c=r.n*q.price;if(!best||c<best.c)best={q,n:r.n,c};});
-    const mk='s:'+t,area=pcs.reduce((s,x)=>s+x.w*x.h,0)/1e6;
+    const mk='s:'+t,area=pcs.reduce((s,x)=>s+x.w*x.h,0)/1e6;kg+=area*t*7.85;
     if(best)lines.push({key:mk,name:best.q.name,url:best.q.url,qty:best.n,unit:'tábla',price:best.q.price,sum:best.c,note:`${pcs.length} lap, összesen ${pl(area)} m² – a legolcsóbb táblamérettel`});
     else{const r=packSheets(pcs,1000,2000),pr=p.manual[mk]!=null&&p.manual[mk]!==''?num(p.manual[mk]):null;
       if(r.over)warns.push(`${pl(t)} mm-es lemez: van olyan lap, amely egyik táblaméretbe sem fér bele.`);
@@ -997,7 +1055,7 @@ function cartCompute(p){
   p.hw.forEach(h=>{if(!h.name||!(num(h.qty)>0))return;const prod=PIDX.get(h.pid),mk='h:'+h.id;let price=prod?prod.price:(p.manual[mk]!=null&&p.manual[mk]!==''?num(p.manual[mk]):null);
     lines.push({key:mk,name:prod?prod.name:h.name,url:prod?.url,qty:num(h.qty),unit:prod?prod.unit:'db',price,sum:price!=null?price*num(h.qty):null,note:h.note,editable:!prod});});
   const total=lines.reduce((t,l)=>t+(l.sum||0),0),missing=lines.filter(l=>l.sum==null).length;
-  return{lines,total,missing,warns};
+  return{lines,total,missing,warns,kg};
 }
 let lastCart=null;
 function renderCart(){
@@ -1011,7 +1069,7 @@ function renderCart(){
   h+=`<div class="card"><h2>${esc(plan.name||CATS[plan.cat].n)}</h2><table class="ct"><thead><tr><th>Tétel</th><th class="r">Mennyiség</th><th class="r">Egységár</th><th class="r">Összesen</th></tr></thead><tbody>`;
   c.lines.forEach(l=>{h+=`<tr><td>${l.url?`<a href="${esc(l.url)}" target="_blank" rel="noopener">${esc(l.name)}</a>`:esc(l.name)}${l.note?`<small>${esc(l.note)}</small>`:''}</td><td class="r q">${pl(l.qty)} ${esc(l.unit)}</td>
     <td class="r u">${l.editable?`<input inputmode="decimal" data-man="${esc(l.key)}" value="${esc(plan.manual[l.key]??'')}" placeholder="ár, Ft" aria-label="Egységár">`:l.price!=null?ft(l.price):'–'}</td><td class="r"><b>${l.sum!=null?ft(l.sum):'–'}</b></td></tr>`;});
-  h+=`</tbody></table><div class="total"><span>Anyagköltség összesen${c.missing?` <span class="mut">(${c.missing} tétel ára hiányzik)</span>`:''}</span><b id="ctot">${ft(c.total)}</b></div>
+  h+=`</tbody></table><div class="total"><span>Anyagköltség összesen${c.missing?` <span class="mut">(${c.missing} tétel ára hiányzik)</span>`:''}</span><b id="ctot">${ft(c.total)}</b></div>${c.kg>0?`<p class="mut" style="margin:6px 0 0">Becsült acélsúly: <b>${fi(c.kg)} kg</b> (a felhasznált hosszak és lemezek alapján, számolt érték, a vasalat nélkül)</p>`:''}
   <p class="help" style="margin:8px 0 0">Bruttó (áfás) webáruházi árak. A szálanyag mennyisége a darabolási optimalizálásból jön (${pl(num(st.kerf))} mm fűrészlappal), a Timárvasker csak egész szálat ad. Céges vásárlásnál a fordított áfa miatt a fizetendő összeg eltérhet.</p></div>
   <div class="btns">${plan.status==='accepted'?'':'<button class="go" data-act2="accept">Terv elfogadása</button>'}<button class="alt" data-act2="copy">Lista másolása szövegként</button><button class="alt" data-act2="cut">Darabolási terv megnyitása</button><button class="alt" data-act2="back">Vissza a látványtervhez</button></div>`;
   el.innerHTML=h;
@@ -1023,7 +1081,7 @@ function acceptPlan(){
 }
 function cartText(){
   const c=lastCart||cartCompute(plan);
-  return[`${plan.name||CATS[plan.cat].n} – anyaglista`,...c.lines.map(l=>`${l.name}: ${pl(l.qty)} ${l.unit}${l.sum!=null?' – '+ft(l.sum):''}`),`Összesen: ${ft(c.total)} (bruttó)`].join('\n');
+  return[`${plan.name||CATS[plan.cat].n} – anyaglista`,...c.lines.map(l=>`${l.name}: ${pl(l.qty)} ${l.unit}${l.sum!=null?' – '+ft(l.sum):''}`),`Összesen: ${ft(c.total)} (bruttó)`,...(c.kg>0?[`Becsült acélsúly: ${fi(c.kg)} kg`]:[])].join('\n');
 }
 function planToCut(){
   const gs=planGroups(plan);if(!gs.length){toast('Nincs szálanyag a tervben.');return;}
@@ -1051,8 +1109,175 @@ function openWork(id,copy,tab){
   sel=null;undoS=[];redoS=[];savePlan();renderCats();renderForm();showTab(tab||'plan');if((tab||'plan')==='plan'){fitView();renderPlan();}
 }
 
+/* ============ ANYAGTÁR ============ */
+const THEMES=[['zart','Zártszelvények'],['lapos','Laposacélok'],['szog','Szögacélok'],['lemez','Vaslemezek'],['zsaner','Zsanérok, forgáspontok'],['zar','Zárak, kilincsek, zárfogadók'],['kapu','Kapukellékek: görgő, ütköző, vezető'],['dugo','Dugók, sapkák, kötőelemek'],['egyeb','Egyéb tételek']];
+const PROFCAT=['zart','lapos','szog','lemez'];
+function themeOf(p){
+  if(p.theme)return p.theme;
+  if(p.cat!=='vasalat')return p.cat;
+  const n=norm(p.name);
+  if(/dugó|oszlopsapka|betétanya|lámpa/.test(n))return'dugo';
+  if(/görgő|ütköző|vezető/.test(n))return'kapu';
+  if(/pánt|forgáspont|zsanér|csapágy/.test(n))return'zsaner';
+  if(/zár|kilincs|fogantyú|gomb|díszgyűrű/.test(n))return'zar';
+  return'egyeb';
+}
+const tName=p=>p.d&&p.cat!=='vasalat'?CATN[p.cat]+' '+(p.cat==='lemez'?`${pl(p.d.t)}×${pl(p.d.W)}×${pl(p.d.L)}`:shortName(p)):String(p.name).replace(/^Zár\s+/,'').replace(/\s+/g,' ').trim();
+function sizeBits(p){
+  if(p.cat!=='vasalat')return'';
+  const n=String(p.name).replace(/,/g,'.'),b=[];let m;
+  if(m=n.match(/(\d+(?:\.\d+)?)\s*cm/i))b.push(m[1].replace('.',',')+' cm');
+  if(m=n.match(/\bM\d{2}\b/))b.push(m[0]);
+  if(m=n.match(/átm\.?:?\s*(\d+)/i))b.push('átm. '+m[1]+' mm');
+  [...n.matchAll(/(\d+(?:\.\d+)?(?:\s*x\s*\d+(?:\.\d+)?){0,2})\s*mm/gi)].slice(0,2).forEach(x=>b.push(x[1].replace(/\s/g,'').replace(/\./g,',')+' mm'));
+  return b.join(' · ');
+}
+function tMeta(p){
+  const bits=[];
+  if(['zart','lapos','szog'].includes(p.cat)&&p.d){
+    const km=kgPerM(p);
+    if(km>0){const len=p.d.len||6000,ks=km*len/1000,pr=p.unit==='kg'?p.price:p.unit==='fm'?p.price/km:p.price/ks;
+      bits.push(`${pl(km)} kg/m (számolt)`,`${pl(ks)} kg / ${pl(len/1000)} m-es szál`,`${fi(pr)} Ft/kg`);}
+  }else if(p.cat==='lemez'&&p.d)bits.push(`${pl(p.d.W*p.d.L*p.d.t*7.85e-6)} kg/tábla (számolt)`);
+  const sb=sizeBits(p);if(sb)bits.push('méret: '+sb);
+  const o=tar.over[p.id];if(o&&o.note)bits.push('megjegyzés: '+o.note);
+  return bits;
+}
+/* Az árlista néha az ár elé olvasztja a név számjegyeit (pl. „…233” + „510 Ft” = 233510). Ezt jelezzük, és javaslunk árat. */
+function glitch(p){
+  if(p.own||p.cat!=='vasalat'||p.price0<20000)return null;
+  const ps=String(p.price0);
+  for(const r of(String(p.name).match(/\d{2,}/g)||[])){if(ps.length>r.length+2&&ps.startsWith(r)){const rest=+ps.slice(r.length);if(rest>=50&&rest<p.price0/10)return rest;}}
+  return null;
+}
+let tFl=new Set(),tEdit=null,tNew={th:'zsaner',a:'',b:'',s:'',name:'',price:'',unit:'db'};
+function computeFl(){
+  tFl=new Set();
+  ['zart','lapos','szog'].forEach(c=>{
+    const arr=[...PIDX.values()].filter(p=>p.cat===c&&p.d&&!p.own&&p.unit==='szál').map(p=>{const ks=kgPerM(p)*(p.d.len||6000)/1000;return{id:p.id,r:ks>0?p.price0/ks:0};}).filter(x=>x.r>0);
+    if(arr.length<5)return;
+    const s=arr.map(x=>x.r).sort((a,b)=>a-b),med=s[Math.floor(s.length/2)];
+    arr.forEach(x=>{if(x.r>med*1.35||x.r<med*0.65)tFl.add(x.id);});
+  });
+}
+const cmpT=(x,y)=>{const dx=x.d,dy=y.d;if(dx&&dy)return x.cat==='lemez'?(dx.t-dy.t)||(dx.W-dy.W):(dx.a-dy.a)||(dx.b-dy.b)||(dx.s-dy.s);if(dx)return-1;if(dy)return 1;return String(x.name).localeCompare(String(y.name),'hu');};
+function tList(k){
+  const q=norm($('#tSearch').value).replace(/×/g,'x');
+  return[...PIDX.values()].filter(p=>themeOf(p)===k&&(!tar.onlyFav||tar.fav[p.id])&&(!q||norm(tName(p)+' '+p.name+' '+(tar.over[p.id]?.note||'')).replace(/×/g,'x').includes(q))).sort(cmpT);
+}
+function tEditor(p){
+  const id=esc(p.id),o=tar.over[p.id]||{},g=glitch(p);
+  if(p.mine){const r=tar.own.find(x=>x.id===p.id)||{};
+    return`<div class="ted"><div class="row g2"><label>Megnevezés<input data-town="${id}|name" value="${esc(r.name)}"></label><label>Ár (Ft, bruttó)<input inputmode="decimal" data-town="${id}|price" value="${esc(r.price)}"></label></div>
+    <div class="row g2" style="margin:0"><label>Egység<select data-town="${id}|unit">${['szál','fm','kg','db','pár','garn','tábla'].map(u=>`<option${u===r.unit?' selected':''}>${u}</option>`).join('')}</select></label><button class="sm danger" data-tdel="${id}" style="align-self:end">Tétel törlése</button></div></div>`;}
+  return`<div class="ted"><div class="row g2"><label>Saját ár (Ft, bruttó)<input inputmode="decimal" data-tov="${id}|price" value="${esc(o.price??'')}" placeholder="${esc(p.price0)}"></label><label>Megjegyzés, méretek<input data-tov="${id}|note" value="${esc(o.note??'')}" placeholder="pl. fogadó ablak 20×60"></label></div>
+  <p class="help" style="margin:0 0 8px">Az árlista ára: ${ft(p.price0)} / ${esc(p.unit)}. A saját ár az automatikus árfrissítés után is megmarad.</p>
+  <div class="row g2" style="margin:0">${g?`<button class="sm" data-tfix="${id}" data-v="${g}">Javasolt ár: ${ft(g)}</button>`:''}${o.price?`<button class="sm" data-tclr="${id}">Saját ár törlése</button>`:''}</div></div>`;
+}
+function tRow(p){
+  const id=esc(p.id),fv=!!tar.fav[p.id],g=glitch(p),w=[];
+  if(g)w.push(`⚠ gyanús ár, lehet: ${ft(g)}`);
+  if(p.cat==='vasalat'&&p.unit==='kg'&&!p.mine)w.push('⚠ gyanús egység (kg)');
+  if(tFl.has(p.id))w.push('⚠ az Ft/kg eltér a többitől');
+  return`<div class="ti" data-pid="${id}"><button class="star${fv?' on':''}" data-star="${id}" aria-pressed="${fv}" aria-label="Alap tételnek jelölés">${fv?'★':'☆'}</button>
+  <div class="tn"><b>${esc(tName(p))}</b><small>${esc(tMeta(p).join(' · '))}${w.length?` <span class="tw">${esc(w.join(' · '))}</span>`:''}</small></div>
+  <div class="tp">${ft(p.price)}<small>/ ${esc(p.unit)}${p.own&&!p.mine?' · saját ár':p.mine?' · saját tétel':''}</small></div>
+  <button class="sm" data-tedit="${id}" aria-label="Szerkesztés">✎</button>${tEdit===p.id?tEditor(p):''}</div>`;
+}
+const tRowEl=id=>[...$$('#tList .ti')].find(e=>e.dataset.pid===id);
+function tReRow(id){const p=PIDX.get(id),el=tRowEl(id);if(p&&el)el.outerHTML=tRow(p);}
+function tSum(k){const all=[...PIDX.values()].filter(p=>themeOf(p)===k),sh=tList(k).length,fv=all.filter(p=>tar.fav[p.id]).length;return`${sh}${sh!==all.length?' / '+all.length:''} tétel${fv?' · ★ '+fv:''}`;}
+function tBody(k){const l=tList(k);return l.length?l.map(tRow).join(''):'<p class="help" style="margin:8px 0 0">Nincs találat.</p>';}
+function renderTarList(){
+  const q=$('#tSearch').value.trim();
+  const present=new Set([...PIDX.values()].map(themeOf));
+  $('#tList').innerHTML=THEMES.filter(([k])=>present.has(k)).map(([k,n])=>{
+    const open=q?tList(k).length>0:tar.open.includes(k);
+    return`<details class="card tg" data-th="${k}"${open?' open':''}><summary>${esc(n)} <span>${tSum(k)}</span></summary><div class="tbody">${open?tBody(k):''}</div></details>`;
+  }).join('');
+}
+function renderTarAdd(){
+  const th=tNew.th,prof=PROFCAT.includes(th),L={zart:['Méret a (mm)','Méret b (mm)','Falvastagság (mm)'],lapos:['Szélesség (mm)','Vastagság (mm)'],szog:['Szár a (mm)','Szár b (mm)','Vastagság (mm)'],lemez:['Vastagság (mm)','Szélesség (mm)','Hossz (mm)']}[th];
+  $('#tAdd').innerHTML=`<div class="card"><h2>Saját tétel hozzáadása</h2><p class="help">Ha valami nincs a Timárvasker listáján, itt felveheted. A Kosár és az Új munka listái is látják.</p>
+  <div class="qgrid"><label>Téma<select data-tn="th">${THEMES.map(([k,n])=>`<option value="${k}"${k===th?' selected':''}>${esc(n)}</option>`).join('')}</select></label>
+  ${prof?L.map((l,i)=>`<label>${l}<input inputmode="decimal" data-tn="${'abs'[i]}" value="${esc(tNew['abs'[i]])}"></label>`).join(''):`<label class="full">Megnevezés<input data-tn="name" value="${esc(tNew.name)}" placeholder="pl. Portálzár 4 cm"></label>`}
+  <label>Ár (Ft, bruttó)<input inputmode="decimal" data-tn="price" value="${esc(tNew.price)}"></label>
+  <label>Egység<select data-tn="unit">${['szál','fm','kg','db','pár','garn','tábla'].map(u=>`<option${u===tNew.unit?' selected':''}>${u}</option>`).join('')}</select></label></div>
+  <button class="go" data-tadd style="margin-top:12px">Hozzáadás az anyagtárhoz</button></div>`;
+}
+function renderComps(){
+  $('#tComp').innerHTML=`<div class="card"><h2>Komponensek méretei</h2><p class="help">A zárszerkezet, zsanér és más komponensek saját méretei. Ahol zöld jelzés van, ott az Új munka a kiskapu kérdéseinek alapértékeként használja. A többi méret egyelőre emlékeztető, és ezek alapján tudjuk majd pontosítani a méretezést.</p>
+  ${tar.comp.map(c=>`<div class="cmpi"><div class="row n"><label>Komponens<input data-cn="${esc(c.id)}|name" value="${esc(c.name)}"></label><button class="x" data-cdel="${esc(c.id)}" aria-label="Komponens törlése">×</button></div>
+  <label style="margin-bottom:8px">Megjegyzés<textarea rows="2" data-cn="${esc(c.id)}|note">${esc(c.note)}</textarea></label>
+  ${c.dims.length?'<div class="dm"><span class="help" style="margin:0">Méret neve</span><span class="help" style="margin:0">mm</span><span></span></div>':''}
+  ${c.dims.map((d,i)=>`<div class="dm"><input data-cd="${esc(c.id)}|${i}|l" value="${esc(d.l)}" aria-label="Méret neve"><input inputmode="decimal" data-cd="${esc(c.id)}|${i}|v" value="${esc(d.v)}" aria-label="Érték, mm"><button class="x" data-cdd="${esc(c.id)}|${i}" aria-label="Méret törlése">×</button></div>${COMP_BIND.includes(d.k)?'<div class="bnd">Az Új munkában ez az alapérték (kiskapu).</div>':''}`).join('')}
+  <button class="add" data-cdim="${esc(c.id)}">+ Méret</button></div>`).join('')}
+  <div class="row g2" style="margin:12px 0 0"><button class="sm" data-cnew>+ Új komponens</button><button class="sm" data-creset>Alaphelyzet</button></div></div>`;
+}
+function renderTar(){
+  $('#tstatus').innerHTML=priceStatus();
+  $('#tOnly').checked=!!tar.onlyFav;$('#tPick').checked=!!tar.pickOnly;
+  computeFl();renderTarList();renderTarAdd();renderComps();
+}
+const tabTar=$('#tab-tar');
+tabTar.addEventListener('toggle',ev=>{
+  const d=ev.target;if(!d.matches||!d.matches('details.tg'))return;
+  const k=d.dataset.th,b=d.querySelector('.tbody');
+  if(d.open&&!b.firstChild)b.innerHTML=tBody(k);
+  if($('#tSearch').value.trim())return;
+  if(d.open){if(!tar.open.includes(k))tar.open.push(k);}else tar.open=tar.open.filter(x=>x!==k);
+  saveTar();
+},true);
+tabTar.addEventListener('input',ev=>{
+  const t=ev.target;let m;
+  if(t.id==='tSearch'){renderTarList();return;}
+  if(t.dataset.tov){const i=t.dataset.tov.lastIndexOf('|'),id=t.dataset.tov.slice(0,i),f=t.dataset.tov.slice(i+1),o=tar.over[id]=tar.over[id]||{};o[f]=t.value;
+    if(!String(o.price??'').trim()&&!String(o.note??'').trim())delete tar.over[id];else if(!String(o.price??'').trim())delete o.price;
+    saveTar();indexPrices();const p=PIDX.get(id),el=tRowEl(id);if(p&&el){el.querySelector('.tn').innerHTML=`<b>${esc(tName(p))}</b><small>${esc(tMeta(p).join(' · '))}</small>`;el.querySelector('.tp').innerHTML=`${ft(p.price)}<small>/ ${esc(p.unit)}${p.own?' · saját ár':''}</small>`;}return;}
+  if(t.dataset.town){const i=t.dataset.town.lastIndexOf('|'),id=t.dataset.town.slice(0,i),f=t.dataset.town.slice(i+1),r=tar.own.find(x=>x.id===id);if(!r)return;r[f]=t.value;saveTar();indexPrices();const p=PIDX.get(id),el=tRowEl(id);if(p&&el){el.querySelector('.tn').innerHTML=`<b>${esc(tName(p))}</b><small>${esc(tMeta(p).join(' · '))}</small>`;el.querySelector('.tp').innerHTML=`${ft(p.price)}<small>/ ${esc(p.unit)} · saját tétel</small>`;}return;}
+  if(t.dataset.tn&&t.tagName!=='SELECT'){tNew[t.dataset.tn]=t.value;return;}
+  if(t.dataset.cn){const[id,f]=t.dataset.cn.split('|'),c=tar.comp.find(x=>x.id===id);if(c){c[f]=t.value;saveTar();}return;}
+  if(t.dataset.cd){const[id,i,f]=t.dataset.cd.split('|'),c=tar.comp.find(x=>x.id===id);if(c&&c.dims[+i]){c.dims[+i][f]=t.value;saveTar();}return;}
+});
+tabTar.addEventListener('change',ev=>{
+  const t=ev.target;
+  if(t.id==='tOnly'){tar.onlyFav=t.checked;saveTar();renderTarList();return;}
+  if(t.id==='tPick'){tar.pickOnly=t.checked;saveTar();fillHwList();toast(t.checked?'Az Új munka listáiban csak a ★ tételek látszanak (ha vannak kiválasztottak).':'Az Új munka listáiban minden tétel látszik.');return;}
+  if(t.dataset.tn&&t.tagName==='SELECT'){tNew[t.dataset.tn]=t.value;if(t.dataset.tn==='th')tNew.unit=t.value==='lemez'?'tábla':PROFCAT.includes(t.value)?'szál':'db';renderTarAdd();return;}
+  if(t.dataset.town&&t.tagName==='SELECT'){const i=t.dataset.town.lastIndexOf('|'),id=t.dataset.town.slice(0,i),r=tar.own.find(x=>x.id===id);if(r){r.unit=t.value;saveTar();indexPrices();tReRow(id);}return;}
+  if(t.id==='tImp'&&t.files[0]){const rd=new FileReader();rd.onload=()=>{try{const d=JSON.parse(rd.result),x=d&&d.tar;if(!x||typeof x!=='object')throw 0;
+    tar.fav=x.fav&&typeof x.fav==='object'?x.fav:{};tar.over=x.over&&typeof x.over==='object'?x.over:{};tar.own=Array.isArray(x.own)?x.own:[];tar.comp=Array.isArray(x.comp)?x.comp:COMP_SEED();tar.pickOnly=!!x.pickOnly;
+    saveTar();indexPrices();fillHwList();renderTar();toast('Az anyagtár betöltve.');}catch(e){toast('Ez a fájl nem anyagtár-mentés.');}t.value='';};rd.readAsText(t.files[0]);}
+});
+tabTar.addEventListener('click',ev=>{
+  const q=s=>ev.target.closest(s);let b;
+  if(b=q('[data-star]')){const id=b.dataset.star;if(tar.fav[id])delete tar.fav[id];else tar.fav[id]=true;saveTar();fillHwList();
+    if(tar.onlyFav){renderTarList();return;}
+    const on=!!tar.fav[id];b.classList.toggle('on',on);b.textContent=on?'★':'☆';b.setAttribute('aria-pressed',on);
+    const p=PIDX.get(id),k=p&&themeOf(p),sp=k&&$('#tList details[data-th="'+k+'"] summary span');if(sp)sp.textContent=tSum(k);return;}
+  if(b=q('[data-tedit]')){const id=b.dataset.tedit,prev=tEdit;tEdit=prev===id?null:id;if(prev)tReRow(prev);if(tEdit)tReRow(id);return;}
+  if(b=q('[data-tfix]')){const id=b.dataset.tfix,o=tar.over[id]=tar.over[id]||{};o.price=String(b.dataset.v);saveTar();indexPrices();tReRow(id);return;}
+  if(b=q('[data-tclr]')){const id=b.dataset.tclr,o=tar.over[id];if(o){delete o.price;if(!String(o.note??'').trim())delete tar.over[id];}saveTar();indexPrices();tReRow(id);return;}
+  if(b=q('[data-tdel]')){const id=b.dataset.tdel,r=tar.own.find(x=>x.id===id);if(r&&confirm('Biztosan törlöd ezt a saját tételt: '+(PIDX.get(id)?tName(PIDX.get(id)):r.name)+'?')){tar.own=tar.own.filter(x=>x!==r);delete tar.fav[id];tEdit=null;saveTar();indexPrices();fillHwList();renderTarList();}return;}
+  if(q('[data-tadd]')){
+    const th=tNew.th,prof=PROFCAT.includes(th),price=num(tNew.price);let name='';
+    if(prof){const a=num(tNew.a),bb=num(tNew.b),s=num(tNew.s),need=th==='lapos'?[a,bb]:[a,bb,s];
+      if(need.some(v=>!(v>0))){toast('Add meg az összes méretet.');return;}
+      name={zart:`Zártszelvény ${pl(a)}x${pl(bb)}x${pl(s)}, hossz.: 6 fm (saját)`,lapos:`Laposacél ${pl(a)}x${pl(bb)}, hossz.: 6 fm (saját)`,szog:`Szögacél ${pl(a)}x${pl(bb)}x${pl(s)}, hossz.: 6 fm (saját)`,lemez:`Vaslemez ${pl(a)}x${pl(bb)}x${pl(s)} (saját)`}[th];}
+    else{name=String(tNew.name||'').trim();if(!name){toast('Add meg a megnevezést.');return;}}
+    if(!(price>0)){toast('Add meg az árat.');return;}
+    const id='own-'+uid();tar.own.push({id,theme:th,cat:prof?th:'vasalat',name,price,unit:tNew.unit});tar.fav[id]=true;
+    tNew={th,a:'',b:'',s:'',name:'',price:'',unit:tNew.unit};saveTar();indexPrices();fillHwList();renderTarList();renderTarAdd();toast('Hozzáadva (★ jelöléssel).');return;}
+  if(b=q('[data-cdel]')){const c=tar.comp.find(x=>x.id===b.dataset.cdel);if(c&&confirm('Törlöd ezt a komponenst: '+(c.name||'névtelen')+'?')){tar.comp=tar.comp.filter(x=>x!==c);saveTar();renderComps();}return;}
+  if(b=q('[data-cdd]')){const[id,i]=b.dataset.cdd.split('|'),c=tar.comp.find(x=>x.id===id);if(c){c.dims.splice(+i,1);saveTar();renderComps();}return;}
+  if(b=q('[data-cdim]')){const c=tar.comp.find(x=>x.id===b.dataset.cdim);if(c){c.dims.push({k:'',l:'',v:''});saveTar();renderComps();}return;}
+  if(q('[data-cnew]')){tar.comp.push({id:'c'+uid(),name:'Új komponens',note:'',dims:[{k:'',l:'',v:''}]});saveTar();renderComps();return;}
+  if(q('[data-creset]')){if(confirm('Visszaállítod a komponensek méreteit az alapértékekre? A saját módosításaid elvesznek.')){tar.comp=COMP_SEED();saveTar();renderComps();}return;}
+  if(q('#tExp')){const blob=new Blob([JSON.stringify({app:'fem-tervezo-tar',saved:new Date().toISOString(),tar:{fav:tar.fav,over:tar.over,own:tar.own,comp:tar.comp,pickOnly:tar.pickOnly}},null,1)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='fem-anyagtar-'+new Date().toISOString().slice(0,10)+'.json';document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove();},1000);return;}
+});
+
 /* ============ FÜLEK ÉS ESEMÉNYEK ============ */
-const TABS=['work','plan','works','cart','cut'];
+const TABS=['work','plan','works','cart','tar','cut'];
 function showTab(t){
   TABS.forEach(x=>$('#tab-'+x).hidden=x!==t);
   $$('.tabs button').forEach(b=>b.classList.toggle('on',b.dataset.tab===t));
@@ -1060,6 +1285,7 @@ function showTab(t){
   if(t==='plan'){requestAnimationFrame(()=>{measure();if(!fitted){fitView();fitted=true;}renderPlan();});}
   if(t==='works')renderWorks();
   if(t==='cart')renderCart();
+  if(t==='tar')renderTar();
   if(t==='work'){renderCats();renderForm();}
 }
 document.addEventListener('input',ev=>{
