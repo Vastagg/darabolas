@@ -658,6 +658,97 @@ function genShelf(A){
   g.hw('Talpdugó',findHw('dugó',`${U.d.a}x${U.d.b}`),4*c);
   return g;
 }
+function genStair(A){
+  const g=G(),H=num(A.H),Wd=num(A.W),kind=A.type;
+  if(!(H>0&&Wd>0)){g.errs.push('Add meg a szintkülönbséget és a lépcső szélességét.');return g;}
+  const hr=Math.max(120,num(A.hr)||175),n=Math.max(2,Math.ceil(H/hr-1e-9)),R=H/n,gd=num(A.gd)>0?num(A.gd):Math.max(150,Math.round(630-2*R));
+  const t=R/gd,cs=1/Math.sqrt(1+t*t),sl=Math.atan(t)*180/Math.PI,tt=30,side=A.sides==='kozep'?1:2;
+  const SP=resolve('zart',A.sp),sh=SP.d.a,sb=SP.d.b,TF=resolve('zart',A.tf),KP=resolve('zart',A.kp),LP=resolve('zart',A.lp);
+  const rails=A.rail==='both'?2:A.rail==='one'?1:0,wi=side===2?Wd-2*sb:Wd,nose=20;
+  let kitY=-250;const kit=(name,len,res,qty)=>{if(!(len>0&&qty>0))return;g.bar(0,kitY,len,kitY,res,name+' (kiterítve)',{qty});kitY-=70;};
+  const rail=(x0,y0,run,slope,len)=>{ /* korlát egy szakaszra a genRail-lal */
+    if(!rails||!(run>0))return;
+    const sub=genRail({L:run,H:num(A.rh)||900,slope:slope,pp:A.pp,rp:A.rp,bp:A.bp,b2p:A.bp,bottom:false,bh:80,maxPost:1200,maxGap:100,mount:'oldal',embed:0});
+    sub.M.forEach(m=>{m.x1=r1(m.x1+x0);m.x2=r1(m.x2+x0);m.y1=r1(m.y1+y0);m.y2=r1(m.y2+y0);m.qty=(m.qty??1)*rails;m.name='Korlát – '+m.name.toLowerCase();g.M.push(m);});
+    sub.HW.forEach(h=>g.HW.push(Object.assign(h,{qty:h.qty*rails})));
+  };
+  g.info.push(`${n} emelkedő, ${pl(r1(R))} mm magas, ${pl(gd)} mm mély fokokkal (2×magasság + mélység = ${pl(r1(2*R+gd))} mm; ajánlott 600–640).`);
+  if(R<150||R>190)g.warn.push('A fokmagasság a kényelmes 150–190 mm tartományon kívül van.');
+  if(gd<250)g.warn.push('A fok mélysége 250 mm alatt van, nem kényelmes.');
+  if(Wd<800)g.warn.push('800 mm-nél keskenyebb lépcső közlekedésre nehezen használható.');
+  if(A.env==='ki')g.info.push('Kültéri lépcső: horganyzás vagy kétrétegű festés ajánlott, a fokok csúszásmentesek és vízelvezetők legyenek (rács vagy csúszásmentes lemez).');
+  let nT=0;
+  const drawGround=(xend,yend)=>{g.rect(-400,-120,400,120,{role:'ref',name:'Alsó szint'});g.rect(xend,yend-120,400,120,{role:'ref',name:'Felső szint'});};
+  if(kind==='csiga'){
+    const D=Math.max(800,num(A.D)||1500),CP=resolve('zart',A.cp),cw=CP.d.a,ang=Math.max(5,num(A.ang)||24),rot=(n-1)*ang,Ro=D/2;
+    nT=n-1;
+    g.bar(0,0,0,H,CP,'Középoszlop',{qty:1});
+    const mm=g.M[g.M.length-1];cutTo(mm,1,1,0);cutTo(mm,2,1,0);
+    for(let i=1;i<=nT;i++){const y=i*R-tt-KP.d.b/2;g.bar(cw/2,y,Ro,y,KP,'Fokkar',{qty:1});g.rect(-Ro,i*R-tt,D,tt,{role:'mark',name:'Fok',qty:0});}
+    g.info.push(`Csigalépcső, átmérő ${pl(D)} mm, fokonként ${pl(ang)}°, összesen ${pl(r1(rot))}° (${pl(r1(rot/360))} fordulat), járóvonal (közép) fokmélysége kb. ${pl(Math.round(Math.PI*(Ro/2+cw/4)*ang/180))} mm.`);
+    if(Math.PI*Ro*ang/180<250*0.9)g.warn.push('A fok külső szélének mélysége kicsi, vagy túl nagy a fokonkénti szög.');
+    if(rails){const len=Math.round(Math.hypot(2*Math.PI*(Ro-30)*rot/360,H));kit('Kapaszkodó (csavarvonal, hajlítva)',len,resolve('zart',A.rp),1);
+      for(let i=1;i<=nT;i++){const bp=resolve('zart',A.bp);g.bar(Ro-30,i*R,Ro-30,i*R+(num(A.rh)||900)-tt,bp,'Korlát – pálca',{qty:1});}}
+    g.hw('Talplemez oszlophoz',findHw('talplemez'),1);
+    treadHW(nT,Ro-cw/2,'Csigalépcső fok (kb. '+fi(Ro-cw/2)+' mm sugarú, szögletes)');
+    drawGround(Ro+200,H);g.text(0,H+90,`Csigalépcső ${fi(D)} mm átm., ${fi(H)} mm magas`);return g;
+  }
+  function treadHW(cnt,len,name,wid){
+    const mt=A.tr;
+    if(mt==='racs')g.hw(name||`Rácsfok ${fi(wi)}×${fi(gd+nose)} mm`,null,cnt,'rácsfok, ár a Kosárban');
+    else if(mt==='lemez')g.rect(-300,-300,300,tt,{role:'sheet',t:num(A.st)||3,name:'Lemez fok',cw:r1(wid||wi),ch:r1(len||gd+40),qty:cnt});
+  }
+  if(kind==='huzott'){
+    const nw=3,flat=n-1-nw;if(flat<2){g.errs.push('A húzott lépcsőhöz legalább 6 emelkedő kell (3 legyezős fok és legalább 2 egyenes).');return g;}
+    const ri=nn(A.ri),ro=ri+Wd,rw=ri+Wd/2,rise=(n-1)*R,run_o=flat*gd+Math.PI/2*ro,run_i=flat*gd+Math.PI/2*ri,wDepth=rw*Math.PI/6;
+    nT=n-1;
+    kit('Gerinc, külső',Math.hypot(run_o,rise),SP,1);kit('Gerinc, belső',Math.hypot(run_i,rise),SP,1);
+    for(let i=1;i<=nT;i++)g.rect((i-1)*gd,i*R-tt,gd,tt,{role:'mark',name:'Fok',qty:0});
+    g.info.push(`Húzott szakasz: ${nw} legyezős fok, járóvonalon ${pl(Math.round(wDepth))} mm mély; a belső él mélysége ${pl(Math.round(ri*Math.PI/6))} mm.`);
+    if(ri*Math.PI/6<100)g.warn.push('A legyezős fokok belső éle 100 mm-nél keskenyebb. Növeld a belső ív sugarát.');
+    g.info.push('A legyezős fokok a gerincre merőleges, de ívben hajlított / szakaszolt gerincen állnak; a rajz kiterített.');
+    if(Math.hypot(run_o,rise)>6000)g.warn.push('A külső gerinc hosszabb 6 m-nél, toldani kell.');
+    treadHW(nT,gd+nose,null,wi);
+    if(rails)rail(0,R,run_o,Math.atan(rise/run_o)*180/Math.PI);
+    drawGround(run_o,n*R);g.text(run_o/2,n*R+120,`Húzott lépcső ${fi(Wd)} mm széles, ${fi(H)} mm magas`);return g;
+  }
+  /* egyenes, fordulós (L), visszafordulós (U) */
+  let fl=[{nr:n}],Ld=0;
+  if(kind==='fordulos'||kind==='u'){if(n<5){g.errs.push('Podeszthez legalább 5 emelkedő kell.');return g;}const n1=Math.round(n/2);fl=[{nr:n1},{nr:n-n1}];Ld=Wd;}
+  let x=0,y=0,xmax=0;
+  fl.forEach((f,fi_)=>{
+    const nr=f.nr,run=(nr-1)*gd,us=(tt+sh/cs-R)/t,yc=u=>y+u*t+R-tt-sh/(2*cs);
+    const m=g.bar(x+us,yc(us),x+run,yc(run),SP,'Gerinc'+(fl.length>1?', '+(fi_+1)+'. kar':''),{qty:side});cutTo(m,1,1,0);cutTo(m,2,0,1);
+    if(Math.hypot(run-us,run*t)>6000)g.warn.push('A gerinc hosszabb 6 m-nél, toldani kell.');
+    for(let i=1;i<=nr-1;i++)g.rect(x+(i-1)*gd,y+i*R-tt,gd,tt,{role:'mark',name:'Fok',qty:0});
+    nT+=nr-1;rail(x,y+R,run,sl);
+    x+=run;y+=nr*R;
+    if(fi_===0&&Ld){
+      const lw=LP.d.a,lAcross=kind==='u'?2*Wd+100:Wd,xl=x;
+      g.bar(xl,y-lw/2,xl+Ld,y-lw/2,LP,'Podeszt keret, hosszirányú',{qty:2});
+      kit('Podeszt keret, kereszt',lAcross-2*lw,LP,2);
+      const nc=Math.max(0,Math.ceil(Ld/600)-1);kit('Podeszt kereszttartó',lAcross-2*lw,LP,nc);
+      const leg=y-lw;g.bar(xl+Ld-lw/2,0,xl+Ld-lw/2,leg,LP,'Podeszt láb',{qty:2});
+      if(A.tr==='racs')g.hw(`Rács lap (podeszt) ${fi(lAcross)}×${fi(Ld)} mm`,null,1,'ár a Kosárban');
+      else if(A.tr==='lemez')g.rect(xl,y-lw-tt,Ld,tt,{role:'sheet',t:num(A.st)||3,name:'Lemez (podeszt)',cw:lAcross,ch:Ld});
+      g.rect(xl,y,Ld,tt,{role:'mark',name:'Podeszt',qty:0});
+      g.info.push(`Podeszt ${fi(lAcross)}×${fi(Ld)} mm, ${fi(y)} mm magasan; a podeszt körüli korlát külön számolandó.`);
+      x+=Ld;
+    }
+    xmax=x;
+  });
+  if(A.tr==='keret'&&nT>0){
+    kit('Fokkeret, szélességi',wi,TF,2*nT);kit('Fokkeret, mélységi',gd+nose-2*TF.d.a,TF,2*nT);
+    g.info.push('A fok kerete rá, a burkolatot (fa, kő, rács) más készíti.');
+  }else treadHW(nT,gd+nose);
+  if(side===1){kit('Fogkonzol',(Wd-sb)/2,KP,2*nT);}
+  g.hw('Talplemez a gerinc aljához',findHw('talplemez'),side*fl.length);
+  if(+A.run>0&&xmax>+A.run)g.warn.push(`A lépcső hossza (${fi(xmax)} mm) nagyobb, mint a rendelkezésre álló hely (${fi(+A.run)} mm).`);
+  g.info.push(kind==='egyenes'?'Egyenes lépcső':kind==='u'?'Visszafordulós lépcső, a rajz kiterített':'Fordulós lépcső, a rajz kiterített');
+  g.info.push('Nagy fesztávú, vagy teherviselő gerincnél statikai ellenőrzés szükséges.');
+  drawGround(xmax,y);g.text(xmax/2,y+120,`Lépcső ${fi(Wd)} mm széles, ${fi(H)} mm szintkülönbség`);
+  return g;
+}
 function genFree(A){const g=G(),P=resolve('zart',A.dp);g.bar(0,0,1000,0,P,'Rúd');g.text(500,150,'Rajzolj a „+ Rúd” gombbal');return g;}
 
 /* Kérdések */
@@ -707,6 +798,22 @@ const CATS={
       C('bottom','Alsó vízszintes rúd',true),P('b2p','Alsó rúd profilja','zart','40x20x2',{show:a=>a.bottom}),N('bh','Alsó rúd / pálcák alja a járószinttől (mm)',100),
       P('bp','Pálca profilja','zart','20x20x1.5'),N('maxGap','Legnagyobb rés a pálcák között (mm)',100),
       T('Gyerekbiztonság miatt a pálcák között legfeljebb 100–120 mm rés ajánlott.')]},
+  lepcso:{n:'Lépcső',d:'Egyenes, fordulós, húzott és csigalépcső, korláttal',gen:genStair,area:a=>num(a.W)*num(a.H),
+    q:[TX('name','Megnevezés'),S('type','Típus',[['egyenes','Egyenes'],['fordulos','Fordulós, podesztes (L)'],['u','Visszafordulós, podesztes (U)'],['huzott','Húzott (legyezős fokokkal)'],['csiga','Csigalépcső']],'egyenes'),
+      S('env','Hová',[['ki','Kültéri'],['be','Beltéri']],'ki'),
+      N('H','Szintkülönbség, padlótól padlóig (mm)',2800),N('W','Lépcső szélessége (mm)',900,{show:a=>a.type!=='csiga'}),N('D','Csigalépcső átmérője (mm)',1500,{show:a=>a.type==='csiga'}),
+      N('hr','Célmagasság egy fokra (mm)',175),N('gd','Fok mélysége (mm, 0 = automatikus: 630 − 2×magasság)',0,{show:a=>a.type!=='csiga'}),
+      N('ang','Szög fokonként (°)',24,{show:a=>a.type==='csiga'}),N('ri','Belső ív sugara (mm)',200,{show:a=>a.type==='huzott'}),
+      N('run','Rendelkezésre álló hossz (mm, 0 = nincs korlát)',0,{show:a=>a.type==='egyenes'||a.type==='fordulos'||a.type==='u'}),
+      H('Tartó'),S('sides','Gerinc',[['ket','Két oldalsó gerinc'],['kozep','Középső gerinc, konzolos fokokkal']],'ket',{show:a=>a.type!=='csiga'&&a.type!=='huzott'}),
+      P('sp','Gerinc profilja','zart','100x50x3',{show:a=>a.type!=='csiga'}),P('cp','Középoszlop profilja','zart','100x100x4',{show:a=>a.type==='csiga'}),
+      P('kp','Konzol, kar profilja','zart','60x40x3',{show:a=>a.type==='csiga'||(a.sides==='kozep'&&a.type!=='huzott')}),
+      P('lp','Podeszt keret profilja','zart','50x50x3',{show:a=>a.type==='fordulos'||a.type==='u'}),
+      H('Fokok'),S('tr','Fok',[['racs','Rács fok'],['keret','Keret (a burkolatot más készíti)'],['lemez','Lemez fok']],'racs'),
+      P('tf','Fokkeret profilja','zart','30x30x2',{show:a=>a.tr==='keret'}),P('st','Lemez vastagsága','lemez','3',{show:a=>a.tr==='lemez'}),
+      H('Korlát'),S('rail','Korlát',[['none','Nincs'],['one','Egy oldalon'],['both','Mindkét oldalon']],'one'),N('rh','Korlát magassága (mm)',900,{show:a=>a.rail!=='none'}),
+      P('pp','Oszlop profilja','zart','40x40x2',{show:a=>a.rail!=='none'}),P('rp','Kapaszkodó profilja','zart','40x40x2',{show:a=>a.rail!=='none'}),P('bp','Pálca profilja','zart','20x20x1.5',{show:a=>a.rail!=='none'}),
+      T('A rajz fordulós és visszafordulós lépcsőnél kiterített (egyenesbe fejtett). A légmagasságot (fejmagasság) a helyszínen ellenőrizd.')]},
   racs:{n:'Ablakrács',d:'Rács ablakra, ajtóra, rögzítőfülekkel',gen:genGrille,area:a=>num(a.W)*num(a.H)*cnt(a),
     q:[TX('name','Megnevezés'),N('count','Darabszám',1),N('W','Szélesség (mm)',900),N('H','Magasság (mm)',1200),
       C('frame','Körbefutó keret',true),P('fp','Keret profilja','zart','20x20x2',{show:a=>a.frame}),
