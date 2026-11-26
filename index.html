@@ -384,18 +384,19 @@ function calc(){save();last=solve();renderRes();}
 
 /* ============ ANYAGTÁR: állapot (az árak betöltése előtt kell) ============ */
 /* A kiválasztott (★) tételek, a saját árak, a saját tételek és a komponensek méretei. A prices.json frissítése ezeket nem írja felül. */
-const COMP_BIND=['gapHinge','gapLock','ground','hh'];
+const COMP_BIND=['gapHinge','gapLock','ground','hh','lockL','lockZ'];
 const COMP_SEED=()=>[
  {id:'c1',name:'Zsanér oldal – 16-os állítható zsanér',note:'Kiskapunál a nyílásból ennyi vonódik le a zsanér oldalon, a hézaggal együtt.',dims:[{k:'gapHinge',l:'Levonás a nyílásból',v:'60'}]},
  {id:'c2',name:'Zár oldal',note:'A hézag esettől függően 3–8 mm.',dims:[{k:'gapLock',l:'Hézag a zár oldalon',v:'5'}]},
  {id:'c3',name:'Kiskapu – általános méretek',note:'',dims:[{k:'ground',l:'Talaj fölötti rés',v:'50'},{k:'hh',l:'Kilincs magassága a talajtól',v:'1000'}]},
  {id:'c4',name:'Fogadó oszlop (zár oldalon)',note:'Utólag a pillérhez rögzítve, tiplivel vagy alapcsavarral. Hossza a kapu magassága, vagy 5 mm-rel kevesebb a zártszelvény dugó miatt. Az Új munka még nem használja.',dims:[{k:'',l:'Profil szélessége',v:'40'},{k:'',l:'Profil mélysége',v:'40'},{k:'',l:'Falvastagság',v:'2'},{k:'',l:'Rövidítés a dugó miatt',v:'5'}]},
- {id:'c5',name:'Portálzár (zárszerkezet)',note:'Töltsd ki a saját méreteid szerint. Az Új munka még nem használja.',dims:[{k:'',l:'Zárház szélessége',v:''},{k:'',l:'Nyelvfogadó ablak szélessége',v:''},{k:'',l:'Nyelvfogadó ablak magassága',v:''},{k:'',l:'Zár közepe a kapu aljától',v:''}]},
+ {id:'c5',name:'Portálzár (zárszerkezet)',note:'A zártok hossza és közepe az Új munka alapértéke: a zár oldali függőleges szelvényt ennyivel két darabra osztja. A többi méret csak emlékeztető.',dims:[{k:'lockL',l:'Zártok hossza (a szelvény ennyivel szakad meg)',v:'100'},{k:'lockZ',l:'Zártok közepe a talajtól (üresen: a kilincs magassága)',v:''},{k:'',l:'Zárház szélessége',v:''},{k:'',l:'Nyelvfogadó ablak szélessége',v:''},{k:'',l:'Nyelvfogadó ablak magassága',v:''}]},
  {id:'c6',name:'Tolókapu – sín és görgő',note:'Az Új munka még nem használja.',dims:[{k:'',l:'Omega sín magassága',v:'20'},{k:'',l:'Görgő átmérője',v:''},{k:'',l:'Szárny emelése a talajtól',v:''}]}
 ];
 let tar=lsGet('femtar',null);
 tar=Object.assign({fav:{},over:{},own:[],comp:null,pickOnly:false,onlyFav:false,open:['zart']},tar&&typeof tar==='object'?tar:{});
 if(!Array.isArray(tar.comp))tar.comp=COMP_SEED();if(!Array.isArray(tar.own))tar.own=[];if(!Array.isArray(tar.open))tar.open=['zart'];
+{const c5=tar.comp.find(c=>c.id==='c5');if(c5&&!c5.dims.some(d=>d.k==='lockL')){c5.dims.unshift({k:'lockL',l:'Zártok hossza (a szelvény ennyivel szakad meg)',v:'100'},{k:'lockZ',l:'Zártok közepe a talajtól (üresen: a kilincs magassága)',v:''});c5.dims=c5.dims.filter(d=>!(d.k===''&&d.l==='Zár közepe a kapu aljától'&&!String(d.v).trim()));}}
 ['fav','over'].forEach(k=>{if(!tar[k]||typeof tar[k]!=='object')tar[k]={};});
 const saveTar=()=>{if(!lsSet('femtar',tar))toast('Nem sikerült menteni: megtelt a böngésző tárhelye.');};
 
@@ -561,8 +562,17 @@ function genWicket(A){
   const b=frame(g,x0,gr,Wl,H,F,A.corner,c);if(A.brace)brace(g,b,resolve('zart',A.brp),c);fill(g,A,b,c);
   const n=Math.max(1,Math.floor(num(A.hn))||2),ins=Math.min(150,H/4);
   for(let k=0;k<n;k++){const yc=n===1?gr+H/2:gr+ins+(H-2*ins)*k/(n-1);g.rect(hR?x0+Wl-20:0,yc-50,hR?W-(x0+Wl-20):x0+20,100,{role:'mark',name:'Zsanér'});}
-  const le=hR?x0:x0+Wl,yh=gr+Math.min(Math.max(num(A.hh)||1000,100),Math.max(100,H-100));
+  const le=hR?x0:x0+Wl,yh=Math.min(Math.max(num(A.hh)||1000,gr+100),gr+Math.max(100,H-100));
   if(A.lock!=='none'){const lw=A.lock==='portal'?70:45,lh=A.lock==='portal'?150:110;g.rect(hR?le:le-lw,yh-lh/2,lw,lh,{role:'mark',name:A.lock==='portal'?'Portálzár':'Zárláda'});}
+  if(A.lock==='portal'&&nn(A.lockL)>0){
+    const L=nn(A.lockL),zc=nn(A.lockZ)>0?nn(A.lockZ):yh,vx=hR?x0+fw/2:x0+Wl-fw/2;
+    const m=g.M.find(q=>/függőleges/.test(q.name)&&q.x1===q.x2&&Math.abs(q.x1-vx)<1);
+    if(m&&zc-L/2>m.y1+20&&zc+L/2<m.y2-20){
+      const m2=Object.assign({},m,{id:uid(),y1:r1(zc+L/2),a1:0,k1:1});m.y2=r1(zc-L/2);m.a2=0;m.k2=1;
+      m.name='Keret függőleges, zár alatt';m2.name='Keret függőleges, zár fölött';g.M.push(m2);
+      g.info.push('A zár oldali függőleges szelvény két darab, közöttük a zártok ('+fi(L)+' mm, a talajtól '+fi(zc-L/2)+'–'+fi(zc+L/2)+' mm).');
+    }else g.warn.push('A zártok nem fér el a zár oldali szelvényen, ellenőrizd a magasságot és a zártok hosszát.');
+  }
   g.text(x0+Wl/2,gr+H+60,'Kiskapu '+fi(Wl)+' × '+fi(H)+' mm'+(A.mode==='csere'?' (nyílás '+fi(W)+' mm, a legkisebb mért érték)':''));
   const hp=A.hinge==='weld'?findHw('diópánt','120mm'):A.post==='acel'?findHw('állítható forgáspont','anyás','m16'):findHw('rögzítőlemezes forgáspont');
   g.hw('Zsanér',hp,n*c,(hR?'jobb':'bal')+' oldalon');
@@ -683,6 +693,7 @@ const CATS={
       T('A zsanér oldali levonás a zsanér és a hézag együtt (16-os állítható talpnál kb. 60 mm). Hegeszthető zsanérnál írd át a saját mérted szerint.'),
       S('lock','Zár',[['portal','Portálzár'],['box','Zárláda, zárbetéttel'],['none','Nincs']],'portal'),
       S('handle','Kilincs',[['norm','Normál'],['off','Eltolt'],['none','Nincs']],'norm'),N('ho','Kilincs eltolása a zár oldali éltől (mm)',150,{show:a=>a.handle==='off'}),N('hh','Kilincs magassága a talajtól (mm)',1000),
+      N('lockL','Zártok hossza (mm) – a zár oldali szelvény két darabra szakad',100,{show:a=>a.lock==='portal'}),N('lockZ','Zártok közepe a talajtól (mm, 0 = a kilincs magassága)',0,{show:a=>a.lock==='portal'}),
       H('Keret'),P('fp','Keret profilja','zart','40x40x2'),CORNER,...FILL('vert'),...BRACE(true)]},
   kerites:{n:'Kerítés',d:'Kerítésmezők oszlopokkal',gen:genFence,area:a=>num(a.W)*num(a.H)*cnt(a),
     q:[TX('name','Megnevezés'),N('count','Mezők száma',1),N('W','Mező szélessége (mm)',2000),N('H','Mező magassága (mm)',1200),N('ground','Talaj fölötti rés (mm)',100),
