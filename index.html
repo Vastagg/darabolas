@@ -1458,7 +1458,7 @@ let fP=null,fArm=null,fMark=null,fImg=null,fMV='',fML='';
 const FLAB=['Nyílás szélessége','Nyílás szélessége felül','Nyílás szélessége alul','Magasság bal','Magasság jobb','Pillér szélessége','Fal vastagsága','Talaj fölötti rés'];
 /* Lézeres távmérő (Bosch GLM/PLR család, Bluetooth LE) */
 const LZ_EXTRA=['battery_service','device_information','generic_access','6e400001-b5a3-f393-e0a9-e50e24dcca9e','0000ffe0-0000-1000-8000-00805f9b34fb','0000fff0-0000-1000-8000-00805f9b34fb','00005301-0000-0041-4c50-574953450000','0000fe59-0000-1000-8000-00805f9b34fb','0000ff00-0000-1000-8000-00805f9b34fb','0000ae00-0000-1000-8000-00805f9b34fb'];
-const LZ={svc:'02a6c0d0-0451-4000-b000-fb3210111989',chr:'02a6c0d1-0451-4000-b000-fb3210111989',dev:null,ch:null,last:null,state:'',log:[]};
+const LZ={svc2:'00005301-0000-0041-5253-534f46540000',svc:'02a6c0d0-0451-4000-b000-fb3210111989',chr:'02a6c0d1-0451-4000-b000-fb3210111989',dev:null,ch:null,last:null,state:'',log:[]};
 const lzLog=m=>{LZ.log.push(new Date().toLocaleTimeString('hu-HU')+' '+m);if(LZ.log.length>40)LZ.log.shift();const e=$('#lzlog');if(e){e.textContent=LZ.log.join('\n');e.scrollTop=1e6;}};
 const hex=dv=>[...new Uint8Array(dv.buffer,dv.byteOffset,dv.byteLength)].map(b=>b.toString(16).padStart(2,'0')).join(' ');
 function lzUI(){const e=$('#lzst');if(e)e.innerHTML=lzStat();}
@@ -1467,34 +1467,47 @@ async function lzConnect(){
   if(!navigator.bluetooth){toast('Ebben a böngészőben nincs Bluetooth. Használj Chrome-ot.');lzLog('A böngésző nem támogatja a Web Bluetooth-ot.');return;}
   try{
     lzLog('Eszköz kiválasztása…');
-    LZ.dev=await navigator.bluetooth.requestDevice({acceptAllDevices:true,optionalServices:[LZ.svc,...LZ_EXTRA]});
+    LZ.dev=await navigator.bluetooth.requestDevice({acceptAllDevices:true,optionalServices:[LZ.svc,LZ.svc2,...LZ_EXTRA]});
     LZ.dev.addEventListener('gattserverdisconnected',()=>{lzLog('A kapcsolat megszakadt.');LZ.ch=null;lzUI();});
     lzLog('Csatlakozás: '+(LZ.dev.name||'?'));
     const sv=await LZ.dev.gatt.connect();
     let all=[];try{all=await sv.getPrimaryServices();}catch(e){lzLog('Szolgáltatáslista hiba: '+(e.message||e));}
     lzLog('Talált szolgáltatások: '+(all.length?all.map(x=>x.uuid).join(', '):'nincs a keresett listán'));
     for(const x of all){try{const cs=await x.getCharacteristics();cs.forEach(c=>lzLog('  '+x.uuid.slice(0,8)+' › '+c.uuid+' ['+Object.entries(c.properties).filter(e=>e[1]).map(e=>e[0]).join(',')+']'));}catch(e){}}
-    const sc=all.find(x=>x.uuid===LZ.svc);
-    if(!sc){lzLog('A Bosch mérési szolgáltatás (02a6c0d0…) ezen a készüléken nincs. A távmérő más protokollt használhat.');toast('Ez a távmérő más Bluetooth-protokollt használ. A napló tartalmazza a részleteket.');return lzUI();}
-    LZ.ch=await sc.getCharacteristic(LZ.chr);
-    LZ.ch.addEventListener('characteristicvaluechanged',lzData);
-    await LZ.ch.startNotifications();
-    lzLog('Értesítés bekapcsolva.');
-    await lzAsk();
+    const sc=all.find(x=>x.uuid===LZ.svc)||all.find(x=>x.uuid===LZ.svc2);
+    if(!sc){lzLog('A Bosch mérési szolgáltatás ezen a készüléken nincs a listán. A távmérő más protokollt használhat.');toast('Ez a távmérő más Bluetooth-protokollt használ. A napló tartalmazza a részleteket.');return lzUI();}
+    lzLog('Mérési szolgáltatás: '+sc.uuid);
+    const cs=await sc.getCharacteristics();LZ.wch=null;LZ.ch=null;
+    for(const c of cs){
+      const pr=c.properties;
+      if(!LZ.wch&&(pr.write||pr.writeWithoutResponse))LZ.wch=c;
+      if(pr.notify||pr.indicate){c.addEventListener('characteristicvaluechanged',lzData);try{await c.startNotifications();lzLog('Figyelem: '+c.uuid);}catch(e){lzLog('Értesítés hiba ('+c.uuid.slice(0,8)+'): '+(e.message||e));}}
+    }
+    LZ.ch=LZ.wch||cs[0];
+    if(!LZ.wch)lzLog('Nincs írható karakterisztika, csak figyelés.');
+    lzLog('Mérj a távmérő gombjával, vagy nyomd meg a „Mérés kérése" gombot.');
+    lzUI();return;
   }catch(e){lzLog('Hiba: '+(e.name||'')+' '+(e.message||e));toast('Nem sikerült a csatlakozás. Részletek a naplóban.');}
   lzUI();
 }
-async function lzAsk(){
-  if(!LZ.ch)return;
-  const cmd=new Uint8Array([0xC0,0x55,0x02,0x01,0x00,0x1A]);
-  try{if(LZ.ch.properties.write)await LZ.ch.writeValueWithResponse(cmd);else await LZ.ch.writeValueWithoutResponse(cmd);lzLog('Parancs elküldve: '+[...cmd].map(b=>b.toString(16).padStart(2,'0')).join(' '));}
+async function lzSend(bytes){
+  const c=LZ.wch;if(!c)return;const cmd=new Uint8Array(bytes);
+  try{if(c.properties.writeWithoutResponse)await c.writeValueWithoutResponse(cmd);else await c.writeValueWithResponse(cmd);lzLog('→ '+bytes.map(b=>b.toString(16).padStart(2,'0')).join(' '));}
   catch(e){lzLog('Írási hiba: '+(e.message||e));}
+}
+async function lzAsk(){
+  if(!LZ.wch){lzLog('Nincs írható karakterisztika.');return;}
+  await lzSend([0xC0,0x55,0x02,0x01,0x00,0x1A]);await new Promise(r=>setTimeout(r,400));
+  await lzSend([0xC0,0x40,0x00,0xEE]);
 }
 function lzData(ev){
   const dv=ev.target.value;lzLog('← '+hex(dv));
   if(dv.byteLength>=11&&dv.getUint8(0)===0xC0&&dv.getUint8(1)===0x55&&dv.getUint8(2)===0x10&&dv.getUint8(3)===0x06){
     const m=dv.getFloat32(7,true);
     if(isFinite(m)&&m>0&&m<300){LZ.last=Math.round(m*1000);lzLog('Mért érték: '+LZ.last+' mm');lzGot();}
+  }else if(dv.byteLength>=8&&dv.getUint8(0)===0x00&&dv.getUint8(1)===0x04){
+    const mm=dv.getUint32(2,true)*0.05;
+    if(mm>0&&mm<100000){LZ.last=Math.round(mm);lzLog('Mért érték (klasszikus formátum): '+LZ.last+' mm');lzGot();}
   }
 }
 function lzGot(){
