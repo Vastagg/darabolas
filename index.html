@@ -479,7 +479,7 @@ function cutTo(m,end,dx,dy){
 /* ============ GENERÁTOROK ============ */
 function G(){
   const g={M:[],R:[],X:[],HW:[],errs:[],warn:[],info:[]};
-  g.bar=(x1,y1,x2,y2,res,name,o={})=>{const m={id:uid(),x1:r1(x1),y1:r1(y1),x2:r1(x2),y2:r1(y2),w:o.w??res.d.a,pid:res.pid,mat:res.name,cat:res.cat,a1:0,k1:1,a2:0,k2:1,qty:o.qty??1,name};g.M.push(m);return m;};
+  g.bar=(x1,y1,x2,y2,res,name,o={})=>{const m={id:uid(),x1:r1(x1),y1:r1(y1),x2:r1(x2),y2:r1(y2),w:o.w??res.d.a,pid:res.pid,mat:res.name,cat:res.cat,a1:0,k1:1,a2:0,k2:1,qty:o.qty??1,name,kgm:r2(kgPerM(res))};g.M.push(m);return m;};
   g.rect=(x,y,w,h,o={})=>{const r={id:uid(),x:r1(x),y:r1(y),w:r1(w),h:r1(h),role:o.role||'ref',name:o.name||'',t:o.t||0,qty:o.qty??1,cw:r1(o.cw??w),ch:r1(o.ch??h)};g.R.push(r);return r;};
   g.text=(x,y,s)=>g.X.push({x,y,s});
   g.hw=(name,prod,qty,note)=>{if(qty>0)g.HW.push({id:uid(),name:prod?prod.name:name,pid:prod?prod.id:'',qty,note:note||''});};
@@ -548,6 +548,29 @@ function genGate(A){
     g.hw('Görgő',findHw('alsó villás','78'),2*c);g.hw('Felső vezető görgő',findHw('felső vezető görgőpár'),c);g.hw('Ütközőbak',findHw('tolókapuhoz','hegeszthető','ütközőbak'),c);
   }else{
     g.hw('Úszókapu görgős kocsi (szett)',null,2*c);g.hw('Felső vezető görgő',findHw('felső vezető görgőpár'),c);g.hw('Végállás ütköző',findHw('végállás','ütköző'),c);
+    const pd=v=>String(v||'').replace(/,/g,'.').split(/[x×]/i).map(Number).filter(x=>x>0);
+    const mkU=(d,lab)=>({pid:'',name:lab+' '+pl(d.a)+'×'+pl(d.b)+'×'+pl(d.s),d,cat:'zart'});
+    const ud=pd(A.up),UD={a:ud[0]||48,b:ud[1]||ud[0]||48,s:ud[2]||4,len:6000},TD={a:30,b:30,s:2,len:6000};
+    let kg=0;g.M.forEach(m=>{kg+=Math.hypot(m.x2-m.x1,m.y2-m.y1)*(m.qty??1)*(m.kgm||0)/1000;});
+    g.R.forEach(r=>{if(r.role==='sheet')kg+=r.cw*r.ch*r.t*7.85e-6*(r.qty??1);});
+    if(A.uc!==false){
+      if(gr<UD.a)g.warn.push('A talaj fölötti rés kisebb, mint a futósín magassága ('+pl(UD.a)+' mm).');
+      g.bar(0,gr-UD.a/2,Wl,gr-UD.a/2,mkU(UD,'U-acél'),'Futósín (alsó U-profil)',{qty:c});
+      kg+=Wl/1000*kgPerM({cat:'zart',d:UD})*c;
+    }
+    if(A.ut!==false){g.bar(0,gr+H+TD.a/2,Wl,gr+H+TD.a/2,mkU(TD,'U-acél'),'Felső vezető U-profil (lefelé nyitott)',{qty:c});kg+=Wl/1000*kgPerM({cat:'zart',d:TD})*c;
+      g.info.push('A felső vezetőgörgő Ø25 mm, 30×30×2 mm-es U-profilban fut.');}
+    const G=kg/c,rin=nn(A.rin)||160,xin=xL-rin,Aa=Wl-xin;
+    const B=nn(A.rB)>0?nn(A.rB):Math.round(Aa/3),xout=xin-B,Fb=G*Aa/(2*B),Fa=Fb+G;
+    g.info.push(`Becsült kapusúly: ${fi(G)} kg. Konzolos hossz (belső görgőtől a kapu végéig): ${fi(Aa)} mm.`);
+    g.info.push(`Görgőcsoportok: belső a nyílás szélétől ${fi(rin)} mm-re, külső ${fi(B)} mm-rel hátrébb. Terhelés: belső ${fi(Fa)} kg, külső ${fi(Fb)} kg.`);
+    g.info.push(`A betonalap tömege legalább 2 × ${fi(Fb)} = ${fi(2*Fb)} kg legyen (kb. ${fi(2*Fb/2.2)} liter beton) görgőcsoportonként.`);
+    if(xout<30)g.warn.push('A két görgőcsoport nem fér el a kapu farkán. Növeld a farkat, vagy csökkentsd a görgők távolságát.');
+    if(nn(A.rmax)>0){const bmin=Math.max(G*Aa/(2*Math.max(1,nn(A.rmax)-G)),G*Aa/(2*nn(A.rmax)));
+      if(Fa>nn(A.rmax))g.warn.push(`A belső görgő terhelése (${fi(Fa)} kg) nagyobb a megengedettnél (${fi(nn(A.rmax))} kg). A görgők távolsága legalább ${fi(bmin)} mm legyen.`);}
+    if(rin<160)g.warn.push('A belső görgő a nyílás szélétől legalább 160 mm-re legyen (felfutó görgővel; végén támasztva 220 mm).');
+    [xin,xout].forEach(xx=>g.rect(xx-52,0,104,Math.max(20,gr-(A.uc!==false?UD.a:0)),{role:'mark',name:'Görgőcsoport',qty:0}));
+    g.text(xin,-60,'belső görgő');g.text(xout,-60,'külső görgő');
   }
   return g;
 }
@@ -753,7 +776,7 @@ function genFree(A){const g=G(),P=resolve('zart',A.dp);g.bar(0,0,1000,0,P,'Rúd'
 
 /* Kérdések */
 const N=(k,l,d,o={})=>({t:'num',k,l,d,...o}),S=(k,l,o,d,x={})=>({t:'sel',k,l,o,d,...x}),C=(k,l,d,x={})=>({t:'chk',k,l,d,...x}),
-  P=(k,l,c,d,x={})=>({t:'prof',k,l,c,d,...x}),H=l=>({t:'h',l}),T=(l,x={})=>({t:'p',l,...x}),TX=(k,l,d='',x={})=>({t:'txt',k,l,d,...x});
+  P=(k,l,c,d,x={})=>({t:'prof',k,l,c,d,...x}),H=(l,x={})=>({t:'h',l,...x}),T=(l,x={})=>({t:'p',l,...x}),TX=(k,l,d='',x={})=>({t:'txt',k,l,d,...x});
 const isBars=a=>['vert','horiz','grid'].includes(a.infill);
 const FILL=d=>[H('Kitöltés'),S('infill','Jelleg',[['vert','Függőleges rudak'],['horiz','Vízszintes rudak'],['grid','Rács (függőleges és vízszintes)'],['sheet','Lemez'],['none','Üres keret']],d),
   P('bp','Rúd profilja','zart','20x20x1.5',{show:isBars}),N('maxGap','Legnagyobb rés a rudak között (mm)',100,{show:isBars}),P('sp','Lemez vastagsága','lemez','2',{show:a=>a.infill==='sheet'})];
@@ -766,6 +789,9 @@ const CATS={
       N('W','Nyílás szélessége az oszlopok között (mm)',3000),N('H','Magasság, keret külső (mm)',1500),N('ground','Talaj fölötti rés (mm)',100),
       N('gapSide','Hézag szárnyanként az oszlopnál (mm)',15,{show:swing}),N('gapMid','Középrés (mm)',10,{show:a=>a.type==='double'}),
       N('ov','Átfedés oldalanként (mm)',100,{show:slide}),N('tail','Farok a nyíláson túl (mm)',0,{show:slide}),
+      H('Úszókapu vasalat',{show:a=>a.type==='cant'}),C('uc','Alsó futósín (U profil) a kapu alján',true,{show:a=>a.type==='cant'}),TX('up','Futósín mérete (a×b×s, mm)','48x48x4',{show:a=>a.type==='cant'&&a.uc!==false}),
+      C('ut','Felső vezető U-profil (30×30×2)',true,{show:a=>a.type==='cant'}),N('rin','Belső görgő távolsága a nyílás szélétől (mm)',160,{show:a=>a.type==='cant'}),
+      N('rB','Görgőcsoportok távolsága (mm, 0 = a konzolos hossz ⅓-a)',0,{show:a=>a.type==='cant'}),N('rmax','Görgő megengedett terhelése (kg, 0 = nem ellenőrzi)',0,{show:a=>a.type==='cant'}),
       T('A szárny szélessége = nyílás − hézagok.',{show:swing}),T('A szárny szélessége = nyílás + átfedés mindkét oldalon + farok. Úszókapunál a farok általában a nyílás fele.',{show:slide}),
       H('Keret'),P('fp','Keret profilja','zart','40x40x2'),CORNER,...FILL('vert'),...BRACE(true),
       H('Oszlopok és vasalat'),C('posts','Az oszlopokat is én gyártom',false),P('pp','Oszlop profilja','zart','80x80x3',{show:a=>a.posts}),N('embed','Betonba kerülő rész (mm)',600,{show:a=>a.posts}),
