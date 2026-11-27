@@ -1454,15 +1454,15 @@ async function shrink(file){
   return new Promise(r=>c.toBlob(r,'image/jpeg',0.82));
 }
 const fS=()=>fel.list.find(x=>x.id===fel.cur);
-let fP=null,fArm=null,fMark=null,fImg=null,fMV='',fML='';
+let fP=null,fArm=null,fMark=null,fImg=null,fMV='',fML='',fMU='mm';
 const FLAB=['Nyílás szélessége','Nyílás szélessége felül','Nyílás szélessége alul','Magasság bal','Magasság jobb','Pillér szélessége','Fal vastagsága','Talaj fölötti rés'];
 /* Lézeres távmérő (Bosch GLM/PLR család, Bluetooth LE) */
 const LZ_EXTRA=['battery_service','device_information','generic_access','6e400001-b5a3-f393-e0a9-e50e24dcca9e','0000ffe0-0000-1000-8000-00805f9b34fb','0000fff0-0000-1000-8000-00805f9b34fb','00005301-0000-0041-4c50-574953450000','0000fe59-0000-1000-8000-00805f9b34fb','0000ff00-0000-1000-8000-00805f9b34fb','0000ae00-0000-1000-8000-00805f9b34fb'];
-const LZ={svc2:'00005301-0000-0041-5253-534f46540000',svc:'02a6c0d0-0451-4000-b000-fb3210111989',chr:'02a6c0d1-0451-4000-b000-fb3210111989',dev:null,ch:null,last:null,state:'',log:[]};
+const LZ={svc2:'00005301-0000-0041-5253-534f46540000',svc:'02a6c0d0-0451-4000-b000-fb3210111989',chr:'02a6c0d1-0451-4000-b000-fb3210111989',dev:null,ch:null,last:null,angle:null,state:'',log:[]};
 const lzLog=m=>{LZ.log.push(new Date().toLocaleTimeString('hu-HU')+' '+m);if(LZ.log.length>40)LZ.log.shift();const e=$('#lzlog');if(e){e.textContent=LZ.log.join('\n');e.scrollTop=1e6;}};
 const hex=dv=>[...new Uint8Array(dv.buffer,dv.byteOffset,dv.byteLength)].map(b=>b.toString(16).padStart(2,'0')).join(' ');
 function lzUI(){const e=$('#lzst');if(e)e.innerHTML=lzStat();}
-const lzStat=()=>`<div>${LZ.ch&&LZ.dev?.gatt?.connected?'<b>Csatlakoztatva:</b> '+esc(LZ.dev.name||'távmérő'):'Nincs csatlakoztatva'}</div>${LZ.last!=null?`<div class="big">${fi(LZ.last)} mm</div>`:''}`;
+const lzStat=()=>`<div>${LZ.ch&&LZ.dev?.gatt?.connected?'<b>Csatlakoztatva:</b> '+esc(LZ.dev.name||'távmérő'):'Nincs csatlakoztatva'}</div>${LZ.last!=null?`<div class="big">${fi(LZ.last)} mm</div>`:''}${LZ.angle!=null?`<div class="big">${String(LZ.angle).replace('.',',')}°</div>`:''}`;
 async function lzConnect(){
   if(!navigator.bluetooth){toast('Ebben a böngészőben nincs Bluetooth. Használj Chrome-ot.');lzLog('A böngésző nem támogatja a Web Bluetooth-ot.');return;}
   try{
@@ -1505,17 +1505,22 @@ function lzData(ev){
   const dv=ev.target.value;lzLog('← '+hex(dv));
   if(dv.byteLength>=11&&dv.getUint8(0)===0xC0&&dv.getUint8(1)===0x55&&dv.getUint8(2)===0x10&&dv.getUint8(3)===0x06){
     const m=dv.getFloat32(7,true);
-    if(isFinite(m)&&m>0&&m<300){LZ.last=Math.round(m*1000);lzLog('Mért érték: '+LZ.last+' mm');lzGot();}
+    if(isFinite(m)&&m>0&&m<300){LZ.last=Math.round(m*1000);lzLog('Mért érték: '+LZ.last+' mm');lzGot(LZ.last,'mm');}
+  }else if(dv.byteLength>=11&&dv.getUint8(0)===0xC0&&dv.getUint8(1)===0x55&&dv.getUint8(2)===0x10&&dv.getUint8(3)===0x21){
+    const a=dv.getFloat32(7,true);
+    if(isFinite(a)&&Math.abs(a)<=360){LZ.angle=Math.round(a*10)/10;lzLog('Szög: '+LZ.angle+'°');lzGot(LZ.angle,'°');}
+  }else if(dv.byteLength>=4&&dv.getUint8(0)===0xC0&&dv.getUint8(1)===0x55&&dv.getUint8(2)===0x10){
+    lzLog('Ismeretlen mérési üzenet, típus: 0x'+dv.getUint8(3).toString(16));
   }else if(dv.byteLength>=6&&dv.getUint8(0)===0x00&&dv.getUint8(1)===0x04){
     const mm=dv.getUint32(2,true)*0.05;
-    if(mm>0&&mm<100000){LZ.last=Math.round(mm);lzLog('Mért érték (klasszikus formátum): '+LZ.last+' mm');lzGot();}
+    if(mm>0&&mm<100000){LZ.last=Math.round(mm);lzLog('Mért érték (klasszikus formátum): '+LZ.last+' mm');lzGot(LZ.last,'mm');}
   }
 }
-function lzGot(){
+function lzGot(v,u){
   const s=fS();lzUI();
   if(fArm&&s){
-    if(fArm==='mark'){fMV=String(LZ.last);}
-    else{const d=s.dims.find(x=>x.id===fArm);if(d){d.v=String(LZ.last);saveFel();}}
+    if(fArm==='mark'){fMV=String(v).replace('.',',');fMU=u;}
+    else{const d=s.dims.find(x=>x.id===fArm);if(d){d.v=String(v).replace('.',',');d.u=u;saveFel();}}
     fArm=null;
   }
   if(!$('#tab-fel').hidden)renderFel();
@@ -1538,14 +1543,14 @@ function renderFel(){
     <label style="margin-top:8px">Jegyzet<textarea data-ff="note" rows="3" style="font:16px system-ui,sans-serif;padding:9px 10px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink);width:100%">${esc(s.note||'')}</textarea></label></div>
     <div class="card">${FSEC('Lézeres távmérő')}
       <div class="flz"><div id="lzst">${lzStat()}</div>
-        <div class="fl" style="margin-top:8px"><button class="sm" data-fa="lz">${LZ.ch?'Újracsatlakozás':'Csatlakozás'}</button><button class="sm" data-fa="lzask">Mérés kérése</button>${LZ.last!=null?'<button class="sm" data-fa="lzadd">Új méretként</button>':''}</div>
+        <div class="fl" style="margin-top:8px"><button class="sm" data-fa="lz">${LZ.ch?'Újracsatlakozás':'Csatlakozás'}</button><button class="sm" data-fa="lzask">Mérés kérése</button>${LZ.last!=null?'<button class="sm" data-fa="lzadd">Új méretként</button>':''}${LZ.angle!=null?'<button class="sm" data-fa="lzaddA">Új szögként</button>':''}</div>
         <p class="help" style="margin:8px 0 0">Mérj a távmérő gombjával. Ha egy méretsor 📏 gombját előtte megnyomtad, az érték oda kerül, különben az „Új méretként" gombbal veheted fel. Csatlakozás előtt zárd be a Bosch Measuring Master alkalmazást, és Chrome-ot használj.</p>
         <details style="margin-top:6px"><summary class="mut" style="cursor:pointer">Napló (hibakereséshez)</summary><div id="lzlog" class="flog">${esc(LZ.log.join('\n'))}</div></details></div></div>
     <div class="card">${FSEC('Méretek')}
-      ${s.dims.map(d=>`<div class="fdim${fArm===d.id?' arm':''}"><input data-fd="${d.id}|l" list="flab" value="${esc(d.l)}" placeholder="Megnevezés"><input data-fd="${d.id}|v" inputmode="decimal" value="${esc(d.v)}" placeholder="mm"><button class="sm" data-fa="arm" data-id="${d.id}" title="Mérés lézerrel" style="padding:0">📏</button><button class="x" data-fa="ddel" data-id="${d.id}" aria-label="Törlés">×</button></div>`).join('')||'<p class="mut">Még nincs méret.</p>'}
+      ${s.dims.map(d=>`<div class="fdim${fArm===d.id?' arm':''}"><input data-fd="${d.id}|l" list="flab" value="${esc(d.l)}" placeholder="Megnevezés"><input data-fd="${d.id}|v" inputmode="decimal" value="${esc(d.v)}" placeholder="${d.u||'mm'}" title="${d.u||'mm'}" style="${d.u==='°'?'color:var(--acc);font-weight:700':''}"><button class="sm" data-fa="arm" data-id="${d.id}" title="Mérés lézerrel" style="padding:0">📏</button><button class="x" data-fa="ddel" data-id="${d.id}" aria-label="Törlés">×</button></div>`).join('')||'<p class="mut">Még nincs méret.</p>'}
       <datalist id="flab">${FLAB.map(x=>`<option value="${x}">`).join('')}</datalist>
       <div class="fl"><button class="sm" data-fa="dadd">+ Méret</button></div>
-      ${s.dims.length&&nf.length?`<div class="flz" style="margin-top:12px"><div class="mut" style="margin-bottom:6px">Átvétel az Új munkába (${esc(CATS[plan.cat].n)})</div><div class="row g2" style="margin:0"><label>Méret<select id="ftoD">${s.dims.map(d=>`<option value="${d.id}">${esc(d.l||'méret')} – ${esc(d.v||'?')}</option>`).join('')}</select></label><label>Mező<select id="ftoF">${nf.map(f=>`<option value="${f.k}">${esc(f.l)}</option>`).join('')}</select></label></div><div class="fl" style="margin-top:8px"><button class="sm" data-fa="take">Átvétel</button></div></div>`:''}</div>
+      ${s.dims.length&&nf.length?`<div class="flz" style="margin-top:12px"><div class="mut" style="margin-bottom:6px">Átvétel az Új munkába (${esc(CATS[plan.cat].n)})</div><div class="row g2" style="margin:0"><label>Méret<select id="ftoD">${s.dims.map(d=>`<option value="${d.id}">${esc(d.l||'méret')} – ${esc(d.v||'?')} ${d.u||'mm'}</option>`).join('')}</select></label><label>Mező<select id="ftoF">${nf.map(f=>`<option value="${f.k}">${esc(f.l)}</option>`).join('')}</select></label></div><div class="fl" style="margin-top:8px"><button class="sm" data-fa="take">Átvétel</button></div></div>`:''}</div>
     <div class="card">${FSEC('Fényképek')}
       <div class="fl"><label class="sm" style="display:inline-flex;align-items:center;cursor:pointer;flex-direction:row;color:var(--ink)">+ Fénykép<input id="fph" type="file" accept="image/*" capture="environment" multiple hidden></label></div>
       <div class="fth">${s.photos.map(p=>`<button data-fa="photo" data-id="${p.id}" title="${p.marks.length} jelölés"><img data-ph="${p.id}" alt=""></button>`).join('')}</div>
@@ -1555,7 +1560,7 @@ function renderFel(){
 function drawMarks(c,img,marks,hi){
   const x=c.getContext('2d');c.width=img.naturalWidth;c.height=img.naturalHeight;x.drawImage(img,0,0);
   const fs=Math.max(18,Math.round(c.width/24)),r=fs*0.45;x.font=`bold ${fs}px system-ui,sans-serif`;x.textBaseline='middle';
-  marks.forEach(m=>{const px=m.x*c.width,py=m.y*c.height,t=(m.l?m.l+': ':'')+(m.v?m.v+' mm':'');
+  marks.forEach(m=>{const px=m.x*c.width,py=m.y*c.height,t=(m.l?m.l+': ':'')+(m.v?m.v+(m.u==='°'?'°':' mm'):'');
     x.fillStyle='#f26b1d';x.strokeStyle='#fff';x.lineWidth=3;x.beginPath();x.arc(px,py,r,0,7);x.fill();x.stroke();
     if(t){const w=x.measureText(t).width+fs*0.6,bx=Math.min(Math.max(4,px+r+4),c.width-w-4),by=Math.min(Math.max(fs,py),c.height-fs);
       x.fillStyle='rgba(0,0,0,.72)';x.fillRect(bx,by-fs*0.7,w,fs*1.4);x.fillStyle='#fff';x.fillText(t,bx+fs*0.3,by);}});
@@ -1565,9 +1570,9 @@ async function renderPhoto(el,s){
   const p=s.photos.find(x=>x.id===fP);if(!p){fP=null;renderFel();return;}
   el.innerHTML=`<div class="card"><div class="fl"><button class="sm" data-fa="pback">← Vissza</button><button class="sm" data-fa="psave">Kép mentése jelölésekkel</button><button class="sm danger" data-fa="pdel">Fotó törlése</button></div>
     <p class="help" style="margin-top:8px">Koppints a képre, ahová a méretet írnád.</p><canvas id="fcv" class="fcv"></canvas>
-    <div id="fmf" class="flz" ${fMark?'':'hidden'}><div class="row g2" style="margin:0"><label>Megnevezés<input id="fml" list="flab" placeholder="pl. Nyílás" value="${esc(fML)}"></label><label>Méret (mm)<input id="fmv" inputmode="decimal" value="${esc(fMV)}"></label></div>
+    <div id="fmf" class="flz" ${fMark?'':'hidden'}><div class="row g2" style="margin:0"><label>Megnevezés<input id="fml" list="flab" placeholder="pl. Nyílás" value="${esc(fML)}"></label><label>Érték (${fMU==='°'?'°':'mm'})<input id="fmv" inputmode="decimal" value="${esc(fMV)}"></label></div>
       <div class="fl" style="margin-top:8px"><button class="go" data-fa="madd" style="min-height:40px">Hozzáad</button><button class="sm" data-fa="marm">📏 Következő lézeres mérés</button><button class="sm" data-fa="mcancel">Mégse</button></div></div>
-    <div id="fml2">${p.marks.map((m,i)=>`<div class="fl" style="margin-top:6px"><span>${i+1}. ${esc(m.l||'jelölés')} ${m.v?'– '+esc(m.v)+' mm':''}</span><button class="x" data-fa="mdel" data-id="${m.id}" aria-label="Törlés">×</button></div>`).join('')}</div></div>
+    <div id="fml2">${p.marks.map((m,i)=>`<div class="fl" style="margin-top:6px"><span>${i+1}. ${esc(m.l||'jelölés')} ${m.v?'– '+esc(m.v)+(m.u==='°'?'°':' mm'):''}</span><button class="x" data-fa="mdel" data-id="${m.id}" aria-label="Törlés">×</button></div>`).join('')}</div></div>
     <datalist id="flab">${FLAB.map(x=>`<option value="${x}">`).join('')}</datalist>`;
   const u=await photoURL(p.id),img=new Image();img.onload=()=>{fImg=img;const c=$('#fcv');if(c)drawMarks(c,img,p.marks,fMark);};img.src=u;
 }
@@ -1586,7 +1591,8 @@ async function felAct(b){
   if(a==='lz'){await lzConnect();return;}
   if(a==='lzask'){await lzAsk();return;}
   if(!s)return;
-  if(a==='lzadd'){if(LZ.last!=null){s.dims.push({id:uid(),l:'',v:String(LZ.last)});saveFel();renderFel();}return;}
+  if(a==='lzadd'){if(LZ.last!=null){s.dims.push({id:uid(),l:'',v:String(LZ.last),u:'mm'});saveFel();renderFel();}return;}
+  if(a==='lzaddA'){if(LZ.angle!=null){s.dims.push({id:uid(),l:'Szög',v:String(LZ.angle).replace('.',','),u:'°'});saveFel();renderFel();}return;}
   if(a==='dadd'){s.dims.push({id:uid(),l:'',v:''});saveFel();renderFel();return;}
   if(a==='ddel'){s.dims=s.dims.filter(d=>d.id!==id);if(fArm===id)fArm=null;saveFel();renderFel();return;}
   if(a==='arm'){fArm=fArm===id?null:id;if(fArm&&!LZ.ch)toast('Előbb csatlakoztasd a távmérőt.');renderFel();return;}
@@ -1597,7 +1603,7 @@ async function felAct(b){
   if(a==='pdel'&&p){if(confirm('Törlöd ezt a fotót?')){s.photos=s.photos.filter(x=>x!==p);urlC.delete(p.id);try{await idbDel(p.id);}catch(e){}fP=null;saveFel();renderFel();}return;}
   if(a==='mcancel'){fMark=null;fMV='';fML='';renderFel();return;}
   if(a==='marm'){fArm='mark';if(!LZ.ch)toast('Előbb csatlakoztasd a távmérőt (Felmérés → Lézeres távmérő).');else toast('Mérj a távmérővel, az érték a mezőbe kerül.');return;}
-  if(a==='madd'&&p&&fMark){p.marks.push({id:uid(),x:fMark.x,y:fMark.y,l:$('#fml').value.trim(),v:$('#fmv').value.trim()});fMark=null;fMV='';fML='';saveFel();renderFel();return;}
+  if(a==='madd'&&p&&fMark){p.marks.push({id:uid(),x:fMark.x,y:fMark.y,l:$('#fml').value.trim(),v:$('#fmv').value.trim(),u:fMU});fMark=null;fMV='';fML='';fMU='mm';saveFel();renderFel();return;}
   if(a==='mdel'&&p){p.marks=p.marks.filter(m=>m.id!==id);saveFel();renderFel();return;}
   if(a==='psave'&&p&&fImg){
     const c=document.createElement('canvas');drawMarks(c,fImg,p.marks,null);
