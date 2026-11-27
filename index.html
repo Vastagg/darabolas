@@ -1463,14 +1463,25 @@ const lzLog=m=>{LZ.log.push(new Date().toLocaleTimeString('hu-HU')+' '+m);if(LZ.
 const hex=dv=>[...new Uint8Array(dv.buffer,dv.byteOffset,dv.byteLength)].map(b=>b.toString(16).padStart(2,'0')).join(' ');
 function lzUI(){const e=$('#lzst');if(e)e.innerHTML=lzStat();}
 const lzStat=()=>`<div>${LZ.ch&&LZ.dev?.gatt?.connected?'<b>Csatlakoztatva:</b> '+esc(LZ.dev.name||'távmérő'):'Nincs csatlakoztatva'}</div>${LZ.last!=null?`<div class="big">${fi(LZ.last)} mm</div>`:''}${LZ.angle!=null?`<div class="big">${String(LZ.angle).replace('.',',')}°</div>`:''}${LZ.cont?`<div>Folyamatos mérés: legkisebb <b>${fi(LZ.cont.min)} mm</b>, legnagyobb <b>${fi(LZ.cont.max)} mm</b></div>`:''}`;
-async function lzConnect(){
-  if(!navigator.bluetooth){toast('Ebben a böngészőben nincs Bluetooth. Használj Chrome-ot.');lzLog('A böngésző nem támogatja a Web Bluetooth-ot.');return;}
+const lzDisc=()=>{lzLog('A kapcsolat megszakadt.');LZ.ch=null;lzUI();if(!$('#tab-fel').hidden)renderFel();};
+async function lzAuto(){
+  if(LZ.autoTried||!navigator.bluetooth||!navigator.bluetooth.getDevices||(LZ.ch&&LZ.dev?.gatt?.connected))return;
+  LZ.autoTried=true;
   try{
-    lzLog('Eszköz kiválasztása…');
-    LZ.dev=await navigator.bluetooth.requestDevice({acceptAllDevices:true,optionalServices:[LZ.svc,LZ.svc2,...LZ_EXTRA]});
-    LZ.dev.addEventListener('gattserverdisconnected',()=>{lzLog('A kapcsolat megszakadt.');LZ.ch=null;lzUI();});
+    const ds=await navigator.bluetooth.getDevices(),d=ds.find(x=>/plr|glm|bosch/i.test(x.name||''));
+    if(!d){lzLog('Automatikus csatlakozás: nincs korábban engedélyezett távmérő.');return;}
+    lzLog('Automatikus csatlakozás: '+d.name);await lzConnect(d);
+  }catch(e){lzLog('Automatikus csatlakozás nem sikerült: '+(e.message||e));}
+}
+async function lzConnect(known){
+  if(!navigator.bluetooth){toast('Ebben a böngészőben nincs Bluetooth. Használj Chrome-ot.');lzLog('A böngésző nem támogatja a Web Bluetooth-ot.');return;}
+  const auto=known&&known.gatt;
+  try{
+    if(auto)LZ.dev=known;
+    else{lzLog('Eszköz kiválasztása…');LZ.dev=await navigator.bluetooth.requestDevice({acceptAllDevices:true,optionalServices:[LZ.svc,LZ.svc2,...LZ_EXTRA]});}
+    LZ.dev.addEventListener('gattserverdisconnected',lzDisc);
     lzLog('Csatlakozás: '+(LZ.dev.name||'?'));
-    const sv=await LZ.dev.gatt.connect();
+    const sv=await Promise.race([LZ.dev.gatt.connect(),new Promise((_,rj)=>setTimeout(()=>rj(new Error('időtúllépés: a távmérő nincs bekapcsolva vagy nincs hatótávon')),auto?10000:30000))]);
     let all=[];try{all=await sv.getPrimaryServices();}catch(e){lzLog('Szolgáltatáslista hiba: '+(e.message||e));}
     lzLog('Talált szolgáltatások: '+(all.length?all.map(x=>x.uuid).join(', '):'nincs a keresett listán'));
     for(const x of all){try{const cs=await x.getCharacteristics();cs.forEach(c=>lzLog('  '+x.uuid.slice(0,8)+' › '+c.uuid+' ['+['read','write','writeWithoutResponse','notify','indicate'].filter(k=>c.properties[k]).join(',')+']'));}catch(e){}}
@@ -1487,8 +1498,8 @@ async function lzConnect(){
     if(!LZ.wch)lzLog('Nincs írható karakterisztika, csak figyelés.');
     lzLog('Szinkron bekapcsolása…');await lzSend([0xC0,0x55,0x02,0x01,0x00,0x1A]);
     lzLog('Kész. Mérj a távmérő gombjával, vagy nyomd meg a „Mérés kérése" gombot.');
-    lzUI();return;
-  }catch(e){lzLog('Hiba: '+(e.name||'')+' '+(e.message||e));toast('Nem sikerült a csatlakozás. Részletek a naplóban.');}
+    lzUI();if(!$('#tab-fel').hidden)renderFel();return;
+  }catch(e){lzLog('Hiba: '+(e.name||'')+' '+(e.message||e));if(!auto)toast('Nem sikerült a csatlakozás. Részletek a naplóban.');}
   lzUI();
 }
 async function lzSend(bytes){
@@ -1591,7 +1602,7 @@ async function felAct(b){
   if(a==='open'){fel.cur=id;fP=null;saveFel();renderFel();return;}
   if(a==='del'){const x=fel.list.find(q=>q.id===id);if(x&&confirm('Biztosan törlöd ezt a felmérést a fényképeivel együtt?')){for(const p of x.photos){urlC.delete(p.id);try{await idbDel(p.id);}catch(e){}}fel.list=fel.list.filter(q=>q!==x);saveFel();renderFel();}return;}
   if(a==='back'){fel.cur=null;fP=null;fArm=null;saveFel();renderFel();return;}
-  if(a==='lz'){await lzConnect();return;}
+  if(a==='lz'){LZ.autoTried=true;await lzConnect();return;}
   if(a==='lzask'){await lzAsk();return;}
   if(!s)return;
   if(a==='lzadd'){if(LZ.last!=null){s.dims.push({id:uid(),l:'',v:String(LZ.last),u:'mm'});saveFel();renderFel();}return;}
@@ -1637,7 +1648,7 @@ function showTab(t){
   if(t==='works')renderWorks();
   if(t==='cart')renderCart();
   if(t==='tar')renderTar();
-  if(t==='fel')renderFel();
+  if(t==='fel'){renderFel();lzAuto();}
   if(t==='work'){renderCats();renderForm();}
 }
 document.addEventListener('input',ev=>{
