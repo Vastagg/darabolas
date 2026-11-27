@@ -1473,7 +1473,7 @@ async function lzConnect(){
     const sv=await LZ.dev.gatt.connect();
     let all=[];try{all=await sv.getPrimaryServices();}catch(e){lzLog('Szolgáltatáslista hiba: '+(e.message||e));}
     lzLog('Talált szolgáltatások: '+(all.length?all.map(x=>x.uuid).join(', '):'nincs a keresett listán'));
-    for(const x of all){try{const cs=await x.getCharacteristics();cs.forEach(c=>lzLog('  '+x.uuid.slice(0,8)+' › '+c.uuid+' ['+Object.entries(c.properties).filter(e=>e[1]).map(e=>e[0]).join(',')+']'));}catch(e){}}
+    for(const x of all){try{const cs=await x.getCharacteristics();cs.forEach(c=>lzLog('  '+x.uuid.slice(0,8)+' › '+c.uuid+' ['+['read','write','writeWithoutResponse','notify','indicate'].filter(k=>c.properties[k]).join(',')+']'));}catch(e){}}
     const sc=all.find(x=>x.uuid===LZ.svc)||all.find(x=>x.uuid===LZ.svc2);
     if(!sc){lzLog('A Bosch mérési szolgáltatás ezen a készüléken nincs a listán. A távmérő más protokollt használhat.');toast('Ez a távmérő más Bluetooth-protokollt használ. A napló tartalmazza a részleteket.');return lzUI();}
     lzLog('Mérési szolgáltatás: '+sc.uuid);
