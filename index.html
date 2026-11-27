@@ -524,6 +524,10 @@ function fill(g,A,b,qty){
 const cnt=A=>Math.max(1,Math.floor(num(A.count))||1);
 const nn=v=>Math.max(0,num(v));
 
+/* Úszókapu C-sínek (kapugorgo.hu és kapuzar.hu kínálata): méret, legnagyobb kapusúly (kg), legnagyobb nyílás (mm) */
+const CRAILS=[['48x43x3.5','48×43×3,5 – max. 150 kg, 4,5 m',150,4500],['60x60x4','60×60×4 – max. 400 kg, 6 m',400,6000],['60x61x3.5','60×61×3,5 – max. 800 kg, 6 m',800,6000],
+ ['65x60x4','65×60×4 (hajlított) – max. 600 kg, 9 m',600,9000],['70x60x3.5','70×60×3,5',0,0],['69x69x4','69×69×4',0,0],['80x75x5','80×75×5 – max. 600 kg, 9 m',600,9000],
+ ['94x84x5','94×84×5 (ipari) – max. 12 m',0,12000],['98x98x5','98×98×5',0,0],['140x140x6','140×140×6 – max. 3000 kg, 22 m',3000,22000]];
 function genGate(A){
   const g=G(),F=resolve('zart',A.fp),fw=F.d.a,W=num(A.W),H=num(A.H),gr=nn(A.ground),c=cnt(A);
   const gs=nn(A.gapSide),gm=nn(A.gapMid),ov=nn(A.ov),tail=nn(A.tail),swing=A.type==='single'||A.type==='double';
@@ -550,13 +554,13 @@ function genGate(A){
     g.hw('Úszókapu görgős kocsi (szett)',null,2*c);g.hw('Felső vezető görgő',findHw('felső vezető görgőpár'),c);g.hw('Végállás ütköző',findHw('végállás','ütköző'),c);
     const pd=v=>String(v||'').replace(/,/g,'.').split(/[x×]/i).map(Number).filter(x=>x>0);
     const mkU=(d,lab)=>({pid:'',name:lab+' '+pl(d.a)+'×'+pl(d.b)+'×'+pl(d.s),d,cat:'zart'});
-    const ud=pd(A.up),UD={a:ud[0]||48,b:ud[1]||ud[0]||48,s:ud[2]||4,len:6000},TD={a:30,b:30,s:2,len:6000};
+    const cr=CRAILS.find(r=>r[0]===A.cs),ud=pd(cr?cr[0]:A.up),UD={a:ud[0]||48,b:ud[1]||ud[0]||48,s:ud[2]||4,len:6000},TD={a:30,b:30,s:2,len:6000};
     let kg=0;g.M.forEach(m=>{kg+=Math.hypot(m.x2-m.x1,m.y2-m.y1)*(m.qty??1)*(m.kgm||0)/1000;});
     g.R.forEach(r=>{if(r.role==='sheet')kg+=r.cw*r.ch*r.t*7.85e-6*(r.qty??1);});
     if(A.uc!==false){
       if(gr<UD.a)g.warn.push('A talaj fölötti rés kisebb, mint a futósín magassága ('+pl(UD.a)+' mm).');
-      g.bar(0,gr-UD.a/2,Wl,gr-UD.a/2,mkU(UD,'U-acél'),'Futósín (alsó U-profil)',{qty:c});
-      kg+=Wl/1000*kgPerM({cat:'zart',d:UD})*c;
+      const rm=g.bar(0,gr-UD.a/2,Wl,gr-UD.a/2,mkU(UD,'C-sín'),'Futósín (alsó C / U-profil)',{qty:c});
+      rm.kgm=r2((UD.a+2*UD.b-4*UD.s)*UD.s*7.85e-3);kg+=Wl/1000*rm.kgm*c;
     }
     if(A.ut!==false){g.bar(0,gr+H+TD.a/2,Wl,gr+H+TD.a/2,mkU(TD,'U-acél'),'Felső vezető U-profil (lefelé nyitott)',{qty:c});kg+=Wl/1000*kgPerM({cat:'zart',d:TD})*c;
       g.info.push('A felső vezetőgörgő Ø25 mm, 30×30×2 mm-es U-profilban fut.');}
@@ -566,6 +570,8 @@ function genGate(A){
     g.info.push(`Görgőcsoportok: belső a nyílás szélétől ${fi(rin)} mm-re, külső ${fi(B)} mm-rel hátrébb. Terhelés: belső ${fi(Fa)} kg, külső ${fi(Fb)} kg.`);
     g.info.push(`A betonalap tömege legalább 2 × ${fi(Fb)} = ${fi(2*Fb)} kg legyen (kb. ${fi(2*Fb/2.2)} liter beton) görgőcsoportonként.`);
     if(xout<30)g.warn.push('A két görgőcsoport nem fér el a kapu farkán. Növeld a farkat, vagy csökkentsd a görgők távolságát.');
+    if(cr&&A.uc!==false){if(cr[2]&&G>cr[2])g.warn.push(`A kapu becsült súlya (${fi(G)} kg) nagyobb, mint a kiválasztott C-sín ajánlott határa (${cr[2]} kg).`);
+      if(cr[3]&&W>cr[3])g.warn.push(`A nyílás (${fi(W)} mm) nagyobb, mint a kiválasztott C-sín ajánlott határa (${cr[3]} mm).`);}
     if(nn(A.rmax)>0){const bmin=Math.max(G*Aa/(2*Math.max(1,nn(A.rmax)-G)),G*Aa/(2*nn(A.rmax)));
       if(Fa>nn(A.rmax))g.warn.push(`A belső görgő terhelése (${fi(Fa)} kg) nagyobb a megengedettnél (${fi(nn(A.rmax))} kg). A görgők távolsága legalább ${fi(bmin)} mm legyen.`);}
     if(rin<160)g.warn.push('A belső görgő a nyílás szélétől legalább 160 mm-re legyen (felfutó görgővel; végén támasztva 220 mm).');
@@ -789,7 +795,7 @@ const CATS={
       N('W','Nyílás szélessége az oszlopok között (mm)',3000),N('H','Magasság, keret külső (mm)',1500),N('ground','Talaj fölötti rés (mm)',100),
       N('gapSide','Hézag szárnyanként az oszlopnál (mm)',15,{show:swing}),N('gapMid','Középrés (mm)',10,{show:a=>a.type==='double'}),
       N('ov','Átfedés oldalanként (mm)',100,{show:slide}),N('tail','Farok a nyíláson túl (mm)',0,{show:slide}),
-      H('Úszókapu vasalat',{show:a=>a.type==='cant'}),C('uc','Alsó futósín (U profil) a kapu alján',true,{show:a=>a.type==='cant'}),TX('up','Futósín mérete (a×b×s, mm)','48x48x4',{show:a=>a.type==='cant'&&a.uc!==false}),
+      H('Úszókapu vasalat',{show:a=>a.type==='cant'}),C('uc','Alsó futósín (U profil) a kapu alján',true,{show:a=>a.type==='cant'}),S('cs','Futósín (C-sín)',[...CRAILS.map(r=>[r[0],r[1]]),['egyedi','Egyedi méret']],'60x60x4',{show:a=>a.type==='cant'&&a.uc!==false}),TX('up','Egyedi futósín mérete (a×b×s, mm)','60x60x4',{show:a=>a.type==='cant'&&a.uc!==false&&a.cs==='egyedi'}),
       C('ut','Felső vezető U-profil (30×30×2)',true,{show:a=>a.type==='cant'}),N('rin','Belső görgő távolsága a nyílás szélétől (mm)',160,{show:a=>a.type==='cant'}),
       N('rB','Görgőcsoportok távolsága (mm, 0 = a konzolos hossz ⅓-a)',0,{show:a=>a.type==='cant'}),N('rmax','Görgő megengedett terhelése (kg, 0 = nem ellenőrzi)',0,{show:a=>a.type==='cant'}),
       T('A szárny szélessége = nyílás − hézagok.',{show:swing}),T('A szárny szélessége = nyílás + átfedés mindkét oldalon + farok. Úszókapunál a farok általában a nyílás fele.',{show:slide}),
