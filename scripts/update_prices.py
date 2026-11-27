@@ -39,7 +39,8 @@ CATEGORIES = [
 ]
 
 UNITS = ["szál", "fm", "kg", "db", "darab", "pár", "garn", "csomag", "tábla", "m2", "készlet", "szett"]
-PRICE_RE = re.compile(r"(\d{1,3}(?:[   .]\d{3})+|\d+)\s*Ft", re.I)
+# Az ár előtt nem állhat betű vagy szám (különben a terméknév végi szám beleolvad az árba).
+PRICE_RE = re.compile(r"(?<![\w.,])(\d{1,3}(?:[ \xa0\u202f.]\d{3})+|\d+)\s*Ft", re.I)
 UA = "Mozilla/5.0 (darabolas arfrissito; +https://github.com/Vastagg/darabolas)"
 
 
@@ -95,7 +96,10 @@ def parse(html, page_url):
         if block is None:
             continue
         text = block.get_text(" ", strip=True)
-        prices = [to_int(p) for p in PRICE_RE.findall(text)]
+        # Az árat a terméknév nélküli szövegben keressük: a név végi szám
+        # (pl. "...HS1U60" vagy "...nikkel 233") különben az ár elejére kerülne.
+        price_text = text.replace(name, " ") if name else text
+        prices = [to_int(p) for p in PRICE_RE.findall(price_text)]
         prices = [p for p in prices if p > 0]
         if not prices:
             continue
