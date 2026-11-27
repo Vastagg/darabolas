@@ -1457,6 +1457,7 @@ const fS=()=>fel.list.find(x=>x.id===fel.cur);
 let fP=null,fArm=null,fMark=null,fImg=null,fMV='',fML='';
 const FLAB=['Nyílás szélessége','Nyílás szélessége felül','Nyílás szélessége alul','Magasság bal','Magasság jobb','Pillér szélessége','Fal vastagsága','Talaj fölötti rés'];
 /* Lézeres távmérő (Bosch GLM/PLR család, Bluetooth LE) */
+const LZ_EXTRA=['battery_service','device_information','generic_access','6e400001-b5a3-f393-e0a9-e50e24dcca9e','0000ffe0-0000-1000-8000-00805f9b34fb','0000fff0-0000-1000-8000-00805f9b34fb','00005301-0000-0041-4c50-574953450000','0000fe59-0000-1000-8000-00805f9b34fb','0000ff00-0000-1000-8000-00805f9b34fb','0000ae00-0000-1000-8000-00805f9b34fb'];
 const LZ={svc:'02a6c0d0-0451-4000-b000-fb3210111989',chr:'02a6c0d1-0451-4000-b000-fb3210111989',dev:null,ch:null,last:null,state:'',log:[]};
 const lzLog=m=>{LZ.log.push(new Date().toLocaleTimeString('hu-HU')+' '+m);if(LZ.log.length>40)LZ.log.shift();const e=$('#lzlog');if(e){e.textContent=LZ.log.join('\n');e.scrollTop=1e6;}};
 const hex=dv=>[...new Uint8Array(dv.buffer,dv.byteOffset,dv.byteLength)].map(b=>b.toString(16).padStart(2,'0')).join(' ');
@@ -1466,10 +1467,15 @@ async function lzConnect(){
   if(!navigator.bluetooth){toast('Ebben a böngészőben nincs Bluetooth. Használj Chrome-ot.');lzLog('A böngésző nem támogatja a Web Bluetooth-ot.');return;}
   try{
     lzLog('Eszköz kiválasztása…');
-    LZ.dev=await navigator.bluetooth.requestDevice({acceptAllDevices:true,optionalServices:[LZ.svc]});
+    LZ.dev=await navigator.bluetooth.requestDevice({acceptAllDevices:true,optionalServices:[LZ.svc,...LZ_EXTRA]});
     LZ.dev.addEventListener('gattserverdisconnected',()=>{lzLog('A kapcsolat megszakadt.');LZ.ch=null;lzUI();});
     lzLog('Csatlakozás: '+(LZ.dev.name||'?'));
-    const sv=await LZ.dev.gatt.connect(),sc=await sv.getPrimaryService(LZ.svc);
+    const sv=await LZ.dev.gatt.connect();
+    let all=[];try{all=await sv.getPrimaryServices();}catch(e){lzLog('Szolgáltatáslista hiba: '+(e.message||e));}
+    lzLog('Talált szolgáltatások: '+(all.length?all.map(x=>x.uuid).join(', '):'nincs a keresett listán'));
+    for(const x of all){try{const cs=await x.getCharacteristics();cs.forEach(c=>lzLog('  '+x.uuid.slice(0,8)+' › '+c.uuid+' ['+Object.entries(c.properties).filter(e=>e[1]).map(e=>e[0]).join(',')+']'));}catch(e){}}
+    const sc=all.find(x=>x.uuid===LZ.svc);
+    if(!sc){lzLog('A Bosch mérési szolgáltatás (02a6c0d0…) ezen a készüléken nincs. A távmérő más protokollt használhat.');toast('Ez a távmérő más Bluetooth-protokollt használ. A napló tartalmazza a részleteket.');return lzUI();}
     LZ.ch=await sc.getCharacteristic(LZ.chr);
     LZ.ch.addEventListener('characteristicvaluechanged',lzData);
     await LZ.ch.startNotifications();
