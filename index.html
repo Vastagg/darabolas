@@ -113,6 +113,17 @@ ol{margin:0;padding-left:22px;font-size:14px}ol li{margin:2px 0}
 .total b{font-size:clamp(26px,6vw,36px);color:var(--acc);white-space:nowrap}
 .status{display:flex;gap:10px;align-items:center;justify-content:space-between;flex-wrap:wrap}
 .toast{position:fixed;left:50%;bottom:20px;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 18px;border-radius:10px;font-size:15px;z-index:9;box-shadow:0 4px 16px #0004}
+/* felmérés */
+.fl{display:flex;gap:8px;flex-wrap:wrap;align-items:center}.fl>*{flex:0 0 auto}
+.fth{display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:8px;margin:10px 0}
+.fth button{padding:0;border:2px solid var(--line);border-radius:10px;overflow:hidden;background:var(--bg);min-height:0;aspect-ratio:4/3}
+.fth img{width:100%;height:100%;object-fit:cover;display:block}
+.fcv{width:100%;height:auto;border-radius:10px;border:1px solid var(--line);touch-action:manipulation;background:#000}
+.fdim{display:grid;grid-template-columns:minmax(0,1fr) 100px 44px 44px;gap:6px;margin-bottom:6px;align-items:center}
+.fdim.arm input{border-color:var(--acc);box-shadow:0 0 0 2px #f26b1d55}
+.flz{border:1px dashed var(--line);border-radius:10px;padding:10px;margin:10px 0}
+.flz .big{font-size:22px;font-weight:700}
+.flog{font:11px/1.4 ui-monospace,monospace;white-space:pre-wrap;color:var(--mut);max-height:140px;overflow:auto;margin-top:6px}
 /* anyagtár */
 .tg summary{cursor:pointer;font-weight:600;font-size:17px;padding:4px 0;display:flex;justify-content:space-between;gap:8px;align-items:baseline}
 .tg summary span{color:var(--mut);font-weight:400;font-size:14px;text-align:right}
@@ -135,7 +146,7 @@ ol{margin:0;padding-left:22px;font-size:14px}ol li{margin:2px 0}
 @media(max-width:600px){.ct thead{display:none}.ct tr{display:grid;grid-template-columns:1fr auto auto;gap:0 12px;padding:8px 0;border-bottom:1px solid var(--line)}.ct td{border:0;padding:2px 0}.ct td.q,.ct td.u{color:var(--mut)}.ct td:first-child{grid-column:1/-1}}
 </style></head><body>
 <header><h1>Fém tervező</h1><p>Gyártmányok tervezése, látványterv, anyagköltség és szálanyag-optimalizálás – offline is működik.</p></header>
-<nav class="tabs"><button data-tab="work" class="on">Új munka</button><button data-tab="plan">Látványterv</button><button data-tab="works">Korábbi munkák</button><button data-tab="cart">Kosár</button><button data-tab="tar">Anyagtár</button><button data-tab="cut">Darabolás</button></nav>
+<nav class="tabs"><button data-tab="work" class="on">Új munka</button><button data-tab="plan">Látványterv</button><button data-tab="works">Korábbi munkák</button><button data-tab="cart">Kosár</button><button data-tab="fel">Felmérés</button><button data-tab="tar">Anyagtár</button><button data-tab="cut">Darabolás</button></nav>
 
 <main id="tab-work" class="one">
   <div class="card"><h2>Mivel foglalkozol most?</h2><p class="help">Válaszd ki a gyártmány fajtáját. A kérdések a választásod szerint jelennek meg.</p><div class="cats" id="cats"></div></div>
@@ -182,6 +193,7 @@ ol{margin:0;padding-left:22px;font-size:14px}ol li{margin:2px 0}
   <div id="cartBox"></div>
 </main>
 
+<main id="tab-fel" class="one" hidden><div id="felBody"></div></main>
 <main id="tab-tar" class="one" hidden>
   <div class="card"><h2>Anyagtár</h2>
     <p class="help">Itt vannak témák szerint a Timárvasker tételei súllyal és árral, mint egy vastelepen. A ★ jelöléssel kiválasztod, mi legyen az alap, a ✎ gombbal saját árat vagy megjegyzést adsz egy tételhez. A saját ár és a ★ az automatikus árfrissítés után is megmarad. A kg/m és a tábla súlya számolt érték (acél, 7,85 kg/dm³), kb. ±3% pontossággal.</p>
@@ -1427,7 +1439,166 @@ tabTar.addEventListener('click',ev=>{
 });
 
 /* ============ FÜLEK ÉS ESEMÉNYEK ============ */
-const TABS=['work','plan','works','cart','tar','cut'];
+/* ============ FELMÉRÉS: fénykép, méretek, lézeres távmérő (Bluetooth) ============ */
+let fel=lsGet('femfelm',null);
+fel=Object.assign({list:[],cur:null},fel&&typeof fel==='object'?fel:{});if(!Array.isArray(fel.list))fel.list=[];
+const saveFel=()=>{if(!lsSet('femfelm',fel))toast('Nem sikerült menteni: megtelt a böngésző tárhelye.');};
+const idb=()=>new Promise((res,rej)=>{const r=indexedDB.open('femfoto',1);r.onupgradeneeded=()=>r.result.createObjectStore('p');r.onsuccess=()=>res(r.result);r.onerror=()=>rej(r.error);});
+const idbDo=async(mode,fn)=>{const d=await idb();return new Promise((res,rej)=>{const t=d.transaction('p',mode),q=fn(t.objectStore('p'));t.oncomplete=()=>res(q&&q.result);t.onerror=()=>rej(t.error);});};
+const idbPut=(k,v)=>idbDo('readwrite',o=>o.put(v,k)),idbGet=k=>idbDo('readonly',o=>o.get(k)),idbDel=k=>idbDo('readwrite',o=>o.delete(k));
+const urlC=new Map();
+async function photoURL(id){if(urlC.has(id))return urlC.get(id);const b=await idbGet(id);if(!b)return'';const u=URL.createObjectURL(b);urlC.set(id,u);return u;}
+async function shrink(file){
+  const bmp=await createImageBitmap(file,{imageOrientation:'from-image'}),k=Math.min(1,1600/Math.max(bmp.width,bmp.height));
+  const c=document.createElement('canvas');c.width=Math.round(bmp.width*k);c.height=Math.round(bmp.height*k);c.getContext('2d').drawImage(bmp,0,0,c.width,c.height);
+  return new Promise(r=>c.toBlob(r,'image/jpeg',0.82));
+}
+const fS=()=>fel.list.find(x=>x.id===fel.cur);
+let fP=null,fArm=null,fMark=null,fImg=null,fMV='',fML='';
+const FLAB=['Nyílás szélessége','Nyílás szélessége felül','Nyílás szélessége alul','Magasság bal','Magasság jobb','Pillér szélessége','Fal vastagsága','Talaj fölötti rés'];
+/* Lézeres távmérő (Bosch GLM/PLR család, Bluetooth LE) */
+const LZ={svc:'02a6c0d0-0451-4000-b000-fb3210111989',chr:'02a6c0d1-0451-4000-b000-fb3210111989',dev:null,ch:null,last:null,state:'',log:[]};
+const lzLog=m=>{LZ.log.push(new Date().toLocaleTimeString('hu-HU')+' '+m);if(LZ.log.length>40)LZ.log.shift();const e=$('#lzlog');if(e){e.textContent=LZ.log.join('\n');e.scrollTop=1e6;}};
+const hex=dv=>[...new Uint8Array(dv.buffer,dv.byteOffset,dv.byteLength)].map(b=>b.toString(16).padStart(2,'0')).join(' ');
+function lzUI(){const e=$('#lzst');if(e)e.innerHTML=lzStat();}
+const lzStat=()=>`<div>${LZ.ch&&LZ.dev?.gatt?.connected?'<b>Csatlakoztatva:</b> '+esc(LZ.dev.name||'távmérő'):'Nincs csatlakoztatva'}</div>${LZ.last!=null?`<div class="big">${fi(LZ.last)} mm</div>`:''}`;
+async function lzConnect(){
+  if(!navigator.bluetooth){toast('Ebben a böngészőben nincs Bluetooth. Használj Chrome-ot.');lzLog('A böngésző nem támogatja a Web Bluetooth-ot.');return;}
+  try{
+    lzLog('Eszköz kiválasztása…');
+    LZ.dev=await navigator.bluetooth.requestDevice({acceptAllDevices:true,optionalServices:[LZ.svc]});
+    LZ.dev.addEventListener('gattserverdisconnected',()=>{lzLog('A kapcsolat megszakadt.');LZ.ch=null;lzUI();});
+    lzLog('Csatlakozás: '+(LZ.dev.name||'?'));
+    const sv=await LZ.dev.gatt.connect(),sc=await sv.getPrimaryService(LZ.svc);
+    LZ.ch=await sc.getCharacteristic(LZ.chr);
+    LZ.ch.addEventListener('characteristicvaluechanged',lzData);
+    await LZ.ch.startNotifications();
+    lzLog('Értesítés bekapcsolva.');
+    await lzAsk();
+  }catch(e){lzLog('Hiba: '+(e.name||'')+' '+(e.message||e));toast('Nem sikerült a csatlakozás. Részletek a naplóban.');}
+  lzUI();
+}
+async function lzAsk(){
+  if(!LZ.ch)return;
+  const cmd=new Uint8Array([0xC0,0x55,0x02,0x01,0x00,0x1A]);
+  try{if(LZ.ch.properties.write)await LZ.ch.writeValueWithResponse(cmd);else await LZ.ch.writeValueWithoutResponse(cmd);lzLog('Parancs elküldve: '+[...cmd].map(b=>b.toString(16).padStart(2,'0')).join(' '));}
+  catch(e){lzLog('Írási hiba: '+(e.message||e));}
+}
+function lzData(ev){
+  const dv=ev.target.value;lzLog('← '+hex(dv));
+  if(dv.byteLength>=11&&dv.getUint8(0)===0xC0&&dv.getUint8(1)===0x55&&dv.getUint8(2)===0x10&&dv.getUint8(3)===0x06){
+    const m=dv.getFloat32(7,true);
+    if(isFinite(m)&&m>0&&m<300){LZ.last=Math.round(m*1000);lzLog('Mért érték: '+LZ.last+' mm');lzGot();}
+  }
+}
+function lzGot(){
+  const s=fS();lzUI();
+  if(fArm&&s){
+    if(fArm==='mark'){fMV=String(LZ.last);}
+    else{const d=s.dims.find(x=>x.id===fArm);if(d){d.v=String(LZ.last);saveFel();}}
+    fArm=null;
+  }
+  if(!$('#tab-fel').hidden)renderFel();
+}
+const FSEC=(t)=>`<h3 class="qh">${t}</h3>`;
+function renderFel(){
+  const el=$('#felBody');if(!el)return;
+  const s=fS();
+  if(!s){
+    el.innerHTML=`<div class="card"><h2>Felmérés</h2><p class="help">Itt tárolhatod a helyszíni felméréseket: fényképet, méreteket és jegyzetet. A méreteket lézeres távmérőről (Bosch PLR/GLM, Bluetooth) is beolvashatod, és a fényképre is ráírhatod. Az adatok a készüléken maradnak, net nélkül is működik.</p>
+      <div class="fl"><button class="go" data-fa="new">+ Új felmérés</button></div></div>
+      ${fel.list.length?fel.list.slice().sort((a,b)=>b.created-a.created).map(x=>`<div class="card"><h3 style="margin:0 0 4px">${esc(x.name||'Névtelen felmérés')}</h3><div class="mut">${dstr(x.created)} · ${x.dims.length} méret · ${x.photos.length} fotó${x.place?' · '+esc(x.place):''}</div><div class="fl" style="margin-top:8px"><button class="sm" data-fa="open" data-id="${x.id}">Megnyitás</button><button class="sm danger" data-fa="del" data-id="${x.id}">Törlés</button></div></div>`).join(''):'<div class="card mut">Még nincs felmérés.</div>'}`;
+    return;
+  }
+  if(fP){renderPhoto(el,s);return;}
+  const nf=(CATS[plan.cat]?.q||[]).filter(f=>f.t==='num'&&f.k);
+  el.innerHTML=`<div class="card"><div class="fl"><button class="sm" data-fa="back">← Felmérések</button></div>
+    <label style="margin-top:10px">Megnevezés<input data-ff="name" value="${esc(s.name)}" placeholder="pl. Kovács, kiskapu"></label>
+    <label style="margin-top:8px">Hely, cím<input data-ff="place" value="${esc(s.place||'')}"></label>
+    <label style="margin-top:8px">Jegyzet<textarea data-ff="note" rows="3" style="font:16px system-ui,sans-serif;padding:9px 10px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink);width:100%">${esc(s.note||'')}</textarea></label></div>
+    <div class="card">${FSEC('Lézeres távmérő')}
+      <div class="flz"><div id="lzst">${lzStat()}</div>
+        <div class="fl" style="margin-top:8px"><button class="sm" data-fa="lz">${LZ.ch?'Újracsatlakozás':'Csatlakozás'}</button><button class="sm" data-fa="lzask">Mérés kérése</button>${LZ.last!=null?'<button class="sm" data-fa="lzadd">Új méretként</button>':''}</div>
+        <p class="help" style="margin:8px 0 0">Mérj a távmérő gombjával. Ha egy méretsor 📏 gombját előtte megnyomtad, az érték oda kerül, különben az „Új méretként" gombbal veheted fel. Csatlakozás előtt zárd be a Bosch Measuring Master alkalmazást, és Chrome-ot használj.</p>
+        <details style="margin-top:6px"><summary class="mut" style="cursor:pointer">Napló (hibakereséshez)</summary><div id="lzlog" class="flog">${esc(LZ.log.join('\n'))}</div></details></div></div>
+    <div class="card">${FSEC('Méretek')}
+      ${s.dims.map(d=>`<div class="fdim${fArm===d.id?' arm':''}"><input data-fd="${d.id}|l" list="flab" value="${esc(d.l)}" placeholder="Megnevezés"><input data-fd="${d.id}|v" inputmode="decimal" value="${esc(d.v)}" placeholder="mm"><button class="sm" data-fa="arm" data-id="${d.id}" title="Mérés lézerrel" style="padding:0">📏</button><button class="x" data-fa="ddel" data-id="${d.id}" aria-label="Törlés">×</button></div>`).join('')||'<p class="mut">Még nincs méret.</p>'}
+      <datalist id="flab">${FLAB.map(x=>`<option value="${x}">`).join('')}</datalist>
+      <div class="fl"><button class="sm" data-fa="dadd">+ Méret</button></div>
+      ${s.dims.length&&nf.length?`<div class="flz" style="margin-top:12px"><div class="mut" style="margin-bottom:6px">Átvétel az Új munkába (${esc(CATS[plan.cat].n)})</div><div class="row g2" style="margin:0"><label>Méret<select id="ftoD">${s.dims.map(d=>`<option value="${d.id}">${esc(d.l||'méret')} – ${esc(d.v||'?')}</option>`).join('')}</select></label><label>Mező<select id="ftoF">${nf.map(f=>`<option value="${f.k}">${esc(f.l)}</option>`).join('')}</select></label></div><div class="fl" style="margin-top:8px"><button class="sm" data-fa="take">Átvétel</button></div></div>`:''}</div>
+    <div class="card">${FSEC('Fényképek')}
+      <div class="fl"><label class="sm" style="display:inline-flex;align-items:center;cursor:pointer;flex-direction:row;color:var(--ink)">+ Fénykép<input id="fph" type="file" accept="image/*" capture="environment" multiple hidden></label></div>
+      <div class="fth">${s.photos.map(p=>`<button data-fa="photo" data-id="${p.id}" title="${p.marks.length} jelölés"><img data-ph="${p.id}" alt=""></button>`).join('')}</div>
+      <p class="help">Egy fényképre koppintva a képen megjelölhetsz helyeket, és méretet írhatsz hozzájuk.</p></div>`;
+  s.photos.forEach(p=>photoURL(p.id).then(u=>{const i=el.querySelector(`[data-ph="${p.id}"]`);if(i)i.src=u;}));
+}
+function drawMarks(c,img,marks,hi){
+  const x=c.getContext('2d');c.width=img.naturalWidth;c.height=img.naturalHeight;x.drawImage(img,0,0);
+  const fs=Math.max(18,Math.round(c.width/24)),r=fs*0.45;x.font=`bold ${fs}px system-ui,sans-serif`;x.textBaseline='middle';
+  marks.forEach(m=>{const px=m.x*c.width,py=m.y*c.height,t=(m.l?m.l+': ':'')+(m.v?m.v+' mm':'');
+    x.fillStyle='#f26b1d';x.strokeStyle='#fff';x.lineWidth=3;x.beginPath();x.arc(px,py,r,0,7);x.fill();x.stroke();
+    if(t){const w=x.measureText(t).width+fs*0.6,bx=Math.min(Math.max(4,px+r+4),c.width-w-4),by=Math.min(Math.max(fs,py),c.height-fs);
+      x.fillStyle='rgba(0,0,0,.72)';x.fillRect(bx,by-fs*0.7,w,fs*1.4);x.fillStyle='#fff';x.fillText(t,bx+fs*0.3,by);}});
+  if(hi){x.strokeStyle='#fff';x.setLineDash([8,6]);x.lineWidth=3;x.beginPath();x.arc(hi.x*c.width,hi.y*c.height,r*1.6,0,7);x.stroke();x.setLineDash([]);}
+}
+async function renderPhoto(el,s){
+  const p=s.photos.find(x=>x.id===fP);if(!p){fP=null;renderFel();return;}
+  el.innerHTML=`<div class="card"><div class="fl"><button class="sm" data-fa="pback">← Vissza</button><button class="sm" data-fa="psave">Kép mentése jelölésekkel</button><button class="sm danger" data-fa="pdel">Fotó törlése</button></div>
+    <p class="help" style="margin-top:8px">Koppints a képre, ahová a méretet írnád.</p><canvas id="fcv" class="fcv"></canvas>
+    <div id="fmf" class="flz" ${fMark?'':'hidden'}><div class="row g2" style="margin:0"><label>Megnevezés<input id="fml" list="flab" placeholder="pl. Nyílás" value="${esc(fML)}"></label><label>Méret (mm)<input id="fmv" inputmode="decimal" value="${esc(fMV)}"></label></div>
+      <div class="fl" style="margin-top:8px"><button class="go" data-fa="madd" style="min-height:40px">Hozzáad</button><button class="sm" data-fa="marm">📏 Következő lézeres mérés</button><button class="sm" data-fa="mcancel">Mégse</button></div></div>
+    <div id="fml2">${p.marks.map((m,i)=>`<div class="fl" style="margin-top:6px"><span>${i+1}. ${esc(m.l||'jelölés')} ${m.v?'– '+esc(m.v)+' mm':''}</span><button class="x" data-fa="mdel" data-id="${m.id}" aria-label="Törlés">×</button></div>`).join('')}</div></div>
+    <datalist id="flab">${FLAB.map(x=>`<option value="${x}">`).join('')}</datalist>`;
+  const u=await photoURL(p.id),img=new Image();img.onload=()=>{fImg=img;const c=$('#fcv');if(c)drawMarks(c,img,p.marks,fMark);};img.src=u;
+}
+function felTap(e,c){
+  const r=c.getBoundingClientRect();
+  fMark={x:Math.min(1,Math.max(0,(e.clientX-r.left)/r.width)),y:Math.min(1,Math.max(0,(e.clientY-r.top)/r.height))};
+  const s=fS(),p=s?.photos.find(x=>x.id===fP);if(p&&fImg)drawMarks(c,fImg,p.marks,fMark);
+  const f=$('#fmf');if(f){f.hidden=false;f.scrollIntoView({block:'nearest'});}
+}
+async function felAct(b){
+  const a=b.dataset.fa,id=b.dataset.id,s=fS();
+  if(a==='new'){const n={id:uid(),name:'',place:'',note:'',created:Date.now(),dims:[],photos:[]};fel.list.push(n);fel.cur=n.id;saveFel();renderFel();return;}
+  if(a==='open'){fel.cur=id;fP=null;saveFel();renderFel();return;}
+  if(a==='del'){const x=fel.list.find(q=>q.id===id);if(x&&confirm('Biztosan törlöd ezt a felmérést a fényképeivel együtt?')){for(const p of x.photos){urlC.delete(p.id);try{await idbDel(p.id);}catch(e){}}fel.list=fel.list.filter(q=>q!==x);saveFel();renderFel();}return;}
+  if(a==='back'){fel.cur=null;fP=null;fArm=null;saveFel();renderFel();return;}
+  if(a==='lz'){await lzConnect();return;}
+  if(a==='lzask'){await lzAsk();return;}
+  if(!s)return;
+  if(a==='lzadd'){if(LZ.last!=null){s.dims.push({id:uid(),l:'',v:String(LZ.last)});saveFel();renderFel();}return;}
+  if(a==='dadd'){s.dims.push({id:uid(),l:'',v:''});saveFel();renderFel();return;}
+  if(a==='ddel'){s.dims=s.dims.filter(d=>d.id!==id);if(fArm===id)fArm=null;saveFel();renderFel();return;}
+  if(a==='arm'){fArm=fArm===id?null:id;if(fArm&&!LZ.ch)toast('Előbb csatlakoztasd a távmérőt.');renderFel();return;}
+  if(a==='take'){const d=s.dims.find(x=>x.id===$('#ftoD').value),k=$('#ftoF').value,v=num(d?.v);if(!d||!(v>0)){toast('Add meg a méretet.');return;}plan.ans[k]=String(v);savePlan();renderForm();toast('Átvéve az Új munkába. Nyisd meg az Új munka fület.');return;}
+  if(a==='photo'){fP=id;fMark=null;renderFel();return;}
+  const p=s.photos.find(x=>x.id===fP);
+  if(a==='pback'){fP=null;fMark=null;fImg=null;renderFel();return;}
+  if(a==='pdel'&&p){if(confirm('Törlöd ezt a fotót?')){s.photos=s.photos.filter(x=>x!==p);urlC.delete(p.id);try{await idbDel(p.id);}catch(e){}fP=null;saveFel();renderFel();}return;}
+  if(a==='mcancel'){fMark=null;fMV='';fML='';renderFel();return;}
+  if(a==='marm'){fArm='mark';if(!LZ.ch)toast('Előbb csatlakoztasd a távmérőt (Felmérés → Lézeres távmérő).');else toast('Mérj a távmérővel, az érték a mezőbe kerül.');return;}
+  if(a==='madd'&&p&&fMark){p.marks.push({id:uid(),x:fMark.x,y:fMark.y,l:$('#fml').value.trim(),v:$('#fmv').value.trim()});fMark=null;fMV='';fML='';saveFel();renderFel();return;}
+  if(a==='mdel'&&p){p.marks=p.marks.filter(m=>m.id!==id);saveFel();renderFel();return;}
+  if(a==='psave'&&p&&fImg){
+    const c=document.createElement('canvas');drawMarks(c,fImg,p.marks,null);
+    const bl=await new Promise(r=>c.toBlob(r,'image/jpeg',0.9)),f=new File([bl],'felmeres-'+(s.name||'kep').replace(/[^\w-]+/g,'_')+'.jpg',{type:'image/jpeg'});
+    try{if(navigator.canShare&&navigator.canShare({files:[f]})){await navigator.share({files:[f]});return;}}catch(e){if(e.name==='AbortError')return;}
+    const u=URL.createObjectURL(bl),l=document.createElement('a');l.href=u;l.download=f.name;l.click();setTimeout(()=>URL.revokeObjectURL(u),3000);return;}
+}
+$('#tab-fel').addEventListener('click',e=>{const b=e.target.closest('[data-fa]');if(b)felAct(b);});
+$('#tab-fel').addEventListener('click',e=>{const c=e.target.closest('#fcv');if(c)felTap(e,c);});
+$('#tab-fel').addEventListener('input',e=>{
+  const s=fS(),t=e.target;if(!s)return;
+  if(t.id==='fml')fML=t.value;else if(t.id==='fmv')fMV=t.value;
+  else if(t.dataset.ff){s[t.dataset.ff]=t.value;saveFel();}
+  else if(t.dataset.fd){const[i,f]=t.dataset.fd.split('|'),d=s.dims.find(x=>x.id===i);if(d){d[f]=t.value;saveFel();}}
+});
+$('#tab-fel').addEventListener('change',async e=>{
+  if(e.target.id!=='fph')return;const s=fS();if(!s)return;
+  for(const f of e.target.files){try{const bl=await shrink(f),id=uid();await idbPut(id,bl);s.photos.push({id,marks:[]});}catch(err){toast('A fénykép mentése nem sikerült.');}}
+  saveFel();renderFel();
+});
+const TABS=['work','plan','works','cart','fel','tar','cut'];
 function showTab(t){
   TABS.forEach(x=>$('#tab-'+x).hidden=x!==t);
   $$('.tabs button').forEach(b=>b.classList.toggle('on',b.dataset.tab===t));
@@ -1436,6 +1607,7 @@ function showTab(t){
   if(t==='works')renderWorks();
   if(t==='cart')renderCart();
   if(t==='tar')renderTar();
+  if(t==='fel')renderFel();
   if(t==='work'){renderCats();renderForm();}
 }
 document.addEventListener('input',ev=>{
