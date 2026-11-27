@@ -1458,11 +1458,11 @@ let fP=null,fArm=null,fMark=null,fImg=null,fMV='',fML='',fMU='mm';
 const FLAB=['Nyílás szélessége','Nyílás szélessége felül','Nyílás szélessége alul','Magasság bal','Magasság jobb','Pillér szélessége','Fal vastagsága','Talaj fölötti rés'];
 /* Lézeres távmérő (Bosch GLM/PLR család, Bluetooth LE) */
 const LZ_EXTRA=['battery_service','device_information','generic_access','6e400001-b5a3-f393-e0a9-e50e24dcca9e','0000ffe0-0000-1000-8000-00805f9b34fb','0000fff0-0000-1000-8000-00805f9b34fb','00005301-0000-0041-4c50-574953450000','0000fe59-0000-1000-8000-00805f9b34fb','0000ff00-0000-1000-8000-00805f9b34fb','0000ae00-0000-1000-8000-00805f9b34fb'];
-const LZ={svc2:'00005301-0000-0041-5253-534f46540000',svc:'02a6c0d0-0451-4000-b000-fb3210111989',chr:'02a6c0d1-0451-4000-b000-fb3210111989',dev:null,ch:null,last:null,angle:null,state:'',log:[]};
+const LZ={svc2:'00005301-0000-0041-5253-534f46540000',svc:'02a6c0d0-0451-4000-b000-fb3210111989',chr:'02a6c0d1-0451-4000-b000-fb3210111989',dev:null,ch:null,last:null,angle:null,cont:null,state:'',log:[]};
 const lzLog=m=>{LZ.log.push(new Date().toLocaleTimeString('hu-HU')+' '+m);if(LZ.log.length>40)LZ.log.shift();const e=$('#lzlog');if(e){e.textContent=LZ.log.join('\n');e.scrollTop=1e6;}};
 const hex=dv=>[...new Uint8Array(dv.buffer,dv.byteOffset,dv.byteLength)].map(b=>b.toString(16).padStart(2,'0')).join(' ');
 function lzUI(){const e=$('#lzst');if(e)e.innerHTML=lzStat();}
-const lzStat=()=>`<div>${LZ.ch&&LZ.dev?.gatt?.connected?'<b>Csatlakoztatva:</b> '+esc(LZ.dev.name||'távmérő'):'Nincs csatlakoztatva'}</div>${LZ.last!=null?`<div class="big">${fi(LZ.last)} mm</div>`:''}${LZ.angle!=null?`<div class="big">${String(LZ.angle).replace('.',',')}°</div>`:''}`;
+const lzStat=()=>`<div>${LZ.ch&&LZ.dev?.gatt?.connected?'<b>Csatlakoztatva:</b> '+esc(LZ.dev.name||'távmérő'):'Nincs csatlakoztatva'}</div>${LZ.last!=null?`<div class="big">${fi(LZ.last)} mm</div>`:''}${LZ.angle!=null?`<div class="big">${String(LZ.angle).replace('.',',')}°</div>`:''}${LZ.cont?`<div>Folyamatos mérés: legkisebb <b>${fi(LZ.cont.min)} mm</b>, legnagyobb <b>${fi(LZ.cont.max)} mm</b></div>`:''}`;
 async function lzConnect(){
   if(!navigator.bluetooth){toast('Ebben a böngészőben nincs Bluetooth. Használj Chrome-ot.');lzLog('A böngésző nem támogatja a Web Bluetooth-ot.');return;}
   try{
@@ -1509,6 +1509,9 @@ function lzData(ev){
   }else if(dv.byteLength>=11&&dv.getUint8(0)===0xC0&&dv.getUint8(1)===0x55&&dv.getUint8(2)===0x10&&dv.getUint8(3)===0x21){
     const a=dv.getFloat32(7,true);
     if(isFinite(a)&&Math.abs(a)<=360){LZ.angle=Math.round(a*10)/10;lzLog('Szög: '+LZ.angle+'°');lzGot(LZ.angle,'°');}
+  }else if(dv.byteLength>=19&&dv.getUint8(0)===0xC0&&dv.getUint8(1)===0x55&&dv.getUint8(2)===0x10&&dv.getUint8(3)===0x0A){
+    const v=[7,11,15].map(o=>dv.getFloat32(o,true)).filter(x=>isFinite(x)&&x>0&&x<300);
+    if(v.length){LZ.cont={min:Math.round(Math.min(...v)*1000),max:Math.round(Math.max(...v)*1000),vals:v.map(x=>Math.round(x*1000))};lzLog('Folyamatos mérés: legkisebb '+LZ.cont.min+' mm, legnagyobb '+LZ.cont.max+' mm (értékek: '+LZ.cont.vals.join(', ')+')');lzUI();if(!$('#tab-fel').hidden)renderFel();}
   }else if(dv.byteLength>=4&&dv.getUint8(0)===0xC0&&dv.getUint8(1)===0x55&&dv.getUint8(2)===0x10){
     lzLog('Ismeretlen mérési üzenet, típus: 0x'+dv.getUint8(3).toString(16));
   }else if(dv.byteLength>=6&&dv.getUint8(0)===0x00&&dv.getUint8(1)===0x04){
@@ -1543,7 +1546,7 @@ function renderFel(){
     <label style="margin-top:8px">Jegyzet<textarea data-ff="note" rows="3" style="font:16px system-ui,sans-serif;padding:9px 10px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink);width:100%">${esc(s.note||'')}</textarea></label></div>
     <div class="card">${FSEC('Lézeres távmérő')}
       <div class="flz"><div id="lzst">${lzStat()}</div>
-        <div class="fl" style="margin-top:8px"><button class="sm" data-fa="lz">${LZ.ch?'Újracsatlakozás':'Csatlakozás'}</button><button class="sm" data-fa="lzask">Mérés kérése</button>${LZ.last!=null?'<button class="sm" data-fa="lzadd">Új méretként</button>':''}${LZ.angle!=null?'<button class="sm" data-fa="lzaddA">Új szögként</button>':''}</div>
+        <div class="fl" style="margin-top:8px"><button class="sm" data-fa="lz">${LZ.ch?'Újracsatlakozás':'Csatlakozás'}</button><button class="sm" data-fa="lzask">Mérés kérése</button>${LZ.last!=null?'<button class="sm" data-fa="lzadd">Új méretként</button>':''}${LZ.angle!=null?'<button class="sm" data-fa="lzaddA">Új szögként</button>':''}${LZ.cont?'<button class="sm" data-fa="lzaddMin">Új méret: legkisebb</button><button class="sm" data-fa="lzaddMax">Új méret: legnagyobb</button>':''}</div>
         <p class="help" style="margin:8px 0 0">Mérj a távmérő gombjával. Ha egy méretsor 📏 gombját előtte megnyomtad, az érték oda kerül, különben az „Új méretként" gombbal veheted fel. Csatlakozás előtt zárd be a Bosch Measuring Master alkalmazást, és Chrome-ot használj.</p>
         <details style="margin-top:6px"><summary class="mut" style="cursor:pointer">Napló (hibakereséshez)</summary><div id="lzlog" class="flog">${esc(LZ.log.join('\n'))}</div></details></div></div>
     <div class="card">${FSEC('Méretek')}
@@ -1592,6 +1595,7 @@ async function felAct(b){
   if(a==='lzask'){await lzAsk();return;}
   if(!s)return;
   if(a==='lzadd'){if(LZ.last!=null){s.dims.push({id:uid(),l:'',v:String(LZ.last),u:'mm'});saveFel();renderFel();}return;}
+  if((a==='lzaddMin'||a==='lzaddMax')&&LZ.cont){s.dims.push({id:uid(),l:a==='lzaddMin'?'Legkisebb':'Legnagyobb',v:String(a==='lzaddMin'?LZ.cont.min:LZ.cont.max),u:'mm'});saveFel();renderFel();return;}
   if(a==='lzaddA'){if(LZ.angle!=null){s.dims.push({id:uid(),l:'Szög',v:String(LZ.angle).replace('.',','),u:'°'});saveFel();renderFel();}return;}
   if(a==='dadd'){s.dims.push({id:uid(),l:'',v:''});saveFel();renderFel();return;}
   if(a==='ddel'){s.dims=s.dims.filter(d=>d.id!==id);if(fArm===id)fArm=null;saveFel();renderFel();return;}
